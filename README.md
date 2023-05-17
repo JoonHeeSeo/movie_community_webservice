@@ -27,4 +27,12 @@ ERD 추후 추가 예정
 ### vii. 기타 느낀 점 후기 등
 
 
+## Records
+
+23.05.17
+- Using Django, made articles, accounts, movies 
+- Adding api request method and checked its working in dbsqlite (needs more work done to handle with other pages)
+- made skleton designs for front page using vue router (needs to know what components staand for in Views code) 
+
+
 
