@@ -10,4 +10,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Comment(models.Model):
-    pass
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
