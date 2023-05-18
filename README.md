@@ -37,4 +37,8 @@ ERD 추후 추가 예정
 
 23.05.18.
 new branch for back and front works
+회원가입, 로그인 방법 구현
+(token 발행 및 User인증정보를 localStorage에 저장)
+<b> -> 안전하지 않은 방법이라는 것을 인지하고 있으므로, 대체 할 수 있는 방법 업데이트 예정</b>
 
+Community 
