@@ -16,9 +16,19 @@ export default {
   created() {
     this.getArticles()
   },
+  computed:{
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  },
   methods:{
     getArticles() {
-      this.$store.dispatch('getArticles')
+      if (this.isLogin) {
+        this.$store.dispatch('getArticles')
+      } else {
+        alert('로그인이 필요한 서비스 입니다.')
+        this.$router.push({ name:'SignInView' })
+      }
     }
   }
 }
