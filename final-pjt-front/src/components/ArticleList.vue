@@ -3,10 +3,9 @@
     <h1>
       ArticlesList
     </h1>
-    <button>create</button>
-      <ArticleListItem
-      v-for="article in articles" :key="article.id" :article="article"
-      />
+    <ArticleListItem
+    v-for="article in articles" :key="article.id" :article="article"
+    />
   </div>
   
 </template>

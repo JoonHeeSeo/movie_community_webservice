@@ -2,6 +2,8 @@
   <div>
     <h1>Community</h1>
     <ArticleList/>
+    <router-link :to="{ name: 'articlecreate' }">[CREATE]</router-link>
+
   </div>
 </template>
 
