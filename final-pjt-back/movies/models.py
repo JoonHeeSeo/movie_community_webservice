@@ -5,7 +5,7 @@ from django.db import models
 
 class Movie(models.Model):
 
-    # id는 규칙에 의해 movie_id로 변경
+    # id는 movie_id로 변경
     movie_id = models.IntegerField()
     # movie_id를 제외한 모든 필드 null과 blank 허용
     original_title = models.TextField(null=True, blank=True)    
