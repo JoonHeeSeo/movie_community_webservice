@@ -109,3 +109,26 @@ def movie_list(request):
         return Response(serializer.data)
 
 
+
+# 중복 DB를 체크하는 것보다 싹 날리고 새로 만드는 게 나을 수 있다 -> ORM에서 whole data를 날리는 방법을 검색
+
+# 필드명 지정을 안해도 되는지 -> 성능 차이가 있는지도 체크하면 좋고
+
+
+
+
+
+
+# @api_view(['GET'])
+# def get_movies_API(request):
+#     if request.method == 'GET':
+
+#         API_URL = f'https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=ko-kr&page=1'
+
+
+#         # print(f'{API_PAGE}번 페이지를 불러오는 중')
+
+
+#         # API_URL에 요청하여 얻은 데이터
+#         movies_API = requests.get(API_URL).json()
+#         return Response(movies_API['results'])
