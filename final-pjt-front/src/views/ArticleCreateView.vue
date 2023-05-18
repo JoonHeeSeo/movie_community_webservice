@@ -28,25 +28,21 @@ export default {
     createArticle() {
       const title = this.title
       const content = this.content
-      const username = this.$store.state.token
+      const token = this.$store.state.token
 
       axios({
         method: 'post',
         url: `${API_URL}/articles/`,
-        data: { title, content },
+        data: { title, content, token },
       })
       .then(() => {
-        console.log(username)
         this.$router.push({ name : 'community' })
       })
       .catch((err => {
         console.log(err)
       }))
-
     }
   }
-
-
 }
 </script>
 
