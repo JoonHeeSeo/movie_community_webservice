@@ -35,4 +35,6 @@ ERD 추후 추가 예정
 - made skleton designs for front page using vue router (needs to know what components staand for in Views code) 
 
 
+23.05.18.
+new branch for back and front works
 
