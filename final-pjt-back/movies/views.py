@@ -5,7 +5,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from .models import Movie
+from .serializers import MovieSerializer
 import requests
+
+
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 
 API_KEY = 'af5292844a6af1d68203e1c0b3104130'
@@ -95,4 +99,13 @@ def get_movies_API(request):
                     return Response({"result": "Error", "message": str(err)})
 
         return Response({"result": "OK"})
+
+
+@api_view(['GET'])
+def movie_list(request):
+    if request.method == 'GET':
+        movies = get_list_or_404(Movie)
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data)
+
 
