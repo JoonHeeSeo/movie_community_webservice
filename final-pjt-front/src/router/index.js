@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import SignInView from '../views/SignInView.vue'
+import SignUpView from '../views/SignUpView.vue'
+import RecommendView from '../views/RecommendView.vue'
+import SearchView from '../views/SearchView.vue'
+import CommunityView from '../views/CommunityView.vue'
+
+
 
 Vue.use(VueRouter)
 
@@ -10,29 +17,39 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  // },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/signin',
+    name: 'signin',
+    component: SignInView
   },
   {
-    path: '/login',
-    name: 'login',
+    path:'/signup',
+    name:'signup',
+    component: SignUpView
   },
   {
     path: '/recommend',
     name: 'recommend',
+    component: RecommendView
   },
   {
     path: '/search',
     name: 'search',
+    component: SearchView
   },
   {
-    path: ''
-  }
+    path: '/community',
+    name: 'community',
+    component: CommunityView
+  },
 ]
 
 const router = new VueRouter({

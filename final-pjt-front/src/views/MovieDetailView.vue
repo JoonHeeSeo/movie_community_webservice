@@ -1,14 +1,14 @@
 <template>
   <div>
     <h1>
-      Recommend algorithm
+      MovieDetailView
     </h1>
   </div>
 </template>
 
 <script>
 export default {
-  name:'RecommendView',
+  name:'MovieDetailView'
 }
 </script>
 

@@ -1,8 +1,13 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">홈</router-link> |
+      <router-link to="/recommend">영화추천</router-link> |
+      <router-link to="/search">영화 검색</router-link> |
+      <router-link to="/signin">로그인</router-link> |
+      <router-link to="/signup">가입</router-link> |
+      <router-link to="/community">게시판</router-link>
+      <!-- 게시판은 로그인 했을때만 보이게, 로그인 안했으면 안보이게 만들어야함  -->
     </nav>
     <router-view/>
   </div>
@@ -19,14 +24,16 @@
 
 nav {
   padding: 30px;
+  background-color: black;
+  color: white;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: grey;
 }
 </style>

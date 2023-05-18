@@ -1,14 +1,12 @@
 <template>
   <div>
-    <h1>
-      Recommend algorithm
-    </h1>
+    <h1>SignIn Page</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name:'RecommendView',
+  name:'SignInView',
 }
 </script>
 
