@@ -1,5 +1,6 @@
 
-from django.shortcuts import render
+# from django.shortcuts import render
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -7,26 +8,23 @@ from .models import Movie
 import requests
 
 
-
-# API_KEY = 'af5292844a6af1d68203e1c0b3104130'
+API_KEY = 'af5292844a6af1d68203e1c0b3104130'
 # API_PAGE = 1
 # API_URL = f'https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
-
 # https://api.themoviedb.org/3/movie/top_rated?api_key=af5292844a6af1d68203e1c0b3104130&language=ko-kr&page=1
-
 
 
 @api_view(['GET'])
 def get_movies_API(request):
     if request.method == 'GET':
-        API_PAGE = 0 
-        while API_PAGE < 30:
-            
-            API_KEY = 'af5292844a6af1d68203e1c0b3104130'
-            API_PAGE += 1
+
+        # PAGE_RANGE로 데이터를 가져올 TMDB 페이지를 설정 (최소 1, 최대 500)
+        PAGE_RANGE = 20
+        for API_PAGE in range(1, PAGE_RANGE):
             API_URL = f'https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
 
-            print(API_PAGE)
+
+            print(f'{API_PAGE}번 페이지를 불러오는 중')
 
 
             # API_URL에 요청하여 얻은 데이터
@@ -45,14 +43,34 @@ def get_movies_API(request):
                         continue
                     
                     # 불러온 영화의 id를 기록
-                    movie_id = movie_API['id']
+                    new_movie_id = movie_API['id']
 
-                    # 불러온 영화의 id가 이미 DB 내에 존재하는 경우 continue
-                    if movies_in_db.filter(movie_id=movie_id).exists():
+                    # 불러온 영화의 id가 이미 DB 내에 존재하는 경우
+                    if movies_in_db.filter(movie_id=new_movie_id).exists():
+                        
+                        # 최신 데이터로 덮어쓰는 작업
+                        movie_in_db = Movie.objects.get(movie_id=new_movie_id)
+
+                        movie_in_db.adult=movie_API['adult'],
+                        movie_in_db.backdrop_path=movie_API['backdrop_path'],
+                        movie_in_db.genre_ids=movie_API['genre_ids'],
+                        movie_in_db.movie_id=movie_API['id'],
+                        movie_in_db.original_language=movie_API['original_language'],
+                        movie_in_db.original_title=movie_API['original_title'],
+                        movie_in_db.overview=movie_API['overview'],
+                        movie_in_db.popularity=movie_API['popularity'],
+                        movie_in_db.poster_path=movie_API['poster_path'],
+                        movie_in_db.release_date=movie_API['release_date'],
+                        movie_in_db.title=movie_API['title'],
+                        movie_in_db.video=movie_API['video'],
+                        movie_in_db.vote_average=movie_API['vote_average'],
+                        movie_in_db.vote_count=movie_API['vote_count'],
+      
+                        # 완료 후 다음 영화 데이터로 이동
                         continue
 
 
-                    # 데이터 형식과 일치 (id는 규칙에 의해 movie_id로 변경)
+                    # DB 내에 존재하지 않는 데이터를 추가
                     movie = Movie(
                         adult=movie_API['adult'],
                         backdrop_path=movie_API['backdrop_path'],
@@ -67,9 +85,10 @@ def get_movies_API(request):
                         title=movie_API['title'],
                         video=movie_API['video'],
                         vote_average=movie_API['vote_average'],
-                        vote_count=movie_API['vote_count']
+                        vote_count=movie_API['vote_count'],
                     )
 
+                    # 새로운 데이터를 저장
                     movie.save()
 
                 except Exception as err:
