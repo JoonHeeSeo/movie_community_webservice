@@ -48,6 +48,7 @@ def article_detail(request, article_pk):
             serializer.save()
             return Response(serializer.data)
 
+
 @api_view(['GET'])
 def comment_list(request):
     if request.method == 'GET':
