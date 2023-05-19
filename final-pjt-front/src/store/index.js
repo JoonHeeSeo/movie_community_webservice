@@ -40,7 +40,7 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token
       // HomeView로 되돌아가기 
-      router.push({name: 'home'}) 
+      router.push({ name: 'home' }) 
     },
   },
 
@@ -58,7 +58,7 @@ export default new Vuex.Store({
         )
         .catch(err =>console.log(err))
     },
-
+    
     getMovies(context) {
       axios({
         method: 'get',

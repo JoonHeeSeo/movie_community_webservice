@@ -1,8 +1,10 @@
 <template>
   <div>
     <h1>Community</h1>
-    <ArticleList/>
+    <hr>
+    
     <router-link :to="{ name: 'articlecreate' }">[CREATE]</router-link>
+    <ArticleList/>
 
   </div>
 </template>
