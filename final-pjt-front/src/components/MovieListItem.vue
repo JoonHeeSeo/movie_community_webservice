@@ -1,9 +1,9 @@
 <template>
   <div>
     <p>
-      <img :src="getMoviePoster()" alt="movie_post">
-      <br>{{  movie.title  }}  
-      rate: {{  movie.vote_average }}
+      <img :src="getMoviePoster()" alt="movie_post"><br>
+      {{ movie.title }}  
+      Rate: {{  movie.vote_average }}
     </p>
   </div>
 </template>

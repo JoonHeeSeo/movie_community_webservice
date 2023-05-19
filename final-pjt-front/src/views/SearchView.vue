@@ -1,13 +1,10 @@
 <template>
   <div>
-    <h1>
-      Search
-      <br>
-      searched: {{ searchedmovie }}
+    <h1>Search</h1>
+    <p>Searched: {{ searchedmovie }}</p>
       <li v-for="movie in movies" :key="movie.id" :movie="movie">
         {{ movie.title }}
       </li>
-    </h1>
   </div>
 </template>
 
@@ -25,8 +22,8 @@ export default {
   },
   updated() {
     axios({
-      method:'get',
-      url: `${API_URL}`+this.$store.state.moviesearch
+      method: 'get',
+      url: `${API_URL}` + this.$store.state.moviesearch,
     })
     .then(res =>
       this.movies = res.data.results

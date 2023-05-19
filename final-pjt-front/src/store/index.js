@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '@/router'
 import createPersistedState from 'vuex-persistedstate'
+
 const API_URL = 'http://127.0.0.1:8000'
+
 
 Vue.use(Vuex)
 
@@ -38,8 +40,8 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token
       // HomeView로 되돌아가기 
-      router.push({name: 'HomeView'}) 
-    }
+      router.push({name: 'home'}) 
+    },
   },
 
   actions: {
@@ -51,10 +53,10 @@ export default new Vuex.Store({
           Authorization: `Token ${ context.state.token }`
         }
       })
-      .then(res =>
-        context.commit('GET_ARTICLES',res.data)
-      )
-      .catch(err =>console.log(err))
+        .then(res =>
+          context.commit('GET_ARTICLES', res.data)
+        )
+        .catch(err =>console.log(err))
     },
 
     getMovies(context) {
@@ -62,10 +64,10 @@ export default new Vuex.Store({
         method: 'get',
         url: `${API_URL}/movies/`,
       })
-      .then(res=>
-        context.commit('GET_MOVIES',res.data)
-      )
-      .catch(err => console.log(err))
+        .then(res =>
+          context.commit('GET_MOVIES', res.data)
+        )
+        .catch(err => console.log(err))
     },
 
     signUp(context, payload) {
@@ -81,7 +83,6 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          console.log(res)
           context.commit('SAVE_TOKEN', res.data.key)
         })
         .catch((err) => {
@@ -94,7 +95,7 @@ export default new Vuex.Store({
       const password = payload.password
       axios({
         method: 'post',
-        // 주소가 signin으로 작성된 것에 유의
+        // 주소가 signin으로 작성된 것에 유의 (login이 아니다)
         url: `${API_URL}/accounts/signin`, 
         data: {
           username, password
@@ -104,8 +105,9 @@ export default new Vuex.Store({
           context.commit('SAVE_TOKEN', res.data.key)
         })
         .catch((err) => console.log(err))
-    }
+    },
   },
+
   modules: {
   }
 })
