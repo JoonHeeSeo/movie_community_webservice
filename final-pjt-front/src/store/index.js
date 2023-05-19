@@ -16,6 +16,8 @@ export default new Vuex.Store({
     articles: [],
     movies: [],
     token: null,
+    moviesearch: null,
+    moviedetail: null,
   },
 
   getters: {
