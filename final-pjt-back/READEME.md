@@ -21,7 +21,12 @@ https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg
 
 
 
-
+### 오늘의 할일 5.19.
+1. ---------------- 토큰 가져오는 걸로 유저를 연동
+2. ---------------- Popular movie 쏴주는 view 만들기
+  ★★★★★주의  movies쪽 url 네이밍 바뀌었다 
+3. 좋아요 댓글 만들고
+4. 이것도 유저 연동
 
 
 

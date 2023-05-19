@@ -10,14 +10,18 @@ from .models import Movie
 from .serializers import MovieSerializer
 
 
-
 import time
 
 
 API_KEY = 'af5292844a6af1d68203e1c0b3104130'
-# API_PAGE = 1
-# API_URL = f'https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
-# https://api.themoviedb.org/3/movie/top_rated?api_key=af5292844a6af1d68203e1c0b3104130&language=ko-kr&page=1
+
+
+@api_view(['GET'])
+def movie_list(request):
+    if request.method == 'GET':
+        movies = get_list_or_404(Movie)
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -35,6 +39,7 @@ def get_movies_API(request):
         for API_PAGE in range(1, PAGE_RANGE + 1):
 
             API_URL = f'https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
+                        # https://api.themoviedb.org/3/movie/top_rated?api_key=af5292844a6af1d68203e1c0b3104130&language=ko-kr&page=1
 
             print(f'{API_PAGE}번 페이지를 불러오는 중')
 
@@ -81,14 +86,23 @@ def get_movies_API(request):
         return Response({"result": "OK"})
 
 
+@api_view(['GET'])
+def get_now_playing_movies_API(request):
+    if request.method == 'GET':
+        API_PAGE = 1
+        API_URL = f'https://api.themoviedb.org/3/movie/now_playing?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
+        now_playing_movies_API = requests.get(API_URL).json()
+        return Response(now_playing_movies_API['results'])
+
+
 
 @api_view(['GET'])
-def movie_list(request):
+def get_upcoming_movies_API(request):
     if request.method == 'GET':
-        movies = get_list_or_404(Movie)
-        serializer = MovieSerializer(movies, many=True)
-        return Response(serializer.data)
-
+        API_PAGE = 1
+        API_URL = f'https://api.themoviedb.org/3/movie/upcoming?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
+        upcoming_movies_API = requests.get(API_URL).json()
+        return Response(upcoming_movies_API['results'])
 
 
 
