@@ -16,6 +16,7 @@ export default new Vuex.Store({
 
   state: {
     articles: [],
+    article: null,
     movies: [],
     token: null,
     moviesearch: null,
@@ -33,6 +34,10 @@ export default new Vuex.Store({
       state.articles = articles
     },
 
+    GET_ARTICLE_DETAIL(state, article) {
+      state.article = article
+    },
+
     GET_MOVIES(state, movies) {
       state.movies = movies
     },
@@ -40,7 +45,7 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token
       // HomeView로 되돌아가기 
-      router.push({name: 'home'}) 
+      router.push({ name: 'home' }) 
     },
   },
 
@@ -55,6 +60,22 @@ export default new Vuex.Store({
       })
         .then(res =>
           context.commit('GET_ARTICLES', res.data)
+        )
+        .catch(err =>console.log(err))
+    },
+
+    getArticleDetail(context, payload) {
+      const articleId = payload.articleId
+
+      axios({
+        method: 'get',
+        url: `${API_URL}/articles/${articleId}/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then(res =>
+          context.commit('GET_ARTICLE_DETAIL', res.data)
         )
         .catch(err =>console.log(err))
     },

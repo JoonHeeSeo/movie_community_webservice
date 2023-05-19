@@ -8,6 +8,7 @@ import SearchView from '../views/SearchView.vue'
 import CommunityView from '../views/CommunityView.vue'
 import MovieDetailView from '../views/MovieDetailView.vue'
 import ArticleCreateView from '../views/ArticleCreateView.vue'
+import ArticleListItem from '../components/ArticleListItem.vue';
 
 
 Vue.use(VueRouter)
@@ -50,6 +51,11 @@ const routes = [
     path: '/community',
     name: 'community',
     component: CommunityView
+  },
+  {
+    path: '/article/:id',
+    name: 'article/:id',
+    component: ArticleListItem
   },
   {
     path: '/articlecreate',
