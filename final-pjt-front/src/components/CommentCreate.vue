@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <h1>이 밑으로 댓글이 나올 예정</h1>
+    <h1>이 밑으로 댓글 생성 창이 나올 예정</h1>
 
 
 
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'CommentList',
+  name: 'CommentCreate',
 
 
 }

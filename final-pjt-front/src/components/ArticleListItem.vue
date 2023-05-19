@@ -1,33 +1,40 @@
-<template>
+d<template>
   <div>
 
     <h1>ArticleItem</h1>
-    <p>{{ articleId }}번 글</p>
-
-    <div v-for="article in articles" :key="article.id">
-      <div v-if="article.id === articleId">
-        <p>제목 : {{ article.title }}</p>
-        <p>내용 : {{ article.content }}</p>
-        <p>작성 시간 : {{ article.created_at }}</p>
-        <p>마지막 수정 시간 : {{ article.updated_at }}</p>
-        <p>작성자 : {{ article.username }}</p>
-      </div>
-    </div>
     <hr>
 
-    <CommentList/>
+    <p>글 번호 : {{ articleDetail.id }}</p>
+    <p>작성자 : {{ articleDetail.username }}</p>
+    <p>제목 : {{ articleDetail.title }}</p>
+    <p>내용 : {{ articleDetail.content }}</p>
+    <p>작성 시간 : {{ articleDetail.created_at }}</p>
+    <p>수정 시간 : {{ articleDetail.updated_at }}</p>
+
+    <hr>
+
+    <p>총 {{ articleDetail.comment_count }}개의 댓글이 있습니다.</p>
+    
+    <div v-for="comment in articleDetail.comment_set" :key="comment.id">
+      <p>댓글 번호 : {{ comment.id }}</p>
+      <p>댓글 내용 : {{ comment.content }}</p>
+      <p>댓글 작성 시간 : {{ comment.created_at }}</p>
+      <p>댓글 수정 시간 : {{ comment.updated_at }}</p>
+    </div>
+
+    <CommentCreate/>
 
 
   </div>
 </template>
 
 <script>
-import CommentList from '@/components/CommentList'
+import CommentCreate from '@/components/CommentCreate'
 
 export default {
   name: 'ArticleListItem',
   components: {
-    CommentList,
+    CommentCreate,
   },
   props: {
     article: Object,
@@ -37,14 +44,33 @@ export default {
       articleId: null
     }
   },
-  computed: {
-    articles() {
-      return this.$store.state.articles;
-    },
+  created() {
+    this.getArticleDetail()
   },
+  computed: {
+    articleDetail() {
+      return this.$store.state.article;
+    },
+    // articles() {
+    //   return this.$store.state.articles;
+    // },
+  },
+
   mounted() {
     this.articleId = this.$route.params.id;
   },
+  
+  methods:{
+    getArticleDetail() {
+      const articleId = this.$route.params.id
+
+      const payload = {
+        articleId
+      }
+
+      this.$store.dispatch('getArticleDetail', payload)
+    }
+  }
 }
 </script>
 

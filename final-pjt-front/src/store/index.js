@@ -16,6 +16,7 @@ export default new Vuex.Store({
 
   state: {
     articles: [],
+    article: null,
     movies: [],
     token: null,
     moviesearch: null,
@@ -31,6 +32,10 @@ export default new Vuex.Store({
   mutations: {
     GET_ARTICLES(state, articles) {
       state.articles = articles
+    },
+
+    GET_ARTICLE_DETAIL(state, article) {
+      state.article = article
     },
 
     GET_MOVIES(state, movies) {
@@ -58,7 +63,23 @@ export default new Vuex.Store({
         )
         .catch(err =>console.log(err))
     },
-    
+
+    getArticleDetail(context, payload) {
+      const articleId = payload.articleId
+
+      axios({
+        method: 'get',
+        url: `${API_URL}/articles/${articleId}/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then(res =>
+          context.commit('GET_ARTICLE_DETAIL', res.data)
+        )
+        .catch(err =>console.log(err))
+    },
+
     getMovies(context) {
       axios({
         method: 'get',
