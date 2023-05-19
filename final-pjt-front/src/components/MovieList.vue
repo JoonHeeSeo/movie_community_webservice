@@ -4,7 +4,6 @@
       <MovieListItem
       v-for="movie in movies" :key="movie.id" :movie="movie"
       />
-
     </h1>
 
 
@@ -12,7 +11,7 @@
 </template>
 
 <script>
-import MovieListItem from './MovieListItem.vue';
+import MovieListItem from '@/components/MovieListItem';
 
 export default {
   name:'MovieList',
@@ -24,7 +23,6 @@ export default {
       return this.$store.state.movies
     }
   }
-
 }
 </script>
 

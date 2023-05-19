@@ -23,10 +23,10 @@ export default {
   updated() {
     axios({
       method:'get',
-      url: `${API_URL}`+this.$store.state.moviedetail
+      url: `${API_URL}` + this.$store.state.moviedetail
     })
     .then(res =>
-    this.movie = res.data.results
+      this.movie = res.data.results
     )
     .catch(err => console.log(err))
   },

@@ -14,9 +14,9 @@ export default {
   components: {
     MovieList,
   },
-  // created() {
-  //   this.getMovies()
-  // },
+  created() {
+    this.getMovies()
+  },
   methods: {
     getMovies(){
       this.$store.dispatch('getMovies')
