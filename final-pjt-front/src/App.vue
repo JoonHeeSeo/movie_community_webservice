@@ -6,10 +6,12 @@
       <router-link to="/search">영화 검색</router-link> |
       <router-link to="/signin">로그인</router-link> |
       <router-link to="/signup">가입</router-link> |
-      <router-link to="/community">게시판</router-link> |
-      <label for="searchinput">검색 : </label>
-      <input type="text" id="inputtext" v-model="inputtext">
-      <button @click="search()">검색</button>
+      <router-link to="/community">게시판</router-link>
+      <div>
+        <label for="searchinput">검색 : </label>
+        <input type="text" v-on:keyup.enter="search()" id="inputtext" v-model="inputtext">
+        <button @click="search()">검색</button>
+      </div>
 
       <!-- 게시판은 로그인 했을때만 보이게, 로그인 안했으면 안보이게 만들어야함  -->
     </nav>

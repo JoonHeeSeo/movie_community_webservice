@@ -1,10 +1,14 @@
 <template>
   <div>
     <h1>Search</h1>
-    <p>Searched: {{ searchedmovie }}</p>
+    <div v-if="movies !== null && movies.length > 0">
       <li v-for="movie in movies" :key="movie.id" :movie="movie">
         {{ movie.title }}
       </li>
+    </div>
+    <div v-else>      
+      <p>{{ searchedmovie }} 검색결과가 없습니다.</p>
+    </div>
   </div>
 </template>
 
