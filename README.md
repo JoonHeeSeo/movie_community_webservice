@@ -42,3 +42,12 @@ ERD 추후 추가 예정
 <b> -> 안전하지 않은 방법이라는 것을 인지하고 있으므로, 대체 할 수 있는 방법 업데이트 예정</b>
 
 Community 
+-back(준희)
+- vue와 django 간의 유저 정보 연동
+- 게시글 상세 보기 및 댓글 보기 기능 구현(작성자 및 작성시간 함께 표시)
+
+-fron(현우)
+- 입력된 input text로 영화검색기능 달기 vuex axios를 통해 api연동
+(유사 단어를 처리 못하는 문제 발생)
+- NAV bar, signin, signup style 구성
+(view내의 모든 파일에 적용되는 문제 발생)
