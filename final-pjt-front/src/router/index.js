@@ -6,6 +6,7 @@ import SignUpView from '../views/SignUpView.vue'
 import RecommendView from '../views/RecommendView.vue'
 import SearchView from '../views/SearchView.vue'
 import CommunityView from '../views/CommunityView.vue'
+import MovieDetailView from '../views/MovieDetailView.vue'
 
 import ArticleCreateView from '../views/ArticleCreateView.vue'
 
@@ -57,6 +58,11 @@ const routes = [
     name: 'articlecreate',
     component: ArticleCreateView
   },
+  {
+    path: '/moviedetail',
+    name: 'moviedetail',
+    component: MovieDetailView
+  }
 ]
 
 const router = new VueRouter({
