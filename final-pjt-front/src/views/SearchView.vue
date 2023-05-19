@@ -27,8 +27,9 @@ export default {
   updated() {
     axios({
       method: 'get',
-      url: `${API_URL}` + this.$store.state.moviesearch,
+      url: `${API_URL}` + this.$store.state.moviesearch + "&language=ko-kr",
     })
+  
     .then(res =>
       this.movies = res.data.results
     )

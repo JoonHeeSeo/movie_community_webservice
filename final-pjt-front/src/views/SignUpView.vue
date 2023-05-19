@@ -1,17 +1,19 @@
 <template>
   <div>
-    <h1>회원가입</h1>
+    <h2 style="text-align:center; margin-top:80px; margin-bottom: 20px;">회원가입</h2>
     <form @submit.prevent = "signUp">
-      <label for="userid">아이디 : </label>
-      <input type="text" id="userid" v-model="userid">
-      <br>
-      <label for="password1">비밀번호 : </label>
-      <input type="text" id="password1" v-model="password1">
-      <br>
-      <label for="password2">비밀번호 확인 : </label>
-      <input type="text" id="password2" v-model="password2">
-      <br>
-      <input type="submit" value="가입">
+      <div class="login-container">
+        <label for="userid" style="text-align: left;">아이디 :</label>
+        <input type="text" id="userid" v-model="userid">
+        <br>
+        <label for="password1">비밀번호 : </label>
+        <input type="text" id="password1" v-model="password1">
+        <br>
+        <label for="password2">비밀번호 확인 : </label>
+        <input type="text" id="password2" v-model="password2">
+        <br>
+        <input class="login-button" type="submit" value="가입">
+      </div>
     </form>
   </div>
 </template>
@@ -42,5 +44,19 @@ export default {
 </script>
 
 <style>
+
+input[id="password1"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[id="password2"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
 </style>
