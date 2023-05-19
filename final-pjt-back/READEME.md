@@ -45,9 +45,9 @@ https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg
   - 필드에 각각 값을 넣어주는 것과 결과가 다르게 나온다. 하나씩 지정해주는 게 좀 더 안정적이지 않을까
 
 
-
-
-
+3. back_api > settings.py 와 dj_rest_auth
+- 다 해놓고 settings 설정을 안해서 많이 돌아갔다.
+- dj_rest_auth를 사용하는 것이 꽤 까다로웠다. 공식 문서를 잘 참고해야한다.
 
 
 
