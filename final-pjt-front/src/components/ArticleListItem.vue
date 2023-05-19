@@ -2,6 +2,7 @@
   <div>
     <h3>{{ article.id }}</h3>
     <!-- link로 만들어야함  -->
+    <p>작성자 : {{ article.username  }}</p>
     <p>{{ article.title }}</p>
     
     <!-- <router-link :to="{
