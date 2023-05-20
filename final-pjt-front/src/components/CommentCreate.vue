@@ -1,21 +1,51 @@
 <template>
   <div>
 
-    <h1>이 밑으로 댓글 생성 창이 나올 예정</h1>
-
-
-
-
-
+    <h1>댓글 작성</h1>
+    <form @submit.prevent="createComment">
+      <label for="comment">댓글 내용 : </label>
+      <textarea id="comment" cols="30" rows="10" v-model="comment"></textarea>
+      <br>
+      <input type="submit" id="submit">
+    </form>
 
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name: 'CommentCreate',
+  props : [ 'articleId' ],
+  data() {
+    return {
+      comment: null,
+    }
+  },
+  methods: {
+    createComment() {
+      const content = this.comment
+      const articleId = this.articleId
 
-
+      axios({
+        method: 'post',
+        url: `${API_URL}/articles/${articleId}/comments/`,
+        data: { content },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then(() => {
+        // 새로고침
+        location.reload()
+      })
+      .catch((err => {
+        console.log(err)
+      }))
+    }
+  },
 }
 </script>
 
