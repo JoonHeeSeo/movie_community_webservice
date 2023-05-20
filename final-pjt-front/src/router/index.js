@@ -8,7 +8,8 @@ import SearchView from '../views/SearchView.vue'
 import CommunityView from '../views/CommunityView.vue'
 import MovieDetailView from '../views/MovieDetailView.vue'
 import ArticleCreateView from '../views/ArticleCreateView.vue'
-import ArticleListItem from '../components/ArticleListItem.vue';
+import ArticleListItem from '../components/ArticleListItem.vue'
+import ArticleUpdateView from '../views/ArticleUpdateView'
 
 
 Vue.use(VueRouter)
@@ -56,6 +57,11 @@ const routes = [
     path: '/article/:id',
     name: 'article/:id',
     component: ArticleListItem
+  },
+  {
+    path: '/article/:id/update',
+    name: 'article/:id/update',
+    component: ArticleUpdateView,
   },
   {
     path: '/articlecreate',

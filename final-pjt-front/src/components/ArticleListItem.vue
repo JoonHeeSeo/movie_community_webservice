@@ -11,8 +11,16 @@ d<template>
     <p>작성 시간 : {{ articleDetail.created_at }}</p>
     <p>수정 시간 : {{ articleDetail.updated_at }}</p>
 
-    <hr>
+    <br>
+    <form @submit.prevent="deleteArticle">
+      <input type="submit" value="DELETE">
+    </form> 
+    
+    <br>
+    <router-link :to="{name : 'article/:id/update', params: {id: articleId}}">[UPDATE]</router-link>
 
+
+    <hr>
     <p>총 {{ articleDetail.comment_count }}개의 댓글이 있습니다.</p>
     
     <div v-for="comment in articleDetail.comment_set" :key="comment.id">
@@ -30,6 +38,8 @@ d<template>
 
 <script>
 import CommentCreate from '@/components/CommentCreate'
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'ArticleListItem',
@@ -54,6 +64,7 @@ export default {
     // articles() {
     //   return this.$store.state.articles;
     // },
+
   },
 
   mounted() {
@@ -69,7 +80,27 @@ export default {
       }
 
       this.$store.dispatch('getArticleDetail', payload)
-    }
+    },
+
+    deleteArticle() {
+      const articleId = this.$route.params.id
+
+      axios({
+        method: 'delete',
+        url: `${API_URL}/articles/${articleId}/`,
+        data: { articleId },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then(() => {
+        this.$router.push({ name : 'community' })
+      })
+      .catch((err => {
+        console.log(err)
+      }))
+    },
+
   }
 }
 </script>
