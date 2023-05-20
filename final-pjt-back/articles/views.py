@@ -76,9 +76,10 @@ def comment_detail(request, comment_pk):
             serializer.save()
             return Response(serializer.data)
         
+
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def comment_create(request, article_pk):
-    print('here')
     article = get_object_or_404(Article, pk=article_pk)
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):

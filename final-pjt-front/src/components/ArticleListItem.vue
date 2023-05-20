@@ -16,13 +16,13 @@ d<template>
     <p>총 {{ articleDetail.comment_count }}개의 댓글이 있습니다.</p>
     
     <div v-for="comment in articleDetail.comment_set" :key="comment.id">
-      <p>댓글 번호 : {{ comment.id }}</p>
+      <!-- <p>댓글 번호 : {{ comment.id }}</p> -->
       <p>댓글 내용 : {{ comment.content }}</p>
       <p>댓글 작성 시간 : {{ comment.created_at }}</p>
       <p>댓글 수정 시간 : {{ comment.updated_at }}</p>
     </div>
 
-    <CommentCreate/>
+    <CommentCreate :articleId="articleId"/>
 
 
   </div>
