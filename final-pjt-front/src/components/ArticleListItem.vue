@@ -10,6 +10,7 @@
     <p>내용 : {{ articleDetail.content }}</p>
     <p>작성 시간 : {{ articleDetail.created_at }}</p>
     <p>수정 시간 : {{ articleDetail.updated_at }}</p>
+    <p>{{ articleDetail.like_users.length }}명이 좋아합니다.</p>
 
     <br>
     <form @submit.prevent="deleteArticle">
@@ -17,7 +18,7 @@
     </form> 
     
     <br>
-    <router-link :to="{name : 'article/:id/update', params: {id: articleId}}">[UPDATE]</router-link>
+    <router-link :to="{name : 'article/:id/update', params: {id: articleDetail.id}}">[UPDATE]</router-link>
 
 
     <hr>
@@ -33,7 +34,7 @@
         <input type="submit" value="DELETE">
       </form>
       <br>
-      <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleId, commentid: comment.id}}">[UPDATE]</router-link>
+      <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}">[UPDATE]</router-link>
 
     </div>
 
@@ -59,7 +60,7 @@ export default {
   },
   data() {
     return {
-      articleId: null
+      articleId: null,
     }
   },
   created() {
