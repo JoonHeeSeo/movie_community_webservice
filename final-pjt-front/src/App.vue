@@ -57,9 +57,8 @@ export default {
       const token = this.$store.state.token
       this.$store.dispatch('signout', token)
     },
-
-  connetApi(){
-      this.$store.dispatch('connetMovies')
+    connetApi(){
+      this.$store.dispatch('getMovies')
     },
     
   }
