@@ -4,13 +4,15 @@
       <router-link to="/">홈</router-link> |
       <router-link to="/recommend">영화추천</router-link> |
       <router-link to="/search">영화 검색</router-link> |
+      <router-link to="/community">게시판</router-link>|
+
       <router-link to="/signin">로그인</router-link> |
       <router-link to="/signup">가입</router-link> |
-      <router-link to="/community">게시판</router-link>
+      
+      <p v-if="username">{{ username }}님 환영합니다</p>
+      <button v-if="username" @click="signout">로그아웃</button>
+
       <div class="searchbox">
-
-        <p>{{ username }}님 환영합니다</p>
-
         <label for="searchinput"></label>
         <input type="text" v-on:keyup.enter="search()" id="inputtext" v-model="inputtext" style="border-radius:4px">
         <button class="search-btn" @click="search()">검색</button>
@@ -46,7 +48,12 @@ export default {
       if (this.$route.path !== '/search') {
         this.$router.push({ name:'search' })
       } 
-    }
+    },
+
+    signout() {
+      const token = this.$store.state.token
+      this.$store.dispatch('signout', token)
+    },
   }
 }
 
