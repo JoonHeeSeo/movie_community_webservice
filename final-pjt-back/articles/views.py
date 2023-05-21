@@ -19,11 +19,6 @@ def article_list(request):
         return Response(serializer.data)
     
     elif request.method == 'POST':
-
-        # 이거를 DB > accounts_user 에서 일치하는 것을 찾아서 username을 추가해서 저장하면 된다.
-        # print(request.data['token'])
-
-
         serializer = ArticleSerializer(data=request.data)        
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
@@ -48,6 +43,22 @@ def article_detail(request, article_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def article_likes(request, article_pk):
+    if request.method == 'POST':
+        article = get_object_or_404(Article, pk=article_pk)
+
+        if article.like_users.filter(pk=request.user.pk).exists():
+            article.like_users.remove(request.user)
+        else:
+            article.like_users.add(request.user)
+
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data)
+
 
 
 @api_view(['GET'])

@@ -21,15 +21,6 @@ https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg
 
 
 
-### 오늘의 할일 5.19.
-1. ---------------- 토큰 가져오는 걸로 유저를 연동
-2. ---------------- Popular movie 쏴주는 view 만들기
-  ★★★★★주의  movies쪽 url 네이밍 바뀌었다 
-3. 좋아요 댓글 만들고
-4. 이것도 유저 연동
-
-
-
 ### 시행착오와 생각
 
 1. movies > models.py > Movie
@@ -50,7 +41,11 @@ https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg
 - dj_rest_auth를 사용하는 것이 꽤 까다로웠다. 공식 문서를 잘 참고해야한다.
 
 
+4. 커뮤니티 기능을 다 만들긴 했는데...
+- 1) 댓글 달 때  2) 좋아요 누를 때  페이지를 reload 하는 것이 맞나?
+- 다른 유저가 입력하는 정보도 받아와야하니까 맞는 것 같기도한데 자원 소모가 심할 것 같은데.. 비동기 처리를 알아봐야할 것 같다
 
+- 뷰 이동이랑 데이터 흐름이 얼기설기 얽혀서 정리를 해봐야겠다
 
 
 
