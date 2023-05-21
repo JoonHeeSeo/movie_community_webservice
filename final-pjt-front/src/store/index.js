@@ -53,14 +53,22 @@ export default new Vuex.Store({
     SAVE_USER_INFO(state, userinfo) {
       state.useridx = userinfo.pk
       state.username = userinfo.username
+      // 이런 것을 추가할 수도 있다
       // state.email = userinfo.email
       // state.firstname = userinfo.first_name
       // state.lastname = userinfo.last_name
+    },
+
+    CLEAR_USER_INFO(state) {
+      state.useridx = null
+      state.username = null
+      router.push({ name: 'home' }) 
     },
     
     CONNECT_API(state,movies) {
       state.movies = movies
     },
+    
   },
 
   actions: {
@@ -146,7 +154,11 @@ export default new Vuex.Store({
             .catch((error) => {
               console.log(error)
             })
+
+        .catch((error) => {
+          console.log(error)
         })
+      })
     },
 
     signIn(context, payload) {
@@ -155,23 +167,51 @@ export default new Vuex.Store({
       axios({
         method: 'post',
         // 주소가 signin으로 작성된 것에 유의 (login이 아니다)
-        url: `${API_URL}/accounts/signin`, 
+        url: `${API_URL}/accounts/login/`, 
         data: {
           username, password
         }
       })
         .then((res) => {
-          context.commit('SAVE_TOKEN', res.data.key)
-        })
+          const token = res.data.key
+          context.commit('SAVE_TOKEN', token)
+          
+          axios({
+            method: 'get',
+            url: `${API_URL}/accounts/user/`,
+            headers: {
+              Authorization: `Token ${token}`
+            }
+          })
+            .then((response) => {
+              context.commit('SAVE_USER_INFO', response.data)
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+          })
         .catch((err) => console.log(err))
     },
 
 
-    // getUser(username) {
+    // signout(context, token) {
     //   axios({
-    //     url: `${API_URL}/accounts/signin`
+    //     method: 'post',
+    //     url: `${API_URL}/accounts/logout/`, 
+    //     headers: {
+    //       Authorization: `Token ${token}`
+    //     }
     //   })
-    // }
+    //     .then((res) => {
+    //       // location.reload()
+    //       console.log(res)
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // },
+  
+  
   },
 
   modules: {

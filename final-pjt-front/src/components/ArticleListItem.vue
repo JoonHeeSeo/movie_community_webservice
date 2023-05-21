@@ -27,6 +27,7 @@
     <div v-for="comment in articleDetail.comment_set" :key="comment.id">
       <br>
       <!-- <p>댓글 번호 : {{ comment.id }}</p> -->
+      <p>댓글 작성자 : {{ comment.username }}</p>
       <p>댓글 내용 : {{ comment.content }}</p>
       <p>댓글 작성 시간 : {{ comment.created_at }}</p>
       <p>댓글 수정 시간 : {{ comment.updated_at }}</p>
