@@ -10,6 +10,7 @@ import MovieDetailView from '../views/MovieDetailView.vue'
 import ArticleCreateView from '../views/ArticleCreateView.vue'
 import ArticleListItem from '../components/ArticleListItem.vue'
 import ArticleUpdateView from '../views/ArticleUpdateView'
+import CommentUpdateView from '../views/CommentUpdateView'
 
 
 Vue.use(VueRouter)
@@ -62,6 +63,11 @@ const routes = [
     path: '/article/:id/update',
     name: 'article/:id/update',
     component: ArticleUpdateView,
+  },
+  {
+    path: '/article/:id/comment/:commentid/update',
+    name: 'article/:id/comment/:commentid/update',
+    component: CommentUpdateView,
   },
   {
     path: '/articlecreate',
