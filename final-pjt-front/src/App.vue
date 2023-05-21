@@ -8,6 +8,9 @@
       <router-link to="/signup">가입</router-link> |
       <router-link to="/community">게시판</router-link>
       <div class="searchbox">
+
+        <p>{{ username }}님 환영합니다</p>
+
         <label for="searchinput"></label>
         <input type="text" v-on:keyup.enter="search()" id="inputtext" v-model="inputtext" style="border-radius:4px">
         <button class="search-btn" @click="search()">검색</button>
@@ -28,6 +31,11 @@ export default {
       inputtext: null,
       currentRoute: window.location.pathname
     }
+  },
+  computed: {
+    username() {
+      return this.$store.state.username
+    },
   },
   methods: {
     search() {

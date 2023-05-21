@@ -13,8 +13,8 @@
       <p>{{ article.like_users.length }}명이 좋아합니다.</p>
       
       <form @submit.prevent="likeArticle(article.id)">
-        <input type="submit" value="Like">
-      </form> 
+        <input type="submit" :value="checkLikeArticle(article) ? 'Like Cancel' : 'Like'">
+      </form>
       <hr>
     </div>
 
@@ -48,7 +48,12 @@ export default {
       .catch((err => {
         console.log(err)
       }))
-    }
+    },
+
+  checkLikeArticle(article) {
+    const currentUserIdx = this.$store.state.useridx
+      return article.like_users.includes(currentUserIdx)
+    },
   }
 }
 </script>

@@ -15,10 +15,12 @@ export default new Vuex.Store({
   ],
 
   state: {
+    useridx: null,
+    username: null,
+    token: null,
     articles: [],
     article: null,
     movies: [],
-    token: null,
     moviesearch: null,
     moviedetail: null,
   },
@@ -46,6 +48,14 @@ export default new Vuex.Store({
       state.token = token
       // HomeView로 되돌아가기 
       router.push({ name: 'home' }) 
+    },
+
+    SAVE_USER_INFO(state, userinfo) {
+      state.useridx = userinfo.pk
+      state.username = userinfo.username
+      // state.email = userinfo.email
+      // state.firstname = userinfo.first_name
+      // state.lastname = userinfo.last_name
     },
   },
 
@@ -104,10 +114,22 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          context.commit('SAVE_TOKEN', res.data.key)
-        })
-        .catch((err) => {
-          console.log(err)
+          const token = res.data.key
+          context.commit('SAVE_TOKEN', token)
+          
+          axios({
+            method: 'get',
+            url: `${API_URL}/accounts/user/`,
+            headers: {
+              Authorization: `Token ${token}`
+            }
+          })
+            .then((response) => {
+              context.commit('SAVE_USER_INFO', response.data)
+            })
+            .catch((error) => {
+              console.log(error)
+            })
         })
     },
 
@@ -127,6 +149,13 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err))
     },
+
+
+    // getUser(username) {
+    //   axios({
+    //     url: `${API_URL}/accounts/signin`
+    //   })
+    // }
   },
 
   modules: {
