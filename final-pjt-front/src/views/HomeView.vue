@@ -14,6 +14,7 @@ export default {
   components: {
     MovieList,
   },
+  // 여기서 created 하는게 맞는지..?
   created() {
     this.getMovies()
   },

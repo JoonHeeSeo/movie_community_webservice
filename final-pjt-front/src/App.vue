@@ -34,6 +34,9 @@ export default {
       currentRoute: window.location.pathname
     }
   },
+  created() {
+    this.connetApi()
+  },
   computed: {
     username() {
       return this.$store.state.username
@@ -50,10 +53,15 @@ export default {
       } 
     },
 
-    signout() {
+   signout() {
       const token = this.$store.state.token
       this.$store.dispatch('signout', token)
     },
+
+  connetApi(){
+      this.$store.dispatch('connetMovies')
+    },
+    
   }
 }
 
