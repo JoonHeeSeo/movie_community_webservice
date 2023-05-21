@@ -1,4 +1,4 @@
-d<template>
+<template>
   <div>
 
     <h1>ArticleItem</h1>
@@ -24,12 +24,20 @@ d<template>
     <p>총 {{ articleDetail.comment_count }}개의 댓글이 있습니다.</p>
     
     <div v-for="comment in articleDetail.comment_set" :key="comment.id">
+      <br>
       <!-- <p>댓글 번호 : {{ comment.id }}</p> -->
       <p>댓글 내용 : {{ comment.content }}</p>
       <p>댓글 작성 시간 : {{ comment.created_at }}</p>
       <p>댓글 수정 시간 : {{ comment.updated_at }}</p>
+      <form @submit.prevent="deleteComment(comment.id)">
+        <input type="submit" value="DELETE">
+      </form>
+      <br>
+      <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleId, commentid: comment.id}}">[UPDATE]</router-link>
+
     </div>
 
+    <hr>
     <CommentCreate :articleId="articleId"/>
 
 
@@ -101,6 +109,23 @@ export default {
       }))
     },
 
+    deleteComment(commentId) {
+      axios({
+        method: 'delete',
+        url: `${API_URL}/articles/comments/${commentId}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then(() => {
+        // 새로고침
+        location.reload()
+      })
+      .catch((err => {
+        console.log(err)
+      }))
+
+    },
   }
 }
 </script>

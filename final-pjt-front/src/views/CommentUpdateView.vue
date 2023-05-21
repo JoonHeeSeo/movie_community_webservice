@@ -1,10 +1,7 @@
 <template>
   <div>
-    <h1>게시글 수정</h1>
-    <form @submit.prevent="updateArticle">
-      <label for="title">제목 : </label>
-      <input type="text" id="title" v-model.trim="title">
-      <br><br>
+    <h1>댓글 수정</h1>
+    <form @submit.prevent="updateComment">
       <label for="content">내용 : </label>
       <textarea id="content" cols="30" rows="10" v-model="content"></textarea>
       <br>
@@ -19,24 +16,21 @@ import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
-  name: 'ArticleUpdateView',
+  name: 'CommentUpdateView',
   data() {
     return {
-      title: null,
       content: null,
-
     }
   },
   methods: {
-    updateArticle() {
-      const title = this.title
+    updateComment() {
       const content = this.content
-      const articleId = this.$route.params.id
+      const commentId = this.$route.params.commentid
 
       axios({
         method: 'put',
-        url: `${API_URL}/articles/${articleId}/`,
-        data: { title, content },
+        url: `${API_URL}/articles/comments/${commentId}/`,
+        data: { content },
         headers: {
           Authorization: `Token ${this.$store.state.token}`
         }
@@ -49,30 +43,32 @@ export default {
       }))
     },
 
-    getArticle(articleId) {
+
+    getComment(commentId) {
       axios({
         method: 'get',
-        url: `${API_URL}/articles/${articleId}/`,
+        url: `${API_URL}/articles/comments/${commentId}/`,
         headers: {
           Authorization: `Token ${this.$store.state.token}`
         }
       })
       .then((response) => {
-        const article = response.data
-        this.title = article.title
-        this.content = article.content
+        const comment = response.data
+        console.log(comment)
+        this.content = comment.content
       })
       .catch((error) => {
         console.log(error)
       })
     },
   },
-
-  // mounted가 getArticle보다 밑에 있어야해
+  
+  // mounted가 getComment보다 밑에 있어야해
   mounted() {
-    const articleId = this.$route.params.id
-    this.getArticle(articleId)
-  },
+    const commentId = this.$route.params.commentid
+    this.getComment(commentId)
+  },    
+
   
 }
 </script>

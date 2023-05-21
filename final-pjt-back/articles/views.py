@@ -51,6 +51,7 @@ def article_detail(request, article_pk):
 
 
 @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
 def comment_list(request):
     if request.method == 'GET':
         comments = get_list_or_404(Comment)
@@ -59,6 +60,7 @@ def comment_list(request):
     
 
 @api_view(['GET', 'DELETE', 'PUT'])
+@permission_classes([IsAuthenticated])
 def comment_detail(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
 
