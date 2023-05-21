@@ -57,6 +57,10 @@ export default new Vuex.Store({
       // state.firstname = userinfo.first_name
       // state.lastname = userinfo.last_name
     },
+    
+    CONNECT_API(state,movies) {
+      state.movies = movies
+    },
   },
 
   actions: {
@@ -97,6 +101,18 @@ export default new Vuex.Store({
       })
         .then(res =>
           context.commit('GET_MOVIES', res.data)
+        )
+        .catch(err => console.log(err))
+    },
+    
+    connetApi(context) {
+      axios({
+        method: 'get',
+        // url: `${API_URL}/movies/get/movies/`,
+        url: `${API_URL}/movies/get/movies/`
+      })
+        .then(res =>
+          context.commit('CONNECT_API', res.data)
         )
         .catch(err => console.log(err))
     },

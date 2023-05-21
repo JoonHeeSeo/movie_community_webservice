@@ -32,6 +32,9 @@ export default {
       currentRoute: window.location.pathname
     }
   },
+  created() {
+    this.connetApi()
+  },
   computed: {
     username() {
       return this.$store.state.username
@@ -46,6 +49,9 @@ export default {
       if (this.$route.path !== '/search') {
         this.$router.push({ name:'search' })
       } 
+    },
+    connetApi(){
+      this.$store.dispatch('connetMovies')
     }
   }
 }
