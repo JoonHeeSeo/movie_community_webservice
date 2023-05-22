@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <nav class="container">
-      <router-link to="/">홈</router-link> |
-      <router-link to="/recommend">영화추천</router-link> |
-      <router-link to="/search">영화 검색</router-link> |
-      <router-link to="/community">게시판</router-link>|
+      <router-link to="/" class="router-btn">홈</router-link>
+      <router-link to="/recommend" class="router-btn">영화추천</router-link>
+      <router-link to="/search" class="router-btn">영화 검색</router-link>
+      <router-link to="/community" class="router-btn">게시판</router-link>
 
       <div v-if="!username">
         <router-link to="/login">로그인</router-link> |
@@ -80,8 +80,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  text-align: left;
+  color: #fff;
   width: 100%;
 }
 
@@ -136,5 +136,9 @@ nav a.router-link-exact-active {
   width: 100%;
   margin-top: 60px;
   position: relative;
+}
+
+.router-btn{
+  margin: 20px;
 }
 </style>

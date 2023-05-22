@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1>This is HomePage</h1>
     <MovieList/>
-    
   </div>
 </template>
 
