@@ -1,25 +1,25 @@
 <template>
   <div id="app">
-    <nav class="container">
-      <router-link to="/" class="router-btn">홈</router-link>
-      <router-link to="/recommend" class="router-btn">영화추천</router-link>
+    <nav>
+      <router-link to="/" class="router-btn">HOME</router-link>
+      <router-link to="/recommend" class="router-btn">Surprise Me</router-link>
       <!-- <router-link to="/search" class="router-btn">영화 검색</router-link> -->
-      <router-link to="/community" class="router-btn">게시판</router-link>
+      <router-link to="/community" class="router-btn">Board</router-link>
 
       <div v-if="!username">
-        <router-link to="/login" class="router-btn">로그인</router-link>
-        <router-link to="/signup" class="router-btn">가입</router-link>
+        <router-link to="/login" class="router-btn">Sign In</router-link>
+        <router-link to="/signup" class="router-btn">Sign Up</router-link>
       </div>
 
       <div>
-        <p v-if="username">{{ username }}님 환영합니다</p>
-        <button v-if="username" @click="logOut">로그아웃</button>
+        <p v-if="username">Welcome {{ username }} !</p>
+        <button v-if="username" @click="logOut">Sign Out</button>
       </div>
 
       <div class="searchbox">
         <label for="searchinput"></label>
         <input type="text" v-on:keyup.enter="search()" id="searchInput" v-model="searchInput" style="border-radius:4px">
-        <button class="search-btn" @click="search()">검색</button>
+        <button class="search-btn" @click="search()">search</button>
       </div>
 
     </nav>
@@ -51,8 +51,8 @@ export default {
       const searchInput = this.searchInput
       this.$store.dispatch('saveSearchInput', searchInput)
       
-      if (this.searchInput.trim() === null) {
-        alert('Please enter a search query.');
+      if (this.searchInput.trim() === "") {
+        alert('영화 제목을 입력해주세요.');
         return;
       }
 
@@ -100,8 +100,8 @@ nav {
   height: 60px;
   position: fixed;
   top: 0;
-  z-index: 9;
-  padding: 0 2.5vw;
+  z-index: 9999;
+  padding: 10px;
   display: flex;
   align-items: center;
   background-color: black;

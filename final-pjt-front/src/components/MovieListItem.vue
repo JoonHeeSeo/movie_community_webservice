@@ -53,7 +53,7 @@ body {
   margin: 20px;
   position: relative;
   left: 30px;
-  z-index: 9999
+  z-index: 1
 }
 
 .poster {
@@ -132,7 +132,7 @@ body {
 .ticket-movie-title {
   color:#2f2f2f;
 	text-transform: uppercase;
-  font-size: 20px;
+  font-size: 15px;
   font-weight:bold;
 	margin-bottom: 5px;
 }
