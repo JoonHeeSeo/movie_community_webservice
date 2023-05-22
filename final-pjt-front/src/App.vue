@@ -49,7 +49,6 @@ export default {
     search() {
       const inputtext = this.inputtext
       // 이거 담아서 Moviedetail로 연결시켜줘야하는데 어떻게 하지?
-      console.log(inputtext)
       this.$store.state.moviesearch = inputtext
       if (this.$route.path !== '/search') {
         this.$router.push({ name:'search' })
@@ -65,7 +64,8 @@ export default {
       this.$store.dispatch('getMovies')
     },
     
-  }
+  },
+
 }
 
 </script>

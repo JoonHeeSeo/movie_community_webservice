@@ -218,23 +218,6 @@ export default new Vuex.Store({
       .then((res) => {
         context.commit('DELETE_TOKEN_AND_USER_INFO')
         console.log(res)
-              
-
-
-        // axios({
-        //   method: 'get',
-        //   url: `${API_URL}/accounts/user/`,
-        //   headers: {
-        //     Authorization: `Token ${token}`
-        //   }
-        // })
-        //   .then((response) => {
-        //     context.commit('SAVE_USER_INFO', response.data)
-        //   })
-        //   .catch((error) => {
-        //     console.log(error)
-        //   })
-
       })
       .catch((err) => {
         console.log(err)
