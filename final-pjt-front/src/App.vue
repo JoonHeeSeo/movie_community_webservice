@@ -6,12 +6,10 @@
       <router-link to="/search">영화 검색</router-link> |
       <router-link to="/community">게시판</router-link>|
 
-      
-      <!-- 이거는 로그아웃 다 만들고 나서 해제 -->
-      <!-- <div v-if="!username"> -->
+      <div v-if="!username">
         <router-link to="/signin">로그인</router-link> |
         <router-link to="/signup">가입</router-link> |
-      <!-- </div> -->
+      </div>
 
       <div>
         <p v-if="username">{{ username }}님 환영합니다</p>
@@ -24,7 +22,6 @@
         <button class="search-btn" @click="search()">검색</button>
       </div>
 
-      <!-- 게시판은 로그인 했을때만 보이게, 로그인 안했으면 안보이게 만들어야함  -->
     </nav>
     <div class="router-section"></div>
     <router-view/>
