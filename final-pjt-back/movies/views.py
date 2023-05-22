@@ -86,6 +86,15 @@ def get_movies_API(request):
         return Response({"result": "OK"})
 
 
+@api_view(['POST'])
+def get_movies_search_API(request):
+    if request.method == 'POST':
+        SEARCH_INPUT = request.data['searchInput']
+        API_URL = f'https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={SEARCH_INPUT}&language=ko-kr'
+        searched_movies_API = requests.get(API_URL).json()
+        return Response(searched_movies_API['results'])
+
+
 @api_view(['GET'])
 def get_now_playing_movies_API(request):
     if request.method == 'GET':
