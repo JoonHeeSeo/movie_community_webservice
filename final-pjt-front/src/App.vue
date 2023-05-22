@@ -6,11 +6,15 @@
       <router-link to="/search" class="router-btn">영화 검색</router-link>
       <router-link to="/community" class="router-btn">게시판</router-link>
 
-      <router-link to="/signin" class="router-btn">로그인</router-link>
-      <router-link to="/signup" class="router-btn">가입</router-link>
-      
-      <p v-if="username">{{ username }}님 환영합니다</p>
-      <button v-if="username" @click="signout">로그아웃</button>
+      <div v-if="!username">
+        <router-link to="/login">로그인</router-link> |
+        <router-link to="/signup">가입</router-link> |
+      </div>
+
+      <div>
+        <p v-if="username">{{ username }}님 환영합니다</p>
+        <button v-if="username" @click="logOut">로그아웃</button>
+      </div>
 
       <div class="searchbox">
         <label for="searchinput"></label>
@@ -18,7 +22,6 @@
         <button class="search-btn" @click="search()">검색</button>
       </div>
 
-      <!-- 게시판은 로그인 했을때만 보이게, 로그인 안했으면 안보이게 만들어야함  -->
     </nav>
     <div class="router-section"></div>
     <router-view/>
@@ -46,22 +49,23 @@ export default {
     search() {
       const inputtext = this.inputtext
       // 이거 담아서 Moviedetail로 연결시켜줘야하는데 어떻게 하지?
-      console.log(inputtext)
       this.$store.state.moviesearch = inputtext
       if (this.$route.path !== '/search') {
         this.$router.push({ name:'search' })
       } 
     },
 
-   signout() {
+    logOut() {
       const token = this.$store.state.token
-      this.$store.dispatch('signout', token)
+      this.$store.dispatch('logOut', token)
     },
+    
     connetApi(){
       this.$store.dispatch('getMovies')
     },
     
-  }
+  },
+
 }
 
 </script>

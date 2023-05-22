@@ -59,10 +59,11 @@ export default new Vuex.Store({
       // state.lastname = userinfo.last_name
     },
 
-    CLEAR_USER_INFO(state) {
+    DELETE_TOKEN_AND_USER_INFO(state) {
       state.useridx = null
       state.username = null
-      router.push({ name: 'home' }) 
+      state.token = null
+      location.reload()
     },
     
     CONNECT_API(state, movies) {
@@ -130,7 +131,7 @@ export default new Vuex.Store({
       const username = payload.userid
       const password1 = payload.password1
       const password2 = payload.password2
-
+      
       axios({
         method: 'post',
         url: `${API_URL}/accounts/signup/`,
@@ -139,10 +140,11 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          const token = res.data.key
+          const token = res.data.key;
           context.commit('SAVE_TOKEN', token)
-          
-          axios({
+    
+          // return으로 promising
+          return axios({
             method: 'get',
             url: `${API_URL}/accounts/user/`,
             headers: {
@@ -156,18 +158,21 @@ export default new Vuex.Store({
               console.log(error)
             })
 
-        .catch((error) => {
-          console.log(error)
         })
-      })
+        .catch((error) => {
+          if (error.response && error.response.status === 400) {
+            alert('ID 중복인 것 같다.. 아닐수도 ㅎ')
+          } else {
+            console.log(error)
+          }
+        })
     },
 
-    signIn(context, payload) {
+    logIn(context, payload) {
       const username = payload.userid
       const password = payload.password
       axios({
         method: 'post',
-        // 주소가 signin으로 작성된 것에 유의 (login이 아니다)
         url: `${API_URL}/accounts/login/`, 
         data: {
           username, password
@@ -177,7 +182,7 @@ export default new Vuex.Store({
           const token = res.data.key
           context.commit('SAVE_TOKEN', token)
           
-          axios({
+          return axios({
             method: 'get',
             url: `${API_URL}/accounts/user/`,
             headers: {
@@ -191,29 +196,37 @@ export default new Vuex.Store({
               console.log(error)
             })
           })
-        .catch((err) => console.log(err))
+
+        .catch((error) => {
+          if (error.response && error.response.status === 400) {
+            alert('아이디 또는 비밀번호가 일치하지 않습니다.')
+          } else {
+            console.log(error)
+          }
+        })
     },
 
 
-    // signout(context, token) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/logout/`, 
-    //     headers: {
-    //       Authorization: `Token ${token}`
-    //     }
-    //   })
-    //     .then((res) => {
-    //       // location.reload()
-    //       console.log(res)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
-  
-  
+    logOut(context, token) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/logout/`, 
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
+      .then((res) => {
+        context.commit('DELETE_TOKEN_AND_USER_INFO')
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },  
+
+
   },
+  
 
   modules: {
   }

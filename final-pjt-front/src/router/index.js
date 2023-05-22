@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import SignInView from '../views/SignInView.vue'
+import LogInView from '../views/LogInView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import RecommendView from '../views/RecommendView.vue'
 import SearchView from '../views/SearchView.vue'
@@ -30,9 +30,9 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   // },
   {
-    path: '/signin',
-    name: 'signin',
-    component: SignInView
+    path: '/login',
+    name: 'login',
+    component: LogInView
   },
   {
     path:'/signup',
