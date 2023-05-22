@@ -27,7 +27,6 @@ export default {
       const mouseX = event.clientX;
       const containerWidth = movieList.offsetWidth;
       const speed = ((containerWidth/2) - mouseX ) * 10; // Adjust the speed factor as needed
-      console.log(speed)
       movieList.style.transform = `translateX(${speed}%)`;
       });
       movieList.addEventListener('mouseleave', () => {
