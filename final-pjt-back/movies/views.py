@@ -98,9 +98,9 @@ def get_movies_search_API(request):
 @api_view(['GET'])
 def get_movie_detail_API(request, movie_id):
     if request.method == 'GET':
-        # MOVIE_ID = movie_id
-        # API_URL = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=ko-kr'
-        API_URL = f'https://api.themoviedb.org/3/movie/11?api_key=af5292844a6af1d68203e1c0b3104130&language=ko-kr'
+        MOVIE_ID = movie_id
+        API_URL = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=ko-kr'
+        # API_URL = f'https://api.themoviedb.org/3/movie/11?api_key=af5292844a6af1d68203e1c0b3104130&language=ko-kr'
         movie_detail_API = requests.get(API_URL).json()
         return Response(movie_detail_API)
 
