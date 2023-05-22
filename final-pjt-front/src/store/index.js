@@ -163,12 +163,11 @@ export default new Vuex.Store({
       })
     },
 
-    signIn(context, payload) {
+    logIn(context, payload) {
       const username = payload.userid
       const password = payload.password
       axios({
         method: 'post',
-        // 주소가 signin으로 작성된 것에 유의 (login이 아니다)
         url: `${API_URL}/accounts/login/`, 
         data: {
           username, password
@@ -196,7 +195,7 @@ export default new Vuex.Store({
     },
 
 
-    signout(context, token) {
+    logOut(context, token) {
       axios({
         method: 'post',
         url: `${API_URL}/accounts/logout/`, 

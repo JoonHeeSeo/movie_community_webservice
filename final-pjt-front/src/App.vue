@@ -7,13 +7,13 @@
       <router-link to="/community">게시판</router-link>|
 
       <div v-if="!username">
-        <router-link to="/signin">로그인</router-link> |
+        <router-link to="/login">로그인</router-link> |
         <router-link to="/signup">가입</router-link> |
       </div>
 
       <div>
         <p v-if="username">{{ username }}님 환영합니다</p>
-        <button v-if="username" @click="signout">로그아웃</button>
+        <button v-if="username" @click="logOut">로그아웃</button>
       </div>
 
       <div class="searchbox">
@@ -56,10 +56,11 @@ export default {
       } 
     },
 
-   signout() {
+    logOut() {
       const token = this.$store.state.token
-      this.$store.dispatch('signout', token)
+      this.$store.dispatch('logOut', token)
     },
+    
     connetApi(){
       this.$store.dispatch('getMovies')
     },
