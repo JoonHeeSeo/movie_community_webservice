@@ -1,39 +1,74 @@
 <template>
   <div>
-    <h1>
-      MovieDetailView
+    <h1>MovieDetailView</h1>
       <br>
-      {{ moviedetail }}
-      {{ movie }}
-    </h1>
+      <!-- <p>{{ movie }}</p> -->
+
+      <p>{{ movie.adult }}</p>
+      <p>{{ movie.backdrop_path }}</p>
+      <p>{{ movie.belongs_to_collection.id }}</p>
+      <p>{{ movie.belongs_to_collection.name }}</p>
+      <p>{{ movie.belongs_to_collection.poster_path }}</p>
+      <p>{{ movie.belongs_to_collection.backdrop_path }}</p>
+      <p>{{ movie.budget }}</p>
+      <p>{{ movie.genres }}</p>
+      <p>{{ movie.homepage }}</p>
+      <p>{{ movie.id }}</p>
+      <p>{{ movie.imdb_id }}</p>
+      <p>{{ movie.original_language }}</p>
+      <p>{{ movie.original_title }}</p>
+      <p>{{ movie.overview }}</p>
+      <p>{{ movie.popularity }}</p>
+      <p>{{ movie.poster_path }}</p>
+      <p>{{ movie.production_companies }}</p>
+      <p>{{ movie.production_countries }}</p>
+      <p>{{ movie.release_date }}</p>
+      <p>{{ movie.revenue }}</p>
+      <p>{{ movie.runtime }}</p>
+      <p>{{ movie.spoken_languages }}</p>
+      <p>{{ movie.status }}</p>
+      <p>{{ movie.tagline }}</p>
+      <p>{{ movie.title }}</p>
+      <p>{{ movie.video }}</p>
+      <p>{{ movie.vote_average }}</p>
+      <p>{{ movie.vote_count }}</p>
+
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-const API_URL = "https://api.themoviedb.org/3/search/movie?api_key=af5292844a6af1d68203e1c0b3104130&query="
+const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name:'MovieDetailView',
   data(){
     return{
-      movie: null
+      movie: null,
+      movieId: null,
     }
   },
-  updated() {
-    axios({
-      method:'get',
-      url: `${API_URL}` + this.$store.state.moviedetail
-    })
-    .then(res =>
-      this.movie = res.data.results
-    )
-    .catch(err => console.log(err))
+  
+  created() {
+    this.movieId = this.$route.params.movie_id;
+    this.getMovieDetail()
   },
-  computed: {
-    moviedetail: function() {
-      return this.$store.state.moviedetail
-    }
+  
+  methods:{
+    getMovieDetail() {
+      const movieId = this.movieId
+
+      axios({
+          method:'get',
+          url: `${API_URL}/movies/get/movie_detail/${movieId}/`,
+        })
+        .then((res) => {
+          this.movie = res.data
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+    },   
   }
 }
 </script>

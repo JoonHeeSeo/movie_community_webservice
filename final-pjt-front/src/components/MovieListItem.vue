@@ -7,7 +7,10 @@
           <div class="ticket-content">
             <p class="ticket-movie-title">{{ movie.title }}</p>
             <p class="ticket-movie-vote">Rate: {{ movie.vote_average }}</p>
+            
+            <router-link :to="{ name: 'moviedetail', params: { movie_id: movie.movie_id }}">
             <button class="ticket-detail-btn">자세히 보기</button>
+            </router-link>
           </div>
         </div>
       </div>
