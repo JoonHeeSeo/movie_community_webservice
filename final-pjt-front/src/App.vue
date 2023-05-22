@@ -18,7 +18,7 @@
 
       <div class="searchbox">
         <label for="searchinput"></label>
-        <input type="text" v-on:keyup.enter="search()" id="inputtext" v-model="inputtext" style="border-radius:4px">
+        <input type="text" v-on:keyup.enter="search()" id="searchInput" v-model="searchInput" style="border-radius:4px">
         <button class="search-btn" @click="search()">검색</button>
       </div>
 
@@ -33,7 +33,7 @@
 export default {
   data() {
     return{
-      inputtext: null,
+      searchInput: '',
       currentRoute: window.location.pathname
     }
   },
@@ -47,13 +47,23 @@ export default {
   },
   methods: {
     search() {
-      const inputtext = this.inputtext
-      // 이거 담아서 Moviedetail로 연결시켜줘야하는데 어떻게 하지?
-      this.$store.state.moviesearch = inputtext
+
+      const searchInput = this.searchInput
+      this.$store.dispatch('saveSearchInput', searchInput)
+      
+      if (this.searchInput.trim() === null) {
+        alert('Please enter a search query.');
+        return;
+      }
+
       if (this.$route.path !== '/search') {
         this.$router.push({ name:'search' })
-      } 
+        location.reload()
+      } else {
+        location.reload()
+      }
     },
+    
 
     logOut() {
       const token = this.$store.state.token

@@ -21,7 +21,7 @@ export default new Vuex.Store({
     articles: [],
     article: null,
     movies: [],
-    moviesearch: null,
+    searchInput: null,
     moviedetail: null,
   },
 
@@ -71,6 +71,10 @@ export default new Vuex.Store({
       console.log(movies)
     },
     
+    SAVE_SEARCH_INPUT(state, searchInput) {
+      state.searchInput = searchInput
+    },
+
   },
 
   actions: {
@@ -224,6 +228,9 @@ export default new Vuex.Store({
       })
     },  
 
+    saveSearchInput(context, searchInput) {
+      context.commit('SAVE_SEARCH_INPUT', searchInput)
+    },
 
   },
   
