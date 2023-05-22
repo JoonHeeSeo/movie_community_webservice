@@ -62,7 +62,8 @@ export default new Vuex.Store({
     DELETE_TOKEN_AND_USER_INFO(state) {
       state.useridx = null
       state.username = null
-      router.push({ name: 'home' }) 
+      state.token = null
+      location.reload()
     },
     
     CONNECT_API(state, movies) {
@@ -162,12 +163,11 @@ export default new Vuex.Store({
       })
     },
 
-    signIn(context, payload) {
+    logIn(context, payload) {
       const username = payload.userid
       const password = payload.password
       axios({
         method: 'post',
-        // 주소가 signin으로 작성된 것에 유의 (login이 아니다)
         url: `${API_URL}/accounts/login/`, 
         data: {
           username, password
@@ -195,39 +195,39 @@ export default new Vuex.Store({
     },
 
 
-    // signout(context, token) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/logout/`, 
-    //     headers: {
-    //       Authorization: `Token ${token}`
-    //     }
-    //   })
-    //   .then((res) => {
-    //     context.commit('DELETE_TOKEN_AND_USER_INFO')
-    //     console.log(res)
+    logOut(context, token) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/logout/`, 
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
+      .then((res) => {
+        context.commit('DELETE_TOKEN_AND_USER_INFO')
+        console.log(res)
               
 
 
-    //     // axios({
-    //     //   method: 'get',
-    //     //   url: `${API_URL}/accounts/user/`,
-    //     //   headers: {
-    //     //     Authorization: `Token ${token}`
-    //     //   }
-    //     // })
-    //     //   .then((response) => {
-    //     //     context.commit('SAVE_USER_INFO', response.data)
-    //     //   })
-    //     //   .catch((error) => {
-    //     //     console.log(error)
-    //     //   })
+        // axios({
+        //   method: 'get',
+        //   url: `${API_URL}/accounts/user/`,
+        //   headers: {
+        //     Authorization: `Token ${token}`
+        //   }
+        // })
+        //   .then((response) => {
+        //     context.commit('SAVE_USER_INFO', response.data)
+        //   })
+        //   .catch((error) => {
+        //     console.log(error)
+        //   })
 
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-    // },  
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },  
 
 
   },

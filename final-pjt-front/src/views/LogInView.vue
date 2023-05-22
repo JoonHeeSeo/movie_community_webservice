@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 style="text-align:center; margin-top:80px; margin-bottom: 20px;">로그인</h2>
-    <form @submit.prevent = "signIn" class="login-container">
+    <form @submit.prevent = "logIn" class="login-container">
       <input type="text" id="userid" v-model="userid" placeholder="아이디를 입력하세요" style="margin-bottom: 10px;">
       <br>
       <input type="text" id="password" v-model="password" placeholder="비밀번호를 입력하세요">
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name:'SignInView',
+  name:'LogInView',
   data() {
     return {
       userid: null,
@@ -21,7 +21,7 @@ export default {
     }
   },
   methods: {
-    signIn() {
+    logIn() {
       const userid = this.userid
       const password = this.password
 
@@ -29,7 +29,7 @@ export default {
         userid, password
       }
 
-      this.$store.dispatch('signIn', payload)
+      this.$store.dispatch('logIn', payload)
     }
   }
 }
