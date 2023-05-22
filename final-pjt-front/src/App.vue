@@ -3,12 +3,12 @@
     <nav class="container">
       <router-link to="/" class="router-btn">홈</router-link>
       <router-link to="/recommend" class="router-btn">영화추천</router-link>
-      <router-link to="/search" class="router-btn">영화 검색</router-link>
+      <!-- <router-link to="/search" class="router-btn">영화 검색</router-link> -->
       <router-link to="/community" class="router-btn">게시판</router-link>
 
       <div v-if="!username">
-        <router-link to="/login">로그인</router-link> |
-        <router-link to="/signup">가입</router-link> |
+        <router-link to="/login" class="router-btn">로그인</router-link>
+        <router-link to="/signup" class="router-btn">가입</router-link>
       </div>
 
       <div>
