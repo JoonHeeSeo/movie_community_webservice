@@ -65,8 +65,9 @@ export default new Vuex.Store({
       router.push({ name: 'home' }) 
     },
     
-    CONNECT_API(state,movies) {
+    CONNECT_API(state, movies) {
       state.movies = movies
+      console.log(movies)
     },
     
   },
