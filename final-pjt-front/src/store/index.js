@@ -59,7 +59,7 @@ export default new Vuex.Store({
       // state.lastname = userinfo.last_name
     },
 
-    CLEAR_USER_INFO(state) {
+    DELETE_TOKEN_AND_USER_INFO(state) {
       state.useridx = null
       state.username = null
       router.push({ name: 'home' }) 
@@ -202,17 +202,35 @@ export default new Vuex.Store({
     //       Authorization: `Token ${token}`
     //     }
     //   })
-    //     .then((res) => {
-    //       // location.reload()
-    //       console.log(res)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
-  
-  
+    //   .then((res) => {
+    //     context.commit('DELETE_TOKEN_AND_USER_INFO')
+    //     console.log(res)
+              
+
+
+    //     // axios({
+    //     //   method: 'get',
+    //     //   url: `${API_URL}/accounts/user/`,
+    //     //   headers: {
+    //     //     Authorization: `Token ${token}`
+    //     //   }
+    //     // })
+    //     //   .then((response) => {
+    //     //     context.commit('SAVE_USER_INFO', response.data)
+    //     //   })
+    //     //   .catch((error) => {
+    //     //     console.log(error)
+    //     //   })
+
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // },  
+
+
   },
+  
 
   modules: {
   }
