@@ -26,14 +26,16 @@
       </li>
     </div>
 
-    <div v-if="searchInput === null">      
+
+    <!-- 검색 결과가 없습니다도 해야하는디.. -->
+    <!-- <div v-if="searchInput === null">      
       <p>검색결과가 없습니다.</p>
     </div>
 
 
     <div v-if="movies === null">      
       <p>검색결과가 없습니다.</p>
-    </div>
+    </div> -->
 
 
   </div>
