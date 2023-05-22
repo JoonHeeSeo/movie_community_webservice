@@ -1,36 +1,34 @@
 <template>
   <div class="movie-list">
-    <!-- <h1>
-      <MovieListItem
-      v-for="movie in movies" :key="movie.id" :movie="movie"
-      />
-    </h1> -->
+    <h1>
+      <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie"/>
+    </h1>
     
     
     <div id="card-container">
-    </div>
-    <div id="loader">
-      <div class="skleton-card">1</div>
-      <div class="skleton-card">2</div>
-      <div class="skleton-card">3</div>
-      <div class="skleton-card">4</div>
-    </div>
-    <div class="card-actions">
-      <span> Showing
+      <div id="loader">
+        <div class="skleton-card">1</div>
+        <div class="skleton-card">2</div>
+        <div class="skleton-card">3</div>
+        <div class="skleton-card">4</div>
+      </div>
+      <div class="card-actions">
+        <span> Showing
         <span id="card-count"></span> of
         <span id="card-total"></span> cards
-      </span>
+        </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// import MovieListItem from '@/components/MovieListItem';
+import MovieListItem from '@/components/MovieListItem';
 
 export default {
   name:'MovieList',
   components: {
-    // MovieListItem,
+    MovieListItem,
   },
   computed:{
     movies() {
