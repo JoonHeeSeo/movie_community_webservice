@@ -1,19 +1,16 @@
 <template>
   <div>
-    <div class="poster-container">
-      <img :src="getMoviePoster()" alt="movie_post" class="poster">
-    </div>
-    <div class="ticket-container">
-      <div class="ticket-content">
-        <h4 class="ticket-movie-title">
-          {{ movie.title }}
-        </h4>
-        <p class="ticket-movie-vote">
-          Rate: {{ movie.vote_average }}
-        </p>
-        <button class="ticket__detail-btn">자세히 보기</button>
+    <div classs="main-container">
+      <div class="poster-container">
+        <img :src="getMoviePoster()" alt="movie_post" class="poster">
+        <div class="ticket-container">
+          <div class="ticket-content">
+            <p class="ticket-movie-title">{{ movie.title }}</p>
+            <p class="ticket-movie-vote">Rate: {{ movie.vote_average }}</p>
+            <button class="ticket-detail-btn">자세히 보기</button>
+          </div>
+        </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -33,31 +30,55 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+
+.main-container {
+  width: 270px;
+  height: 540px;
+  position: relative;
+  margin: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  background: #f4a7bb;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  height: 100vh;
+}
+
 .poster-container {
   width: 230px;
+  margin: 20px;
   position: relative;
-  left: 20px;
-  z-index: 9999;
+  left: 30px;
+  z-index: 9999
 }
+
 .poster {
   width: 100%;
+  height: 330px;
   box-shadow: 0, 5px, 20px, rgba(0, 5px, 20px, 0.6);
+  position: absolute;
+  z-index: 1;
+
 }
+
 .ticket-container {
   background: #fff;
-  width: 270px;
-  height: 520px;
+  width: 250px;
+  height: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   border-radius: 5px;
-  position: relative;
-  top: 20px;
+  position: relative; left: -10px;
+  top: 60px;
   box-shadow: 0 5px 20px 3px rgba(0, 0, 0, 0.6);
   opacity: 0;
 }
 
-.main-container:hover .ticket-container {
+.poster-container:hover .ticket-container {
   opacity: 1;
   animation: bounceIn 0.6s linear;
 }
@@ -101,25 +122,30 @@ export default {
 	}
 }
 
-.ticket__content {
+.ticket-content {
 	width: 100%;
 	position: absolute;
 	bottom: 0;
 	text-align: center;
 }
 
-.ticket__movie-title {
+.ticket-movie-title {
+  color:#2f2f2f;
 	text-transform: uppercase;
+  font-size: 20px;
+  font-weight:bold;
 	margin-bottom: 5px;
 }
 
-.ticket__movie-slogan {
+.ticket-movie-vote {
+  margin-right:20px;
+  text-align: right;
 	color: #999;
 	font-size: 0.9rem;
 	margin-bottom: 20px;
 }
 
-.ticket__detail-btn {
+.ticket-detail-btn {
 	cursor: pointer;
 	width: 100%;
 	background: #2f2f2f;
