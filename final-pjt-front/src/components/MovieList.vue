@@ -1,7 +1,10 @@
 <template>
-  <div class="movie-list" id="movieList">
-    <h3 class="list-name"> 평점 높은 순 </h3>
-    <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie"/>
+  <div>
+    <h3 style="margin-top:90px; color:#000000; margin-left:30px">Top Rated</h3>
+    <div class="movie-list" id="movieList">
+      <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie"/>
+    </div>
+
   </div>
 </template>
 
@@ -50,11 +53,4 @@ export default {
   transform: translateX(-10000%)
 }
 
-.list-name {
-  margin-top:20px;
-  margin-left: 20px;
-  text-align: left;
-  color: #000;;
-  height: 125px;
-}
 </style>
