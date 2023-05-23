@@ -9,12 +9,8 @@
             <p class="ticket-movie-vote">Rate: {{ movie.vote_average }}</p>
 
             <button class="like-btn" @click.prevent="likeMovie(movie.movie_id)">
-              <span v-if="likeMoviesId.includes(movie.movie_id)">
-                ❤️
-              </span>
-              <span v-else>
-                🤍
-              </span>
+              <span v-if="likeMoviesId.includes(movie.movie_id)">❤️</span>
+              <span v-else>🤍</span>
             </button>
             
             <router-link :to="{ name: 'moviedetail', params: { movie_id: movie.movie_id }}">
