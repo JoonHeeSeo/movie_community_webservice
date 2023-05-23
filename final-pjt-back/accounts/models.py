@@ -6,4 +6,3 @@ class User(AbstractUser):
     like_movies = models.JSONField(default=list)
 
 
-

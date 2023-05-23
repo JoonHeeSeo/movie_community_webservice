@@ -8,9 +8,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Movie
+from .models import Movie, Comment
 from accounts.models import User
-from .serializers import MovieSerializer, UserSerializer
+from .serializers import MovieSerializer, CommentSerializer, UserSerializer
 
 
 import time
@@ -116,7 +116,6 @@ def get_now_playing_movies_API(request):
         return Response(now_playing_movies_API['results'])
 
 
-
 @api_view(['GET'])
 def get_upcoming_movies_API(request):
     if request.method == 'GET':
@@ -124,12 +123,6 @@ def get_upcoming_movies_API(request):
         API_URL = f'https://api.themoviedb.org/3/movie/upcoming?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
         upcoming_movies_API = requests.get(API_URL).json()
         return Response(upcoming_movies_API['results'])
-
-
-
-
-
-
 
 
 @api_view(['GET', 'POST'])
@@ -170,16 +163,15 @@ def profile_get(request, username):
     return Response(movie_title)
 
 
-
-
-
-
-# 여기
-# 여기
-# 여기
-# 여기
-# 여기
-# 여기
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def comment_list(request):
+    if request.method == 'GET':
+        comments = get_list_or_404(Comment)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+    
+    
 @api_view(['GET', 'DELETE', 'PUT'])
 @permission_classes([IsAuthenticated])
 def comment_detail(request, comment_pk):
@@ -198,48 +190,39 @@ def comment_detail(request, comment_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
-        
 
-# 여기
-# 여기
-# 여기
-# 여기
-# 여기
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def comment_get(request, movie_id):
+    comments = Comment.objects.filter(movie_id=movie_id)
+
+    serializer = []
+    for comment in comments:
+        serializer.append({
+            'id': comment.id,
+            'content': comment.content,
+            'created_at': comment.created_at,
+            'updated_at': comment.updated_at,
+            'user': comment.user.username,
+        })
+
+    return Response(serializer)
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def comment_create(request, movie_id):
-    article = get_object_or_404(Movie, pk=movie_id)
-    serializer = CommentSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(article=article, user=request.user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    content = request.data['content']
+    comment = Comment(movie_id=movie_id, content=content, user=request.user)
+
+    try:
+        comment.save()
+        print(comment)
+        return Response({"result": "OK"})
+
+    except Exception as e:
+        return Response({"result": str(e)})
 
 
 
-        # if article.like_users.filter(pk=request.user.pk).exists():
-        #     article.like_users.remove(request.user)
-        # else:
-        #     article.like_users.add(request.user)
-
-        # serializer = ArticleSerializer(article)
-        # return Response(serializer.data)
-    
-
-# ORM필터링
-# Movies_in_db.filter(movie_id=new_movie_id).exists()
-
-
-
-# @api_view(['GET'])
-# def get_movies_API(request):
-#     if request.method == 'GET':
-
-#         API_URL = f'https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=ko-kr&page=1'
-
-
-#         # print(f'{API_PAGE}번 페이지를 불러오는 중')
-
-
-#         # API_URL에 요청하여 얻은 데이터
-#         movies_API = requests.get(API_URL).json()
-#         return Response(movies_API['results'])

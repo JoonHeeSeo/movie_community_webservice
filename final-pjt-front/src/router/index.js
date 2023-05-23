@@ -81,8 +81,8 @@ const routes = [
     component: ArticleCreateView
   },
   {
-    path: '/moviedetail',
-    name: 'moviedetail',
+    path: '/moviedetail/:movie_id',
+    name: 'moviedetail/:movie_id',
     component: MovieDetailView
   },
 ]
