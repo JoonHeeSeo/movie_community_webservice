@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="movie-detail-container" style="display:flex; padding: 20px;">
+    <div class="movie-detail-container" style="display:flex; padding: 20px; justify-content:center;">
       <img :src="getMoviePoster()" alt="movie_post" class="detail-poster">
       <div style="width:700px">
         <h1 v-if="movie.title" class="detail-title">{{ movie.title }}</h1>
