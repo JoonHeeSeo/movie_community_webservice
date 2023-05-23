@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 style="text-align:center; margin-top:80px; margin-bottom: 20px;">로그인</h2>
+    <h2 style="text-align:center; margin-top:80px; margin-bottom: 20px; color:black;">로그인</h2>
     <form @submit.prevent = "logIn" class="login-container">
       <input type="text" id="userid" v-model="userid" placeholder="아이디를 입력하세요" style="margin-bottom: 10px;">
       <br>

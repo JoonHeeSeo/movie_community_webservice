@@ -1,22 +1,26 @@
 <template>
   <div>
-    <h1>MovieDetailView</h1>
-    <div class="movie-detail-container" style="display:flex; ">
+    <div class="movie-detail-container" style="display:flex; padding: 20px;">
       <img :src="getMoviePoster()" alt="movie_post" class="detail-poster">
-      <div >
-        <p v-if="movie.title">제목: {{ movie.title }} </p>
-
+      <div style="width:700px">
+        <h1 v-if="movie.title" class="detail-title">{{ movie.title }}</h1>
+        <span v-if="movie.original_title">({{ movie.original_title }})</span>
+        <b v-if="movie.vote_average" style="float:right;">평점: ⭐{{ movie.vote_average }}</b>
+        <br>
+        <span v-if="movie.runtime" class="detail-movie-time">상영시간: {{ movie.runtime }}분</span>
+        <span v-if="movie.genres && movie.genres.length > 0" class="detail-movie-time">장르: 
+          <span v-for="(genre, idx) in movie.genres" :key="{idx}">
+          {{ genre.name }}
+          </span>
+        </span>
+        <h2 style="margin:15px 0">요약</h2>
+        <hr style="border: solid black 1px">
+        <p v-if="movie.overview" class="detail-overview">{{ movie.overview }}</p>
       </div>
-      <p v-if="movie.original_title">오리지날 제목: {{ movie.original_title }}</p>
-      <p v-if="movie.vote_average">평점: {{ movie.vote_average }}</p>
       
-      <p v-if="movie.genres && movie.genres.length > 0">장르: {{ movie.genres }}</p>
-      <p v-if="movie.overview">요약: {{ movie.overview }}</p>
       
-      <p v-if="movie.runtime">상영시간: {{ movie.runtime }}분</p>
-      <p v-if="movie.video">{{ movie.video }}</p>
-      
-      <p v-if="movie.backdrop_path">{{ movie.backdrop_path }}</p>
+      <!-- <p v-if="movie.video">{{ movie.video }}</p>
+      <p v-if="movie.backdrop_path">{{ movie.backdrop_path }}</p> -->
       <!-- genre in genres로 수정해놓을 수 있도록 -->
     </div>
       <!-- <p>{{ movie }}</p> -->
@@ -96,10 +100,29 @@ export default {
 
 <style>
 .movie-detail-container{
-  background:#ffffff;
   color:#000000;
   width: auto;
   height: auto;
+  flex-wrap: wrap;
 }
-
+.detail-poster {
+  height: 500px;
+  width: 300px;
+  margin: 20px;
+}
+.detail-title{
+  margin-top:20px;
+  font-size: 50px;
+  width: 700px;
+  font-weight:bold;
+}
+.detail-movie-time{
+  font-size: 15px;
+  color: #4d454b;
+  margin-right: 10px;
+}
+.detail-overview{
+  margin-top: 20px;
+  font-size: 20px;
+}
 </style>
