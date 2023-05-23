@@ -7,7 +7,9 @@
           <div class="ticket-content">
             <p class="ticket-movie-title">{{ movie.title }}</p>
             <p class="ticket-movie-vote">Rate: {{ movie.vote_average }}</p>
-            
+            <button class="like-btn" @click="toggleHeart()">
+              {{  isActive ? '❤️' : '🤍' }}
+            </button>
             <router-link :to="{ name: 'moviedetail', params: { movie_id: movie.movie_id }}">
             <button class="ticket-detail-btn">자세히 보기</button>
             </router-link>
@@ -24,11 +26,19 @@ export default {
   props: {
     movie: Object,
   },
+  data(){
+    return {
+      isActive: false
+    }
+  },
   methods: {
     getMoviePoster() {
       return "https://image.tmdb.org/t/p/w200" + this.movie.poster_path
+    },
+    toggleHeart() {
+      this.isActive = !this.isActive
     }
-  }
+  },
 }
 </script>
 
@@ -141,8 +151,7 @@ body {
 }
 
 .ticket-movie-vote {
-  margin-right:20px;
-  text-align: right;
+  text-align: center;
 	color: #999;
 	font-size: 0.9rem;
 	margin-bottom: 20px;
@@ -160,6 +169,22 @@ body {
 	border: 0;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+}
+
+.like-btn{
+  position: absolute;
+  font-size: 20px;
+  border: none;
+  background: none;
+  right: 15px;
+  bottom: 65px;
+  cursor: pointer;
+}
+.like-btn:hover {
+  color:#fff
+}
+.like-btn:active {
+  transform: translateY(4px);
 }
 
 </style>
