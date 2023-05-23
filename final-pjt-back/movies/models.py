@@ -25,6 +25,15 @@ class Movie(models.Model):
 
 
 
+class Comment(models.Model):
+    movie_id = models.IntegerField()
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comment_user')
+
+
     # TMDB DATA 필드 순서
 
     # adult = models.TextField(null=True, blank=True)

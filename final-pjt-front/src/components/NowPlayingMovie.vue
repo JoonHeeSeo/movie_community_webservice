@@ -13,7 +13,7 @@
               <span v-else>🤍</span>
             </button>
             
-            <router-link :to="{ name: 'moviedetail', params: { movie_id: nowplaying.movie_id }}">
+            <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: nowplaying.id }}">
             <button class="ticket-detail-btn">자세히 보기</button></router-link>
           </div>
         </div>

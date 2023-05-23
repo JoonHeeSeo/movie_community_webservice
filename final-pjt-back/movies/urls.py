@@ -13,7 +13,10 @@ urlpatterns = [
     path('<int:movie_id>/likes/', views.movie_likes),
     path('profile/<str:username>/', views.profile_get),
 
+
+    path('comments/', views.comment_list),
     path('comments/<int:comment_pk>/', views.comment_detail),
-    path('<int:movie_id>/comments/', views.comment_create),
+    path('<int:movie_id>/comments/get/', views.comment_get),
+    path('<int:movie_id>/comments/create/', views.comment_create),
 
 ]
