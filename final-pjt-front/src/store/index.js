@@ -15,9 +15,10 @@ export default new Vuex.Store({
   ],
 
   state: {
+    token: null,
     useridx: null,
     username: null,
-    token: null,
+    likeMoviesId: [],
     articles: [],
     article: null,
     movies: [],

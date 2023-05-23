@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from .models import Movie
-from .serializers import MovieSerializer
+from .serializers import MovieSerializer, UserSerializer
 
 
 import time
@@ -123,6 +123,62 @@ def get_upcoming_movies_API(request):
         upcoming_movies_API = requests.get(API_URL).json()
         return Response(upcoming_movies_API['results'])
 
+
+
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from accounts.models import User
+
+
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def movie_likes(request, movie_id):
+    if request.method == 'GET':
+        user = User.objects.get(username=request.user)
+        serializer = UserSerializer(user)
+        return Response(serializer.data['like_movies'])
+
+
+    elif request.method == 'POST':
+        user = User.objects.get(username=request.user)
+
+        if movie_id in user.like_movies:
+            user.like_movies.remove(movie_id)
+        else:
+            user.like_movies.append(movie_id)
+
+        user.save()
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data['like_movies'])
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def profile_get(request, username):
+    user = User.objects.get(username=username)
+    serializer = UserSerializer(user)
+
+    movie_title = []
+    for MOVIE_ID in serializer.data['like_movies']:
+        API_URL = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=ko-kr'
+        movie_detail_API = requests.get(API_URL).json()
+        movie_title.append(movie_detail_API['title'])
+
+    return Response(movie_title)
+
+
+
+        # if article.like_users.filter(pk=request.user.pk).exists():
+        #     article.like_users.remove(request.user)
+        # else:
+        #     article.like_users.add(request.user)
+
+        # serializer = ArticleSerializer(article)
+        # return Response(serializer.data)
+    
 
 # ORM필터링
 # Movies_in_db.filter(movie_id=new_movie_id).exists()

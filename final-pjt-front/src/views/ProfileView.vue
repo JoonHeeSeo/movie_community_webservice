@@ -5,7 +5,7 @@
 
 
     <br><br><br>
-    <form @submit.prevent="getArticleProfile()">
+    <form @submit.prevent="getMovieProfile()">
       <input type="submit" value="테스트용 버튼">
     </form>
     <br><br><br>
@@ -36,8 +36,16 @@
 
 
     <p>좋아요 누른 영화</p>
-    <hr>
 
+    <div v-if="movies.length > 0">
+      <div v-for="movie in movies" :key="movie">
+        <p>{{ movie }}</p>
+      </div>
+    </div>
+    <div v-else>
+      <p>좋아요를 누른 영화가 없습니다.</p>
+    </div>
+    <hr>
 
   </div>
 </template>
@@ -53,7 +61,7 @@ export default {
       username: null,
       articles: [],
       comments: [],
-
+      movies: [],
     }
   },
 
@@ -63,7 +71,7 @@ export default {
 
   created() {
     this.getArticleProfile()
-    // this.getMovieProfile()
+    this.getMovieProfile()
   },
 
   methods: {
@@ -85,8 +93,25 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
 
-    }
+    getMovieProfile() {
+      const username = this.$route.params.username
+
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/profile/${username}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+        .then((res) => {
+          this.movies = res.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
   },
 
 
