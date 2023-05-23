@@ -7,12 +7,18 @@
           <div class="ticket-content">
             <p class="ticket-movie-title">{{ movie.title }}</p>
             <p class="ticket-movie-vote">Rate: {{ movie.vote_average }}</p>
-            <button class="like-btn" @click="toggleHeart()">
-              {{  isActive ? '❤️' : '🤍' }}
+
+            <button class="like-btn" @click.prevent="likeMovie(movie.movie_id)">
+              <span v-if="likeMoviesId.includes(movie.movie_id)">
+                ❤️
+              </span>
+              <span v-else>
+                🤍
+              </span>
             </button>
+            
             <router-link :to="{ name: 'moviedetail', params: { movie_id: movie.movie_id }}">
-            <button class="ticket-detail-btn">자세히 보기</button>
-            </router-link>
+            <button class="ticket-detail-btn">자세히 보기</button></router-link>
           </div>
         </div>
       </div>
@@ -21,6 +27,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name:'MovieListItem',
   props: {
@@ -28,16 +37,34 @@ export default {
   },
   data(){
     return {
-      isActive: false
+      likeMoviesId : this.$store.state.likeMoviesId
     }
   },
+
   methods: {
     getMoviePoster() {
       return "https://image.tmdb.org/t/p/w200" + this.movie.poster_path
     },
-    toggleHeart() {
-      this.isActive = !this.isActive
-    }
+
+    likeMovie(movieId) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${movieId}/likes/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then((res) => {
+        this.likeMoviesId = res.data
+        console.log(res.data)
+      })
+      .catch((err => {
+        console.log(err)
+      }))
+    },
+
+
+    
   },
 }
 </script>

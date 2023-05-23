@@ -3,4 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
+    like_movies = models.JSONField(default=list)
+
+
+
+
