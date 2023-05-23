@@ -1,19 +1,17 @@
 <template>
   <div class="search-container">
-    <div v-if="movies !== null">
-      <ul v-for="movie in movies" :key="movie.id" :movie="movie" style="display: flex;">
-        <div class="poster-container">
-          <img :src="getMoviePoster(movie.poster_path)" alt="movie_post" class="search-poster">
-        </div>
-        <div class="search-info">
-          <h3>{{ movie.title }}</h3>
-          <p>출시일: {{ movie.release_date }}</p>
-          <p>평점: {{ movie.vote_average }}</p>
-          <p>요약: {{ movie.overview }}</p>
-
-          <router-link :to="{ name: 'moviedetail', params: { movie_id: movie.id }}">
-          <button class="ticket-detail-btn">자세히 보기</button>
-          </router-link>
+    <li v-for="movie in movies" :key="movie.id" :movie="movie" style="display:flex">
+      <div class="poster-container">
+        <img :src="getMoviePoster(movie.poster_path)" alt="movie_post" class="search-poster">
+      </div>
+      <div class="search-info">
+        <h3>{{ movie.title }}</h3>
+        <p>출시일: {{ movie.release_date }}</p>
+        <p>평점: {{ movie.vote_average }}</p>
+        <p>요약: {{ movie.overview }}</p>
+        <router-link :to="{ name: 'moviedetail', params: { movie_id: movie.id }}">          
+          <button class="search-detail-btn">자세히 보기</button>
+        </router-link>
           
           <!-- <p>{{ movie.vote_count }}</p> -->
           <!-- <p> adult : {{ movie.adult }}</p> -->
@@ -27,21 +25,10 @@
           <p>{{ movie.video }}</p> -->
 
         </div>
-      </ul>
-    </div>
-
-
-    <!-- 검색 결과가 없습니다도 해야하는디.. -->
-    <!-- <div v-if="searchInput === null">      
+    </li>
+    <div v-if="movies === false">      
       <p>검색결과가 없습니다.</p>
     </div>
-
-
-    <div v-if="movies === null">      
-      <p>검색결과가 없습니다.</p>
-    </div> -->
-
-
   </div>
 </template>
 
@@ -61,13 +48,6 @@ export default {
   created() {
     this.searchInput = this.$store.state.searchInput
     this.searchMovies()
-  },
-  
-  computed: {
-    searchedmovie: function() {
-      console.log(this.$store.state.searchInput)
-      return this.$store.state.searchInput
-    }
   },
   
   methods: {
@@ -97,7 +77,6 @@ export default {
 <style>
 .search-container{
   margin-top: 100px;
-  display: flex;
 }
 .search-poster {
   width: 100%;
@@ -114,5 +93,21 @@ export default {
   width: 500px;
   height: auto;
   z-index: 0;
+}
+
+
+.search-detail-btn {
+	cursor: pointer;
+	width: 100%;
+	background: #2f2f2f;
+	color: white;
+  margin-top: 30px;
+	padding: 15px 0;
+	font-size: 1rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	border: 0;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 </style>

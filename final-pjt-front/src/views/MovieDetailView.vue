@@ -1,7 +1,16 @@
 <template>
   <div>
     <h1>MovieDetailView</h1>
-      <br>
+    <div class="movie-detail-container">
+      <p v-if="movie.title">{{ movie.title }}</p>
+      <p v-if="movie.vote_average">{{ movie.vote_average }}</p>
+      
+      <p v-if="movie.genres && movie.genres.length > 0">{{ movie.genres['name'] }}</p>
+      <!-- genre in genres로 수정해놓을 수 있도록 -->
+
+
+
+    </div>
       <!-- <p>{{ movie }}</p> -->
 
       <p v-if="movie.adult">{{ movie.adult }}</p>
@@ -28,7 +37,6 @@
       <p v-if="movie.spoken_languages && movie.spoken_languages.length > 0">{{ movie.spoken_languages }}</p>
       <p v-if="movie.status">{{ movie.status }}</p>
       <p v-if="movie.tagline">{{ movie.tagline }}</p>
-      <p v-if="movie.title">{{ movie.title }}</p>
       <p v-if="movie.video">{{ movie.video }}</p>
       <p v-if="movie.vote_average">{{ movie.vote_average }}</p>
       <p v-if="movie.vote_count">{{ movie.vote_count }}</p>
@@ -75,5 +83,8 @@ export default {
 </script>
 
 <style>
-
+.movie-detail-container{
+  width: auto;
+  height: auto;
+}
 </style>
