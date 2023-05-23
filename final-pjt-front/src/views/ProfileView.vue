@@ -4,17 +4,10 @@
     <hr>
 
 
-    <br><br><br>
-    <form @submit.prevent="getMovieProfile()">
-      <input type="submit" value="테스트용 버튼">
-    </form>
-    <br><br><br>
-
-
     <p>작성한 글</p>
     <div v-if="articles.length > 0">
       <div v-for="article in articles" :key="article.id">
-        <p>{{ article.id }}번 글 {{ article.title }}</p>
+        <p>{{ article.id }}번 글 : {{ article.title }}</p>
       </div>
     </div>
     <div v-else>
@@ -26,7 +19,7 @@
     <p>작성한 댓글</p>
     <div v-if="comments.length > 0">
       <div v-for="comment in comments" :key="comment.id">
-        <p>{{ comment.article }}번 글에 {{ comment.content }}</p>
+        <p>{{ comment.article }}번 글에 단 댓글: {{ comment.content }}</p>
       </div>
     </div>
     <div v-else>
@@ -36,10 +29,9 @@
 
 
     <p>좋아요 누른 영화</p>
-
     <div v-if="movies.length > 0">
       <div v-for="movie in movies" :key="movie">
-        <p>{{ movie }}</p>
+        <li>{{ movie }}</li>
       </div>
     </div>
     <div v-else>

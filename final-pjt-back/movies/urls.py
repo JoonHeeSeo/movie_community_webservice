@@ -12,4 +12,8 @@ urlpatterns = [
 
     path('<int:movie_id>/likes/', views.movie_likes),
     path('profile/<str:username>/', views.profile_get),
+
+    path('comments/<int:comment_pk>/', views.comment_detail),
+    path('<int:movie_id>/comments/', views.comment_create),
+
 ]
