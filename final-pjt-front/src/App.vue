@@ -71,7 +71,9 @@ export default {
     },
     
     connetApi(){
-      this.$store.dispatch('getMovies')
+      this.$store.dispatch('getMovies');
+      this.$store.dispatch('getUpComing');
+      this.$store.dispatch('getNowPlaying');
     },
     
   },

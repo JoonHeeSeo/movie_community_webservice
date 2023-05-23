@@ -21,6 +21,8 @@ export default new Vuex.Store({
     articles: [],
     article: null,
     movies: [],
+    nowplayings: [],
+    upcomings: [],
     searchInput: null,
     moviedetail: null,
   },
@@ -42,6 +44,14 @@ export default new Vuex.Store({
 
     GET_MOVIES(state, movies) {
       state.movies = movies
+    },
+
+    GET_UPCOMING(state, movies) {
+      state.upcomings = movies
+    },
+
+    GET_NOWPLAYING(state, movies) {
+      state.nowplayings = movies
     },
 
     SAVE_TOKEN(state, token) {
@@ -115,6 +125,28 @@ export default new Vuex.Store({
       })
         .then(res =>
           context.commit('GET_MOVIES', res.data)
+        )
+        .catch(err => console.log(err))
+    },
+
+    getUpComing(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/get/upcoming_movies/`,
+      })
+        .then(res =>
+          context.commit('GET_UPCOMING', res.data)
+        )
+        .catch(err => console.log(err))
+    },
+
+    getNowPlaying(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/get/now_playing_movies/`,
+      })
+        .then(res =>
+          context.commit('GET_NOWPLAYING', res.data)
         )
         .catch(err => console.log(err))
     },
