@@ -86,10 +86,10 @@ def get_movies_API(request):
         return Response({"result": "OK"})
 
 
-@api_view(['POST'])
-def get_movies_search_API(request):
-    if request.method == 'POST':
-        SEARCH_INPUT = request.data['searchInput']
+@api_view(['GET'])
+def get_movies_search_API(request, movie_name):
+    if request.method == 'GET':
+        SEARCH_INPUT = movie_name
         API_URL = f'https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={SEARCH_INPUT}&language=ko-kr'
         searched_movies_API = requests.get(API_URL).json()
         return Response(searched_movies_API['results'])
@@ -122,7 +122,6 @@ def get_upcoming_movies_API(request):
         API_URL = f'https://api.themoviedb.org/3/movie/upcoming?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
         upcoming_movies_API = requests.get(API_URL).json()
         return Response(upcoming_movies_API['results'])
-
 
 
 # ORM필터링

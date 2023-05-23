@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
@@ -21,7 +22,6 @@ class Movie(models.Model):
     video = models.TextField(null=True, blank=True)
     poster_path = models.TextField(null=True, blank=True)
     backdrop_path = models.TextField(null=True, blank=True)
-
 
 
 

@@ -11,9 +11,10 @@
         <router-link to="/signup" class="router-btn">Sign Up</router-link>
       </div>
 
-      <div>
-        <p v-if="username">Welcome {{ username }} !</p>
-        <button v-if="username" @click="logOut">Sign Out</button>
+      <div v-if="username">
+        <p>Welcome
+          <router-link :to="{ name: 'profile/:username', params: { username: username } }">{{ username }}</router-link>!</p>
+        <button @click="logOut">Sign Out</button>
       </div>
 
       <div class="searchbox">
