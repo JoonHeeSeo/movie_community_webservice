@@ -11,6 +11,7 @@ import ArticleCreateView from '../views/ArticleCreateView.vue'
 import ArticleListItem from '../components/ArticleListItem.vue'
 import ArticleUpdateView from '../views/ArticleUpdateView'
 import CommentUpdateView from '../views/CommentUpdateView'
+import ProfileView from '../views/ProfileView'
 
 
 Vue.use(VueRouter)
@@ -53,6 +54,11 @@ const routes = [
     path: '/community',
     name: 'community',
     component: CommunityView
+  },
+  {
+    path: '/profile/:username',
+    name: 'profile/:username',
+    component: ProfileView
   },
   {
     path: '/article/:id',

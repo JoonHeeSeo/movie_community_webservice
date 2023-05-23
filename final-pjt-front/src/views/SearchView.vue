@@ -79,9 +79,8 @@ export default {
       const searchInput = this.searchInput
 
       axios({
-        method: 'post',
-        url: `${API_URL}/movies/get/movies_search/`,
-        data : { searchInput },
+        method: 'get',
+        url: `${API_URL}/movies/get/movies_search/${searchInput}/`,
       })
         .then((res) => {
           this.movies = res.data

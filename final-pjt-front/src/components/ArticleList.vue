@@ -9,7 +9,7 @@
       </p>
       <p>글 번호: {{ article.id }}</p>
       <p>내용: {{ article.content }}</p>
-      <p>작성자: {{ article.username }}</p>
+      <p>작성자: <router-link :to="{ name: 'profile/:username', params: { username: article.username } }">{{ article.username }}</router-link></p>
       <p>{{ article.like_users.length }}명이 좋아합니다.</p>
       
       <form @submit.prevent="likeArticle(article.id)">

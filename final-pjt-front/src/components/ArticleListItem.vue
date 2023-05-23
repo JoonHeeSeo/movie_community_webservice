@@ -5,7 +5,7 @@
     <hr>
 
     <p>글 번호 : {{ articleDetail.id }}</p>
-    <p>작성자 : {{ articleDetail.username }}</p>
+    <p>작성자 :  <router-link :to="{ name: 'profile/:username', params: { username: articleDetail.username } }">{{ articleDetail.username }}</router-link>
     <p>제목 : {{ articleDetail.title }}</p>
     <p>내용 : {{ articleDetail.content }}</p>
     <p>작성 시간 : {{ articleDetail.created_at }}</p>
@@ -23,11 +23,11 @@
 
     <hr>
     <p>총 {{ articleDetail.comment_count }}개의 댓글이 있습니다.</p>
-    
     <div v-for="comment in articleDetail.comment_set" :key="comment.id">
       <br>
       <!-- <p>댓글 번호 : {{ comment.id }}</p> -->
-      <p>댓글 작성자 : {{ comment.username }}</p>
+      
+      <p>댓글 작성자 : <router-link :to="{ name: 'profile/:username', params: { username: comment.username } }">{{ comment.username }}</router-link></p>
       <p>댓글 내용 : {{ comment.content }}</p>
       <p>댓글 작성 시간 : {{ comment.created_at }}</p>
       <p>댓글 수정 시간 : {{ comment.updated_at }}</p>
@@ -69,16 +69,16 @@ export default {
   },
   computed: {
     articleDetail() {
-      return this.$store.state.article;
+      return this.$store.state.article
     },
     // articles() {
-    //   return this.$store.state.articles;
+    //   return this.$store.state.articles
     // },
 
   },
 
   mounted() {
-    this.articleId = this.$route.params.id;
+    this.articleId = this.$route.params.id
   },
   
   methods:{

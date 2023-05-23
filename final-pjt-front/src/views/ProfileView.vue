@@ -1,0 +1,99 @@
+<template>
+  <div>
+    <h1>{{ username }}님의 Profile</h1>
+    <hr>
+
+
+    <br><br><br>
+    <form @submit.prevent="getArticleProfile()">
+      <input type="submit" value="테스트용 버튼">
+    </form>
+    <br><br><br>
+
+
+    <p>작성한 글</p>
+    <div v-if="articles.length > 0">
+      <div v-for="article in articles" :key="article.id">
+        <p>{{ article.id }}번 글 {{ article.title }}</p>
+      </div>
+    </div>
+    <div v-else>
+      <p>작성한 글이 없습니다.</p>
+    </div>
+    <hr>
+    
+
+    <p>작성한 댓글</p>
+    <div v-if="comments.length > 0">
+      <div v-for="comment in comments" :key="comment.id">
+        <p>{{ comment.article }}번 글에 {{ comment.content }}</p>
+      </div>
+    </div>
+    <div v-else>
+      <p>작성한 댓글이 없습니다.</p>
+    </div>
+    <hr>
+
+
+    <p>좋아요 누른 영화</p>
+    <hr>
+
+
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
+export default {
+  name: 'ProfileView',
+  data() {
+    return {
+      username: null,
+      articles: [],
+      comments: [],
+
+    }
+  },
+
+  mounted() {
+    this.username = this.$route.params.username
+  },
+
+  created() {
+    this.getArticleProfile()
+    // this.getMovieProfile()
+  },
+
+  methods: {
+    getArticleProfile() {
+      const username = this.$route.params.username
+
+      axios({
+        method: 'get',
+        url: `${API_URL}/articles/profile/${username}`,
+        data: { username },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+        .then((res) => {
+          this.articles = res.data.articles
+          this.comments = res.data.comments
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
+    }
+  },
+
+
+
+}
+</script>
+
+<style>
+
+</style>
