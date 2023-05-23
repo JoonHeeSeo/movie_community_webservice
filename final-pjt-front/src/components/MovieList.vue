@@ -4,13 +4,13 @@
     <div class="movie-list" id="movieList">
       <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie"/>
     </div>
-    <hr>
+    <hr style="border: solid 1px white;">
     <h3 style="margin-top:20px; color:#000000; margin-left:30px">Now Playing</h3>
     <div class="nowplaying-list" id="nowplayingList">
       <NowPlaying/>
       <NowPlaying v-for="nowplaying in nowplayings" :key="nowplaying.id" :nowplaying="nowplaying"/>
     </div>
-    <hr>
+    <hr style="border: solid 1px white;">
     <h3 style="margin-top:20px; color:#000000; margin-left:30px">Upcoming</h3>
     <div class="upcoming-list" id="upcomingList">
       <UpComing v-for="upcoming in upcomings" :key="upcoming.id" :upcoming="upcoming"/>
