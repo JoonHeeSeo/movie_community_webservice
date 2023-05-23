@@ -9,4 +9,7 @@ urlpatterns = [
     path('get/movie_detail/<movie_id>/', views.get_movie_detail_API),
     path('get/now_playing_movies/', views.get_now_playing_movies_API),
     path('get/upcoming_movies/', views.get_upcoming_movies_API),
+
+    path('<int:movie_id>/likes/', views.movie_likes),
+    path('profile/<str:username>/', views.profile_get),
 ]

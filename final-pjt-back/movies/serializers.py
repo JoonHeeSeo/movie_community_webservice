@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Movie
+from accounts.models import User
 
 class MovieSerializer(serializers.ModelSerializer):
 
@@ -9,3 +10,8 @@ class MovieSerializer(serializers.ModelSerializer):
         # fields = ('id', 'title', 'content')
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = '__all__'
