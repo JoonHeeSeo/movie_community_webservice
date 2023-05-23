@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Article, Comment
 from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer
 
+from accounts.models import User
+
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -100,6 +102,25 @@ def comment_create(request, article_pk):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def profile_get(request, username):
+
+    user = User.objects.get(username=username)
+    userid = user.id
+
+    articles = Article.objects.filter(user_id=userid)
+    articles_serializer = ArticleSerializer(articles, many=True)
+
+    comments = Comment.objects.filter(user_id=userid)
+    comments_serializer = CommentSerializer(comments, many=True)
+
+    serializer = {
+        'articles': articles_serializer.data if articles else [],
+        'comments': comments_serializer.data if comments else [],
+    }
+
+    return Response(serializer)
 
 
 
