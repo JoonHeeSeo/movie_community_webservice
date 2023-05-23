@@ -1,11 +1,9 @@
 <template>
   <div>
-    <h1>Community</h1>
+    <h1 style="color:black; margin: 80px 30px 20px 20px; position: relative;">Community</h1>
     <hr>
-    
-    <router-link :to="{ name: 'articlecreate' }">[CREATE]</router-link>
     <ArticleList/>
-
+    <router-link :to="{ name: 'articlecreate' }">[CREATE]</router-link>
   </div>
 </template>
 
