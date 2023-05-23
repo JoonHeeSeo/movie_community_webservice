@@ -8,9 +8,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Movie, Comment
+from .models import Movie
 from accounts.models import User
-from .serializers import MovieSerializer, CommentSerializer, UserSerializer
+from .serializers import MovieSerializer, UserSerializer
 
 
 import time
