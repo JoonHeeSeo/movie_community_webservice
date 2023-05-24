@@ -24,7 +24,9 @@
 
     <div>
       <h1>Comments</h1>
+      <p>총 {{ movieComments.length }}개의 댓글이 있습니다.</p>
       <hr>
+
 
       <div v-for="comment in movieComments" :key="comment.id">
         <p>댓글 작성자 : <router-link :to="{ name: 'profile/:username', params: { username: comment.user } }">{{ comment.user }}</router-link></p>

@@ -154,13 +154,13 @@ def profile_get(request, username):
     user = User.objects.get(username=username)
     serializer = UserSerializer(user)
 
-    movie_title = []
+    movies = []
     for MOVIE_ID in serializer.data['like_movies']:
         API_URL = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=ko-kr'
         movie_detail_API = requests.get(API_URL).json()
-        movie_title.append(movie_detail_API['title'])
+        movies.append( { 'movie_id':MOVIE_ID, 'title': movie_detail_API['title'] })
 
-    return Response(movie_title)
+    return Response(movies)
 
 
 @api_view(['GET'])
