@@ -1,5 +1,6 @@
 
 import requests
+import random
 
 from django.shortcuts import get_list_or_404, get_object_or_404
 
@@ -184,26 +185,31 @@ def movie_likes(request, movie_id):
 
 
 
-@api_view(['post'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def movie_recommend(request):
 
-    search_list = []
-    for searches in request.data['resultInput']:
-        search = ''
-        for char in searches:
-            search += char
-        search_list.append(search)
-
-    for SEARCH_INPUT in search_list:
+    recommend_movies = []
+    for SEARCH_INPUT in request.data['resultInput']:
         API_URL = f'https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={SEARCH_INPUT}&language=ko-kr'
         searched_movies_API = requests.get(API_URL).json()
         
-        print(searched_movies_API['results'])
+        for idx in range(0, 6):
+            try:
+                recommend_movies.append(searched_movies_API['results'][idx])
+            except:
+                pass
+    
+    if recommend_movies == []:
+        API_PAGE = 1
+        API_URL = f'https://api.themoviedb.org/3/movie/now_playing?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
+        now_playing_movies_API = requests.get(API_URL).json()
 
+        for movie_data in now_playing_movies_API['results']:
+            recommend_movies.append(movie_data)
 
-    # return Response()
-    return Response({'result':'OK'})
+    random.shuffle(recommend_movies)
+    return Response(recommend_movies[:3])
 
 
 
@@ -262,7 +268,6 @@ def comment_create(request, movie_id):
 
     try:
         comment.save()
-        print(comment)
         return Response({"result": "OK"})
 
     except Exception as e:
