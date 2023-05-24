@@ -13,20 +13,25 @@
           {{ genre.name }}
           </span>
         </span>
+        <!-- 영화 좋아요 버튼 -->
+        <!-- <button class="movie-like-btn" @click.prevent="likeMovie(movie.movie_id)">
+          <span v-if="likeMoviesId.includes(movie.movie_id)">❤️</span>
+          <span v-else>🤍</span>
+        </button> -->
         <h2 style="margin:15px 0">요약</h2>
         <hr style="border: solid black 1px">
         <p v-if="movie.overview" class="detail-overview">{{ movie.overview }}</p>
       </div>
     </div>
 
-    <div class="movie-detail-container" style="display:flex; justify-content: center;">
+    <div class="detail-comment-container">
       <h1 style="margin-right: 10px;">Comments</h1>
       <ul>
         <li v-for="comment in movieComments" :key="comment.id" style="display:flex; justify-content: space-between; border:solid 1px #fff; margin:10px; padding: 10px">
           <p>{{ comment.content }}</p>
           <p style="font-size:5px; margin-left: 10px">작성자 : 
             <router-link :to="{ name: 'profile/:username', params: { username: comment.user } }">{{ comment.user }}</router-link>
-            작성 시간 : {{ comment.created_at }}
+            <!-- 작성 시간 : {{ comment.created_at }} -->
           </p>
           <!-- <p>댓글 수정 시간 : {{ comment.updated_at }}</p> -->
           <form @submit.prevent="deleteMovieComment(comment.id)">
@@ -189,6 +194,7 @@ export default {
   width: auto;
   height: auto;
   flex-wrap: wrap;
+
 }
 .detail-poster {
   height: 500px;
@@ -209,5 +215,32 @@ export default {
 .detail-overview{
   margin-top: 20px;
   font-size: 20px;
+}
+/* 좋아요 버튼 */
+.movie-like-btn{
+  position: absolute;
+  font-size: 20px;
+  border: none;
+  background: none;
+  right: 15px;
+  bottom: 65px;
+  cursor: pointer;
+}
+.movive-like-btn:hover {
+  color:#fff
+}
+.movie-like-btn:active {
+  transform: translateY(4px);
+}
+
+/* comment */
+.detail-comment-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width:1000px;
+  height:auto;
+  color:black;
 }
 </style>
