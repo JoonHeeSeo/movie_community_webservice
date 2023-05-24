@@ -43,8 +43,8 @@
         <div v-if="movieComments.length > 0">
           <div v-for="comment in movieComments" :key="comment.id" style="margin-top:10px;">
             <p><router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: comment.movie_id } }">
-                {{ comment.movie_id }}</router-link>
-              번 영화에 단 댓글: {{ comment.content }}</p>
+                {{ comment.title }}</router-link>
+              영화에 단 댓글: {{ comment.content }}</p>
           </div>
         </div>
         <div v-else>
