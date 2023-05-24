@@ -10,13 +10,16 @@ urlpatterns = [
     path('get/now_playing_movies/', views.get_now_playing_movies_API),
     path('get/upcoming_movies/', views.get_upcoming_movies_API),
 
-    path('<int:movie_id>/likes/', views.movie_likes),
     path('profile/<str:username>/', views.profile_get),
-
+    path('<int:movie_id>/likes/', views.movie_likes),
+    path('recommend/', views.movie_recommend),
 
     path('comments/', views.comment_list),
     path('comments/<int:comment_pk>/', views.comment_detail),
     path('<int:movie_id>/comments/get/', views.comment_get),
     path('<int:movie_id>/comments/create/', views.comment_create),
+
+    
+
 
 ]
