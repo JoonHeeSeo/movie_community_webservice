@@ -9,7 +9,7 @@
         <p>출시일: {{ movie.release_date }}</p>
         <p>평점: {{ movie.vote_average }}</p>
         <p>요약: {{ movie.overview }}</p>
-        <router-link :to="{ name: 'moviedetail', params: { movie_id: movie.id }}">          
+        <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id }}">          
           <button class="search-detail-btn">자세히 보기</button>
         </router-link>
           

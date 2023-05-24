@@ -125,6 +125,25 @@ def get_upcoming_movies_API(request):
         return Response(upcoming_movies_API['results'])
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def profile_get(request, username):
+
+    user = User.objects.get(username=username)
+    serializer = UserSerializer(user)
+
+    movies = []
+    for MOVIE_ID in serializer.data['like_movies']:
+        API_URL = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=ko-kr'
+        movie_detail_API = requests.get(API_URL).json()
+        movies.append( { 'movie_id':MOVIE_ID, 'title': movie_detail_API['title'] })
+
+    comments = Comment.objects.filter(user_id=user.id)
+
+    profile_data = {'movies': movies, 'comments': list(comments.values())}
+    return Response(profile_data)
+
+
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def movie_likes(request, movie_id):
@@ -148,19 +167,28 @@ def movie_likes(request, movie_id):
         return Response(serializer.data['like_movies'])
 
 
-@api_view(['GET'])
+
+@api_view(['post'])
 @permission_classes([IsAuthenticated])
-def profile_get(request, username):
-    user = User.objects.get(username=username)
-    serializer = UserSerializer(user)
+def movie_recommend(request):
 
-    movie_title = []
-    for MOVIE_ID in serializer.data['like_movies']:
-        API_URL = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=ko-kr'
-        movie_detail_API = requests.get(API_URL).json()
-        movie_title.append(movie_detail_API['title'])
+    search_list = []
+    for searches in request.data['resultInput']:
+        search = ''
+        for char in searches:
+            search += char
+        search_list.append(search)
 
-    return Response(movie_title)
+    for SEARCH_INPUT in search_list:
+        API_URL = f'https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={SEARCH_INPUT}&language=ko-kr'
+        searched_movies_API = requests.get(API_URL).json()
+        
+        print(searched_movies_API['results'])
+
+
+    # return Response()
+    return Response({'result':'OK'})
+
 
 
 @api_view(['GET'])

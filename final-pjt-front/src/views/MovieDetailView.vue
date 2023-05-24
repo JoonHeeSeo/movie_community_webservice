@@ -18,6 +18,7 @@
         <p v-if="movie.overview" class="detail-overview">{{ movie.overview }}</p>
       </div>
     </div>
+
     <div class="movie-detail-container" style="display:flex; justify-content: center;">
       <h1 style="margin-right: 10px;">Comments</h1>
       <ul>
@@ -36,6 +37,7 @@
       <form @submit.prevent="createMovieComment" style="display=flex; justify-content:space-between;">
         <textarea id="comment" cols="80" rows="auto" v-model="movieComment" placeholder="댓글을 입력하세요."></textarea>
         <input type="submit" id="submit" style="margin-right: auto;" value="작성">
+        
         <br>
       </form>
     </div>

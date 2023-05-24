@@ -1,29 +1,61 @@
 <template>
   <div>
-    <h1>algo</h1>
+
+    <br>
+    <form @submit.prevent="testTest()"><input type="submit" value="테스트용 버튼"></form>
+    <br>
+
+
     <div class="bingo-container">
         <table id="tblBingo"></table>
     </div>
-    <div class="letter-div">
+    <!-- <div class="letter-div">
         <table id="tblLetter">
             <tr>
-                <td class="letters-bingo">B</td>
+                <td class="letters-bingo">A</td>
                 <td class="letters-bingo">I</td>
                 <td class="letters-bingo">N</td>
                 <td class="letters-bingo">G</td>
                 <td class="letters-bingo">O</td>
             </tr>
         </table>
+    </div> -->
+
+    <h2>단어 1 : {{ result1 }}</h2>
+    <h2>단어 2 : {{ result2 }}</h2>
+    <h2>단어 3 : {{ result3 }}</h2>
+
+    <br><br>
+
+    <div>
+      {{ testlist }}
+    <form><input type="submit" value="단어 제출" @click.prevent="makeWord()"></form>
     </div>
+
+
+    <br><br>
+    <div>  
+    <form><input type="submit" value="최종 제출" @click.prevent="sendWords()"></form>
+    </div>
+
+    <br>
+
+
+    <form><input type="submit" value="RESET" @click="resetGame()"></form>
+
+
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name:'RecommendView',  data() {
     return {
       table: null,
-      letter: null,
+      letter: null, 
       winningPositions: [
         [0, 1, 2, 3, 4],
         [5, 6, 7, 8, 9],
@@ -36,17 +68,32 @@ export default {
         [3, 8, 13, 18, 23],
         [4, 9, 14, 19, 24]
       ],
-      arr: []
+      arr: [],
+
+
+      resultIdx: 1,
+      result1: [],
+      result2: [],
+      result3: [],
+
+      testlist: [],
+
     };
   },
+
   mounted() {
     this.table = document.querySelector("#tblBingo");
     this.letter = document.querySelectorAll(".letters-bingo");
+
+    // this.arr = 
+
+    // 이쪽에서 string넣기랑 7*7 만들기 하고 있었따
     this.arr = Array.apply(null, { length: 26 }).map(Number.call, Number);
     this.arr.shift();
-    this.shuffle(this.arr);
+    // this.shuffle(this.arr);
     this.initializeBingoTable();
   },
+
   methods: {
     initializeBingoTable() {
       let iterator = 0;
@@ -72,23 +119,42 @@ export default {
       }
 
       const cell = document.querySelectorAll(".main-table-cell");
-      let winningIterator = 0;
+      // let winningIterator = 0;
       cell.forEach((e) => {
         e.addEventListener("click", () => {
+          
+          
+          // test part -start
+
+          console.log(e.id)
+          this.testlist.push(e.id)
+          console.log(this.testlist)
+
+          // test part -end
+
+
+
           e.classList.add("strickout");
+          // e.classList.toggle("strickout");
 
-          if (this.matchWin()) {
-            this.letter[winningIterator].classList.add("show-bingo");
 
-            winningIterator++;
-            if (winningIterator === 5) {
-              alert("B I N G O");
-              this.resetGame();
-            }
-          }
+
+          // if (this.matchWin()) {
+          //   this.letter[winningIterator].classList.add("show-bingo");
+
+          //   winningIterator++;
+          //   if (winningIterator === 5) {
+          //     alert("B I N G O");
+          //     this.resetGame();
+          //   }
+          // }
+
+
+
         });
       });
     },
+
     shuffle(arr) {
       let currentIndex = arr.length,
         randomIndex;
@@ -105,37 +171,97 @@ export default {
 
       return arr;
     },
-    matchWin() {
-      const cell = document.querySelectorAll(".main-table-cell");
 
-      return this.winningPositions.some((combination) => {
-        let ite = 0;
-        combination.forEach((index) => {
-          if (cell[index].classList.contains("strickout")) ite++;
-        });
+    // matchWin() {
+    //   const cell = document.querySelectorAll(".main-table-cell");
 
-        if (ite === 5) {
-          let indexWin = this.winningPositions.indexOf(combination);
-          this.winningPositions.splice(indexWin, 1);
-        }
+    //   return this.winningPositions.some((combination) => {
+    //     let ite = 0;
+    //     combination.forEach((index) => {
+    //       if (cell[index].classList.contains("strickout")) ite++;
+    //     });
 
-        return combination.every((index) => {
-          return cell[index].classList.contains("strickout");
-        });
-      });
-    },
+    //     if (ite === 5) {
+    //       let indexWin = this.winningPositions.indexOf(combination);
+    //       this.winningPositions.splice(indexWin, 1);
+    //     }
+
+    //     return combination.every((index) => {
+    //       return cell[index].classList.contains("strickout");
+    //     });
+    //   });
+    // },
+
     resetGame() {
-      // Reset the game state here
       // This method should clear the marked cells and reinitialize the table
-      // You can reset the necessary data properties or call another method to handle the reset logic
-    }
+    },
+
+    testTest() {
+      console.log('------------------------------')
+      // console.log(this.table)
+      // console.log(this.letter)
+      // console.log(this.winningPositions)
+      console.log(this.arrs)
+      console.log('------------------------------')
+    },
+
+    makeWord() {
+      if (this.testlist.length === 0) {
+        // testlist is empty
+        alert('입력값이 없습니다.')
+      } else if (this.resultIdx === 1) {
+        this.result1 = this.testlist
+        this.testlist = []
+        this.resultIdx = 2
+      } else if (this.resultIdx === 2) {
+        this.result2 = this.testlist
+        this.testlist = []
+        this.resultIdx = 3
+      } else if (this.resultIdx === 3) {
+        this.result3 = this.testlist
+        this.testlist = []
+        this.resultIdx = 4
+      }
+    },
+
+
+    sendWords() {
+      const resultInput = []
+      resultInput.push(this.result1)
+      resultInput.push(this.result2)
+      resultInput.push(this.result3)
+
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/recommend/`,
+        data: { resultInput },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+
+
   },
-  computed: {
-    // Define a computed property to access and display the 'arr' array
-    displayedArr() {
-      return this.arr.join(", ");
-    }
-  }
+  
+
+
+
+
+  // computed: {
+  //   // Define a computed property to access and display the 'arr' array
+  //   displayedArr() {
+  //     return this.arr.join(", ");
+  //   }
+  // }
+
+
 }
 </script>
 
