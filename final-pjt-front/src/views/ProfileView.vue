@@ -18,11 +18,25 @@
     <hr>
     
 
-    <p>작성한 댓글</p>
-    <div v-if="comments.length > 0">
-      <div v-for="comment in comments" :key="comment.id">
+    <p>글에 작성한 댓글</p>
+    <div v-if="articleComments.length > 0">
+      <div v-for="comment in articleComments" :key="comment.id">
         <p><router-link :to="{ name: 'article/:id', params: { id: comment.article } }">{{ comment.article }}</router-link>
         번 글에 단 댓글: {{ comment.content }}</p>
+      </div>
+    </div>
+    <div v-else>
+      <p>작성한 댓글이 없습니다.</p>
+    </div>
+    <hr>
+
+
+    <p>영화에 작성한 댓글</p>
+    <div v-if="movieComments.length > 0">
+      <div v-for="comment in movieComments" :key="comment.id">
+        <p><router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: comment.movie_id } }">
+            {{ comment.movie_id }}</router-link>
+          번 영화에 단 댓글: {{ comment.content }}</p>
       </div>
     </div>
     <div v-else>
@@ -55,8 +69,9 @@ export default {
     return {
       username: null,
       articles: [],
-      comments: [],
+      articleComments: [],
       movies: [],
+      movieComments: [],
     }
   },
 
@@ -83,7 +98,7 @@ export default {
       })
         .then((res) => {
           this.articles = res.data.articles
-          this.comments = res.data.comments
+          this.articleComments = res.data.comments
         })
         .catch((err) => {
           console.log(err)
@@ -101,7 +116,8 @@ export default {
         }
       })
         .then((res) => {
-          this.movies = res.data
+          this.movies = res.data.movies
+          this.movieComments = res.data.comments
         })
         .catch((err) => {
           console.log(err)
