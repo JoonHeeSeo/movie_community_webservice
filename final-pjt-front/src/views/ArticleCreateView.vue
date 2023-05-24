@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <div class="commentcreate-container">
-      <h1 style="color:black; margin:20px; position: relative flex-basis:fill;">게시글 작성</h1>
+  <div style="position: relative; margin-left:40%">
+    <div class="article-create-container">
+      <h3 style="margin:0px 0px 20px 20px;">게시글 작성</h3>
       <form @submit.prevent="createArticle">
-        <label for="title">제목 : </label>
+        <label for="title" style="margin-left:20px; font-weight:bold;">제목: </label>
         <input type="text" id="title" v-model.trim="title">
         <br><br>
-        <label for="content">내용 : </label>
+        <label for="content" style="margin-left: 20px; font-weight:bold;">내용: </label>
         <textarea id="content" cols="30" rows="10" v-model="content"></textarea>
-        <br>
-        <input type="submit" id="submit">
+        <input type="submit" id="submit" class="article-submit-btn">
       </form>
     </div>
   </div>
@@ -52,14 +51,26 @@ export default {
 </script>
 
 <style>
-.commentcreate-container{
+.article-create-container{
   display: flex;
-  flex-flow: wrap;
-  width: auto;
-  height: auto;
+  flex-direction: column;
   border: solid white 1px;
-  flex-basis: 'content';
-
+  border-radius: 4px;
+  color:black;
+  width:500px;
+  height:300px;
+  justify-content: center;
+  margin-top:20px;
 }
-
+.article-submit-btn{
+  border: 1px solid #fff;
+  background: none;
+  cursor: pointer;
+  margin-left: 25%;
+  height: 30px;
+  width: 50px;
+}
+.article-submit-btn:hover{
+  background:#fff;
+}
 </style>

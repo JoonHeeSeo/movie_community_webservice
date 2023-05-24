@@ -2,7 +2,10 @@
   <div>
     <h1 style="margin:80px 0px 0px 30px; color:black;">Community</h1>
     <ArticleList/>
-    <router-link :to="{ name: 'articlecreate' }">[CREATE]</router-link>
+    <button @click="$router.push({ name: 'articlecreate' })" style="position:relative; top:20px; left:95%; border: solid 1px black; padding:5px; background-color: none; cursor:pointer;">
+    CREATE
+    </button>
+    <!-- <router-link :to="{ name: 'articlecreate' }" style="margin:20px 0px 0px 30px;">[CREATE]</router-link> -->
   </div>
 </template>
 
