@@ -1,11 +1,6 @@
 <template>
   <div>
 
-    <br>
-    <form @submit.prevent="testTest()"><input type="submit" value="테스트용 버튼"></form>
-    <br>
-
-
     <div class="bingo-container">
         <table id="tblBingo"></table>
     </div>
@@ -21,28 +16,55 @@
         </table>
     </div> -->
 
-    <h2>단어 1 : {{ result1 }}</h2>
-    <h2>단어 2 : {{ result2 }}</h2>
-    <h2>단어 3 : {{ result3 }}</h2>
-
-    <br><br>
+    <div>{{ resultword }}</div>
 
     <div>
-      {{ testlist }}
     <form><input type="submit" value="단어 제출" @click.prevent="makeWord()"></form>
     </div>
-
-
     <br><br>
+
+
+    <p>단어 1 : {{ result1 }}</p>
+    <p>단어 2 : {{ result2 }}</p>
+    <p>단어 3 : {{ result3 }}</p>
+    <br><br>
+
     <div>  
     <form><input type="submit" value="최종 제출" @click.prevent="sendWords()"></form>
     </div>
+    <br><br>
 
-    <br>
+
+    <form><input type="submit" value="다시하기" @click="resetGame()"></form>
+    <br><br>
 
 
-    <form><input type="submit" value="RESET" @click="resetGame()"></form>
+    <hr><hr><hr>
+      
+      
+    <p v-for="movie in movies" :key="movie.id">
+      <!-- {{ movie.title }} -->
+      <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id } }">
+      <img :src="getMoviePoster(movie.poster_path)" alt="movie_post">
+      <!-- <button class="ticket-detail-btn">자세히 보기</button> -->
+      </router-link>
+    </p>
 
+
+    <!-- movie_id = models.IntegerField()
+    original_title = models.TextField(null=True, blank=True)    
+    title = models.TextField(null=True, blank=True)
+    original_language = models.TextField(null=True, blank=True)
+    genre_ids = models.TextField(null=True, blank=True)
+    overview = models.TextField(null=True, blank=True)
+    release_date = models.TextField(null=True, blank=True)
+    popularity = models.IntegerField(null=True, blank=True)
+    vote_average = models.FloatField(null=True, blank=True)
+    vote_count = models.IntegerField(null=True, blank=True)
+    adult = models.TextField(null=True, blank=True)
+    video = models.TextField(null=True, blank=True)
+    poster_path = models.TextField(null=True, blank=True)
+    backdrop_path = models.TextField(null=True, blank=True) -->
 
   </div>
 </template>
@@ -56,27 +78,27 @@ export default {
     return {
       table: null,
       letter: null, 
-      winningPositions: [
-        [0, 1, 2, 3, 4],
-        [5, 6, 7, 8, 9],
-        [10, 11, 12, 13, 14],
-        [15, 16, 17, 18, 19],
-        [20, 21, 22, 23, 24],
-        [0, 5, 10, 15, 20],
-        [1, 6, 11, 16, 21],
-        [2, 7, 12, 17, 22],
-        [3, 8, 13, 18, 23],
-        [4, 9, 14, 19, 24]
-      ],
+      // winningPositions: [
+      //   [0, 1, 2, 3, 4],
+      //   [5, 6, 7, 8, 9],
+      //   [10, 11, 12, 13, 14],
+      //   [15, 16, 17, 18, 19],
+      //   [20, 21, 22, 23, 24],
+      //   [0, 5, 10, 15, 20],
+      //   [1, 6, 11, 16, 21],
+      //   [2, 7, 12, 17, 22],
+      //   [3, 8, 13, 18, 23],
+      //   [4, 9, 14, 19, 24]
+      // ],
       arr: [],
 
-
       resultIdx: 1,
-      result1: [],
-      result2: [],
-      result3: [],
-
-      testlist: [],
+      result1: '',
+      result2: '',
+      result3: '',
+      resultword: '',
+      resultwordlist: [],
+      movies: [],
 
     };
   },
@@ -85,12 +107,34 @@ export default {
     this.table = document.querySelector("#tblBingo");
     this.letter = document.querySelectorAll(".letters-bingo");
 
-    // this.arr = 
+    // this.arr = [
+    //   '해', '반', '지', '기', '생', '공', '포', '니',
+    //   '리', '지', '대', '봄', '가', '바', '모', '누',
+    //   '스', '법', '숲', '치', '이', '보', '놀', '나',
+    //   '릴', '포', '바', '리', '피', '의', '저', '도',
+    //   '러', '츠', '름', '고', '오', '너', '섬', '지',
+    //   '로', '삶', '여', '보', '문', '나', '건', '마',
+    //   '맨', '겨', '울', '바', '고', '어', '른', '그',
+    //   '스', '연', '애', '재', '강', '아', '일', '리',
+    // ];
 
-    // 이쪽에서 string넣기랑 7*7 만들기 하고 있었따
-    this.arr = Array.apply(null, { length: 26 }).map(Number.call, Number);
-    this.arr.shift();
-    // this.shuffle(this.arr);
+
+    this.arr = [
+      '대', '왕', '자', '지', '해', '울', '가', '에',
+      '부', '주', '간', '반', '리', '겨', '을', '즈',
+      '탈', '공', '맨', '크', '제', '름', '봄', '트',
+      '출', '드', '용', '다', '성', '여', '그', '스',
+      '마', '필', '기', '름', '반', '씨', '린', '바',
+      '리', '주', '행', '이', '인', '날', '북', '마',
+      '오', '질', '방', '람', '양', '기', '자', '도',
+      '분', '노', '명', '사', '침', '탑', '전', '거',
+    ];
+
+
+    console.log(this.arr)
+    
+
+    this.shuffle(this.arr);
     this.initializeBingoTable();
   },
 
@@ -98,11 +142,11 @@ export default {
     initializeBingoTable() {
       let iterator = 0;
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 8; i++) {
         let tr = document.createElement("tr");
         this.table.appendChild(tr);
 
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < 8; j++) {
           let td = document.createElement("td");
           td.id = this.arr[iterator].toString();
           td.style.height = "20%";
@@ -127,8 +171,9 @@ export default {
           // test part -start
 
           console.log(e.id)
-          this.testlist.push(e.id)
-          console.log(this.testlist)
+          this.resultwordlist.push(e.id)
+          this.resultword = this.resultwordlist.join("")
+          console.log(this.resultwordlist)
 
           // test part -end
 
@@ -196,30 +241,24 @@ export default {
       // This method should clear the marked cells and reinitialize the table
     },
 
-    testTest() {
-      console.log('------------------------------')
-      // console.log(this.table)
-      // console.log(this.letter)
-      // console.log(this.winningPositions)
-      console.log(this.arrs)
-      console.log('------------------------------')
-    },
-
     makeWord() {
-      if (this.testlist.length === 0) {
-        // testlist is empty
+      if (this.resultwordlist.length === 0) {
+        // resultwordlist is empty
         alert('입력값이 없습니다.')
       } else if (this.resultIdx === 1) {
-        this.result1 = this.testlist
-        this.testlist = []
+        this.result1 = this.resultwordlist.join('')
+        this.resultword = ''
+        this.resultwordlist = []
         this.resultIdx = 2
       } else if (this.resultIdx === 2) {
-        this.result2 = this.testlist
-        this.testlist = []
+        this.result2 = this.resultwordlist.join('')
+        this.resultword = ''
+        this.resultwordlist = []
         this.resultIdx = 3
       } else if (this.resultIdx === 3) {
-        this.result3 = this.testlist
-        this.testlist = []
+        this.result3 = this.resultwordlist.join('')
+        this.resultword = ''
+        this.resultwordlist = []
         this.resultIdx = 4
       }
     },
@@ -240,6 +279,7 @@ export default {
         },
       })
         .then((res) => {
+          this.movies = res.data
           console.log(res)
         })
         .catch((err) => {
@@ -247,7 +287,14 @@ export default {
         })
     },
 
-
+    getMoviePoster(poster_path) {
+      if(poster_path) {
+        return "https://image.tmdb.org/t/p/w200" + poster_path
+      } else {
+        return "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930"
+      }
+    },
+    
   },
   
 
@@ -286,15 +333,18 @@ bingo-body:focus {
 
 #tblBingo {
     border-collapse: collapse;
-    height: 25rem;
-    width: 25rem;
+    width: 40%;
+    /* height: 40rem; */
+    /* width: 40rem; */
     text-align: center;
-    font-size: 22pt;
+    font-size: 26pt;
     cursor: pointer;
 }
 
 #tblBingo td {
-    padding: 0.3rem;
+    padding: 0.5rem;
+    flex: 1;
+    /* width: 20%; */
  }
 
  .cell-format {
@@ -303,7 +353,7 @@ bingo-body:focus {
     justify-content: center;
     align-items: center;
     border-radius: 20%;
-    border: 0.5px solid #cccece;
+    border: 1px solid #cccece;
 }
 
 .cell-format:hover {
@@ -318,15 +368,15 @@ bingo-body:focus {
 }
 
 .letters-bingo {
-    padding: 0 1.3rem;
-    font-size: 40pt;
+    padding: 0 1.5rem;
+    font-size: 48pt;
     display: none;
 }
 
 .strickout {
     text-decoration: line-through;
     color: #a6a3a3;
-    font-size: 18pt;
+    font-size: 24pt;
     pointer-events: none;
 }
 
