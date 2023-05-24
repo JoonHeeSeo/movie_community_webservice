@@ -53,3 +53,10 @@ https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg
 - 상위 컴포넌트에서 하위로 id를 넘기고 그걸로 표시를 해야하는 것 같은디...
 
 
+6. git과 github 사용을 하고 있는데
+- 지금은 branch merge만 사용하고 있지만 기능이 꽤나 다양한 듯하다.
+- branch에서 작업하는 것을 잊어버리면 조금 번거로워질 수 있다
+
+
+
+

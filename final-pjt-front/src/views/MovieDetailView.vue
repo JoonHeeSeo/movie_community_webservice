@@ -13,11 +13,12 @@
           {{ genre.name }}
           </span>
         </span>
-        <!-- 영화 좋아요 버튼 -->
-        <!-- <button class="movie-like-btn" @click.prevent="likeMovie(movie.movie_id)">
-          <span v-if="likeMoviesId.includes(movie.movie_id)">❤️</span>
+
+        <button class="movie-like-btn" @click.prevent="likeMovie(movie.id)">
+          <span v-if="likeMoviesId.includes(movie.id)">❤️</span>
           <span v-else>🤍</span>
-        </button> -->
+        </button>
+        
         <h2 style="margin:15px 0">요약</h2>
         <hr style="border: solid black 1px">
         <p v-if="movie.overview" class="detail-overview">{{ movie.overview }}</p>
@@ -97,6 +98,7 @@ export default {
       movieId: null,
       movieComment: null,
       movieComments: [],
+      likeMoviesId : [],
     }
   },
   
@@ -104,6 +106,7 @@ export default {
     this.movieId = this.$route.params.movie_id;
     this.getMovieDetail()
     this.getMovieComments()
+    this.getLikeMovie(this.movieId)
   },
   
   methods:{
@@ -178,6 +181,40 @@ export default {
       .then(() => {
         // 새로고침
         location.reload()
+      })
+      .catch((err => {
+        console.log(err)
+      }))
+    },
+    
+    getLikeMovie(movieId) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/${movieId}/likes/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then((res) => {
+        this.likeMoviesId = res.data
+        console.log(res.data)
+      })
+      .catch((err => {
+        console.log(err)
+      }))
+    },
+    
+    likeMovie(movieId) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${movieId}/likes/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then((res) => {
+        this.likeMoviesId = res.data
+        console.log(res.data)
       })
       .catch((err => {
         console.log(err)

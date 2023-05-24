@@ -200,7 +200,7 @@ def movie_recommend(request):
             except:
                 pass
     
-    if recommend_movies == []:
+    if len(recommend_movies) < 3:
         API_PAGE = 1
         API_URL = f'https://api.themoviedb.org/3/movie/now_playing?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
         now_playing_movies_API = requests.get(API_URL).json()
