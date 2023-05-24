@@ -4,6 +4,7 @@
     <div class="bingo-container">
         <table id="tblBingo"></table>
     </div>
+    <br>
     <!-- <div class="letter-div">
         <table id="tblLetter">
             <tr>
@@ -16,39 +17,42 @@
         </table>
     </div> -->
 
-    <div>{{ resultword }}</div>
+    <form>
+      <div style="display: flex; justify-content: center;">
+        <input type="submit" value="NEXT" @click.prevent="makeWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
+        <input type="submit" value="초기화" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer;">
+      </div>
+    </form>
 
-    <div>
-    <form><input type="submit" value="단어 제출" @click.prevent="makeWord()"></form>
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
+      <div style="background: none; color: white; border: solid white 1px; padding: 10px; cursor: pointer; margin-bottom: 10px; font-size: 26px;">{{ resultword }}</div>
+      <div style="margin-bottom: 5px;"></div>
     </div>
-    <br><br>
 
-
-    <p>단어 1 : {{ result1 }}</p>
-    <p>단어 2 : {{ result2 }}</p>
-    <p>단어 3 : {{ result3 }}</p>
-    <br><br>
-
-    <div>  
-    <form><input type="submit" value="최종 제출" @click.prevent="sendWords()"></form>
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
+      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">첫번째 단어 : {{ result1 }}</p>
+      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">두번째 단어 : {{ result2 }}</p>
+      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">세번째 단어 : {{ result3 }}</p>
     </div>
-    <br><br>
+    <br><hr>
 
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
+      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">추천 영화</p>
+    </div>
 
-    <form><input type="submit" value="다시하기" @click="resetGame()"></form>
-    <br><br>
-
-
-    <hr><hr><hr>
-      
-      
-    <p v-for="movie in movies" :key="movie.id">
-      <!-- {{ movie.title }} -->
-      <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id } }">
-      <img :src="getMoviePoster(movie.poster_path)" alt="movie_post">
-      <!-- <button class="ticket-detail-btn">자세히 보기</button> -->
+    <p style="display: flex; justify-content: center; align-items: center;">
+      <router-link v-for="movie in movies" :key="movie.id" :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id } }">
+        <img :src="getMoviePoster(movie.poster_path)" alt="movie_post" style="margin-right: 30px;">
       </router-link>
     </p>
+      
+    <!-- <p v-for="movie in movies" :key="movie.id">
+      <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id } }">
+      <img :src="getMoviePoster(movie.poster_path)" alt="movie_post">
+      </router-link>
+    </p> -->
+      <!-- {{ movie.title }} -->
+      <!-- <button class="ticket-detail-btn">자세히 보기</button> -->
 
 
     <!-- movie_id = models.IntegerField()
@@ -242,7 +246,7 @@ export default {
     },
 
     makeWord() {
-      if (this.resultwordlist.length === 0) {
+      if (this.resultIdx < 4 &&  this.resultwordlist.length === 0) {
         // resultwordlist is empty
         alert('입력값이 없습니다.')
       } else if (this.resultIdx === 1) {
@@ -260,32 +264,30 @@ export default {
         this.resultword = ''
         this.resultwordlist = []
         this.resultIdx = 4
+      } else if (this.resultIdx === 4) {
+        const resultInput = []
+        resultInput.push(this.result1)
+        resultInput.push(this.result2)
+        resultInput.push(this.result3)
+
+        axios({
+          method: 'post',
+          url: `${API_URL}/movies/recommend/`,
+          data: { resultInput },
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          },
+        })
+          .then((res) => {
+            this.movies = res.data
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
     },
 
-
-    sendWords() {
-      const resultInput = []
-      resultInput.push(this.result1)
-      resultInput.push(this.result2)
-      resultInput.push(this.result3)
-
-      axios({
-        method: 'post',
-        url: `${API_URL}/movies/recommend/`,
-        data: { resultInput },
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        },
-      })
-        .then((res) => {
-          this.movies = res.data
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
 
     getMoviePoster(poster_path) {
       if(poster_path) {
