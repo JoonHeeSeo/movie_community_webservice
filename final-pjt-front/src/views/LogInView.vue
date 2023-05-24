@@ -43,12 +43,13 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f7f7f7;
+  background-color: rgba(0, 0, 0, .35);
 }
 
 input[id="password"] {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 0.5px solid #ccc;
   border-radius: 4px;
 }
 
@@ -63,10 +64,10 @@ input[id="userid"] {
   display: block;
   width: 100%;
   padding: 10px;
-  border: none;
+  border: solid 1px;
   border-radius: 4px;
   margin-top:20px;
-  background-color: #bfd2ea;
+  background-color: #f42d9e5b;
   color: #fff;
   font-weight: bold;
   font-size: 16px;
@@ -74,7 +75,7 @@ input[id="userid"] {
 }
 
 .login-button:hover {
-  background-color: rgb(34, 80, 171);
+  background-color: rgb(247, 39, 129);
 }
 
 </style>

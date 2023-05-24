@@ -8,10 +8,10 @@
             <p class="ticket-movie-title">{{ nowplaying.title }}</p>
             <p class="ticket-movie-vote">Rate: {{ nowplaying.vote_average }}</p>
 
-            <button class="like-btn" @click.prevent="likeMovie(nowplaying.id)">
+            <!-- <button class="like-btn" @click.prevent="likeMovie(nowplaying.id)">
               <span v-if="likeMoviesId.includes(nowplaying.id)">❤️</span>
               <span v-else>🤍</span>
-            </button>
+            </button> -->
             <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: nowplaying.id }}">
             <button class="ticket-detail-btn">자세히 보기</button></router-link>
           </div>

@@ -8,10 +8,10 @@
             <p class="ticket-movie-title">{{ upcoming.title }}</p>
             <p class="ticket-movie-vote">Release date: {{ upcoming.release_date }}</p>
 
-            <button class="like-btn" @click.prevent="likeMovie(upcoming.id)">
+            <!-- <button class="like-btn" @click.prevent="likeMovie(upcoming.id)">
               <span v-if="likeMoviesId.includes(upcoming.id)">❤️</span>
               <span v-else>🤍</span>
-            </button>
+            </button> -->
 
             <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: upcoming.id }}">
             <button class="ticket-detail-btn">자세히 보기</button></router-link>

@@ -1,23 +1,21 @@
 <template>
   <div>
-
-    <h1>ArticleItem</h1>
+    <div class="articlelist-item-container">
+      <h1 style="margin:20px;">Article #{{ articleDetail.id }}  {{ articleDetail.title }}</h1>
+      <span>{{ articleDetail.title }}</span>
+      <p>작성자 :  <router-link :to="{ name: 'profile/:username', params: { username: articleDetail.username } }">{{ articleDetail.username }}</router-link></p>
+      <p>내용 : {{ articleDetail.content }}</p>
+      <p>{{ articleDetail.like_users.length }}명이 좋아합니다.</p>
+    </div>
+    
     <hr>
-
-    <p>글 번호 : {{ articleDetail.id }}</p>
-    <p>작성자 :  <router-link :to="{ name: 'profile/:username', params: { username: articleDetail.username } }">{{ articleDetail.username }}</router-link>
-    <p>제목 : {{ articleDetail.title }}</p>
-    <p>내용 : {{ articleDetail.content }}</p>
-    <p>작성 시간 : {{ articleDetail.created_at }}</p>
-    <p>수정 시간 : {{ articleDetail.updated_at }}</p>
-    <p>{{ articleDetail.like_users.length }}명이 좋아합니다.</p>
+    <!-- <p>작성 시간 : {{ articleDetail.created_at }}</p>
+    <p>수정 시간 : {{ articleDetail.updated_at }}</p> -->
 
     <br>
     <form @submit.prevent="deleteArticle">
       <input type="submit" value="DELETE">
     </form> 
-    
-    <br>
     <router-link :to="{name : 'article/:id/update', params: {id: articleDetail.id}}">[UPDATE]</router-link>
 
 
@@ -29,8 +27,8 @@
       
       <p>댓글 작성자 : <router-link :to="{ name: 'profile/:username', params: { username: comment.username } }">{{ comment.username }}</router-link></p>
       <p>댓글 내용 : {{ comment.content }}</p>
-      <p>댓글 작성 시간 : {{ comment.created_at }}</p>
-      <p>댓글 수정 시간 : {{ comment.updated_at }}</p>
+      <!-- <p>댓글 작성 시간 : {{ comment.created_at }}</p>
+      <p>댓글 수정 시간 : {{ comment.updated_at }}</p> -->
       <form @submit.prevent="deleteComment(comment.id)">
         <input type="submit" value="DELETE">
       </form>
@@ -133,5 +131,9 @@ export default {
 </script>
 
 <style>
+.articlelist-item-container{
+  color:black;
+  display:flex;
 
+}
 </style>
