@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <nav>
+      <div v-if="username" style="padding: 10px 10px;">
+        Welcome
+          <router-link :to="{ name: 'profile/:username', params: { username: username } }" style="color:#f4a7bb; font-style:italic; font-variant: small-caps;">{{ username }}</router-link>
+      </div>
       <router-link to="/" class="router-btn">HOME</router-link>
       <router-link to="/recommend" class="router-btn">Surprise Me</router-link>
       <!-- <router-link to="/search" class="router-btn">영화 검색</router-link> -->
@@ -11,11 +15,6 @@
         <router-link to="/signup" class="router-btn">Sign Up</router-link>
       </div>
 
-      <div v-if="username">
-        <p>Welcome
-          <router-link :to="{ name: 'profile/:username', params: { username: username } }">{{ username }}</router-link>!</p>
-        <button @click="logOut">Sign Out</button>
-      </div>
 
       <div class="searchbox">
         <label for="searchinput"></label>
@@ -63,12 +62,6 @@ export default {
       } else {
         location.reload()
       }
-    },
-    
-
-    logOut() {
-      const token = this.$store.state.token
-      this.$store.dispatch('logOut', token)
     },
     
     connetApi(){

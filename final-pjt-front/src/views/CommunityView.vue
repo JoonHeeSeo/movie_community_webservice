@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1 style="color:black; margin: 80px 30px 20px 20px; position: relative;">Community</h1>
-    <hr>
+    <h1 style="margin:80px 0px 0px 30px; color:black;">Community</h1>
     <ArticleList/>
     <router-link :to="{ name: 'articlecreate' }">[CREATE]</router-link>
   </div>

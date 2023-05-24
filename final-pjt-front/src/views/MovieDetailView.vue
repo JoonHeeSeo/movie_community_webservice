@@ -18,35 +18,30 @@
         <p v-if="movie.overview" class="detail-overview">{{ movie.overview }}</p>
       </div>
     </div>
-
-    <br>
-    <hr>
-
-    <div>
-      <h1>Comments</h1>
-      <hr>
-
-      <div v-for="comment in movieComments" :key="comment.id">
-        <p>댓글 작성자 : <router-link :to="{ name: 'profile/:username', params: { username: comment.user } }">{{ comment.user }}</router-link></p>
-        <p>댓글 내용 : {{ comment.content }}</p>
-        <p>댓글 작성 시간 : {{ comment.created_at }}</p>
-        <!-- <p>댓글 수정 시간 : {{ comment.updated_at }}</p> -->
-        <form @submit.prevent="deleteMovieComment(comment.id)">
-        <input type="submit" value="DELETE"></form>
-
-        <!-- <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}">[UPDATE]</router-link> -->
-
-        <hr>
-      </div>
-
-      <form @submit.prevent="createMovieComment">
-        <label for="comment">댓글 내용 : </label>
-        <textarea id="comment" cols="30" rows="10" v-model="movieComment"></textarea>
+    <div class="movie-detail-container" style="display:flex; justify-content: center;">
+      <h1 style="margin-right: 10px;">Comments</h1>
+      <ul>
+        <li v-for="comment in movieComments" :key="comment.id" style="display:flex; justify-content: space-between; border:solid 1px #fff; margin:10px; padding: 10px">
+          <p>{{ comment.content }}</p>
+          <p style="font-size:5px; margin-left: 10px">작성자 : 
+            <router-link :to="{ name: 'profile/:username', params: { username: comment.user } }">{{ comment.user }}</router-link>
+            작성 시간 : {{ comment.created_at }}
+          </p>
+          <!-- <p>댓글 수정 시간 : {{ comment.updated_at }}</p> -->
+          <form @submit.prevent="deleteMovieComment(comment.id)">
+          <input type="submit" value="DELETE" style="align-self: end;"></form>
+          <!-- <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}">[UPDATE]</router-link> -->
+        </li>
+      </ul>
+      <form @submit.prevent="createMovieComment" style="display=flex; justify-content:space-between;">
+        <textarea id="comment" cols="80" rows="auto" v-model="movieComment" placeholder="댓글을 입력하세요."></textarea>
+        <input type="submit" id="submit" style="margin-right: auto;" value="작성">
         <br>
-        <input type="submit" id="submit">
       </form>
-
     </div>
+    <div style="display:flex; justify-content:center; align-items: center; margin-top: 20px; ">
+    </div>
+
 
 
       <!-- <p>{{ movie }}</p> -->
