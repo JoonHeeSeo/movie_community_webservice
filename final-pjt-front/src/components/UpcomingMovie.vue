@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-const API_URL = 'http://127.0.0.1:8000'
+// import axios from 'axios'
+// const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name:'UpcomingMovie',
@@ -33,7 +33,7 @@ export default {
   },
   data(){
     return {
-      likeMoviesId : this.$store.state.likeMoviesId
+      // likeMoviesId : this.$store.state.likeMoviesId
     }
   },
   methods: {
@@ -41,22 +41,22 @@ export default {
       return "https://image.tmdb.org/t/p/w200" + this.upcoming.poster_path
     },
     
-    likeMovie(movieId) {
-      axios({
-        method: 'post',
-        url: `${API_URL}/movies/${movieId}/likes/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        }
-      })
-      .then((res) => {
-        this.likeMoviesId = res.data
-        console.log(res.data)
-      })
-      .catch((err => {
-        console.log(err)
-      }))
-    },
+    // likeMovie(movieId) {
+    //   axios({
+    //     method: 'post',
+    //     url: `${API_URL}/movies/${movieId}/likes/`,
+    //     headers: {
+    //       Authorization: `Token ${this.$store.state.token}`
+    //     }
+    //   })
+    //   .then((res) => {
+    //     this.likeMoviesId = res.data
+    //     console.log(res.data)
+    //   })
+    //   .catch((err => {
+    //     console.log(err)
+    //   }))
+    // },
   }
 }
 </script>
