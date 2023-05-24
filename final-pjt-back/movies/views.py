@@ -139,8 +139,24 @@ def profile_get(request, username):
         movies.append( { 'movie_id':MOVIE_ID, 'title': movie_detail_API['title'] })
 
     comments = Comment.objects.filter(user_id=user.id)
+    updated_comments = []
 
-    profile_data = {'movies': movies, 'comments': list(comments.values())}
+    for comment in comments:
+        MOVIE_ID = comment.movie_id
+        API_URL = f'https://api.themoviedb.org/3/movie/{MOVIE_ID}?api_key={API_KEY}&language=ko-kr'
+        movie_detail_API = requests.get(API_URL).json()
+        comment_data = {
+            'id': comment.id,
+            'movie_id': MOVIE_ID,
+            'content': comment.content,
+            'created_at': comment.created_at,
+            'updated_at': comment.updated_at,
+            'user_id': comment.user_id,
+            'title': movie_detail_API['title']
+        }
+        updated_comments.append(comment_data)
+
+    profile_data = {'movies': movies, 'comments': updated_comments}
     return Response(profile_data)
 
 
