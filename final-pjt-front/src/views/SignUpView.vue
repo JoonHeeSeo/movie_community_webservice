@@ -2,7 +2,7 @@
   <div>
     <h2 style="text-align:center; margin-top:80px; margin-bottom: 20px; color:black;">회원가입</h2>
     <form @submit.prevent = "signUp">
-      <div class="login-container" style="color:black">
+      <div class="login-container" style="color:#fff">
         <label for="userid" style="text-align: left; margin-bottom:5px;">아이디 :</label>
         <input type="text" id="userid" v-model="userid">
         <br>

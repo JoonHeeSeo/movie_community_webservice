@@ -48,7 +48,7 @@
           </div>
         </div>
         <div v-else>
-          <p>작성한 댓글이 없습니다.</p>
+          <p style="color:#fff; margin-top:10px;">작성한 댓글이 없습니다.</p>
         </div>
       </div>
 
@@ -218,13 +218,13 @@ export default {
   color:black;
 }
 .profile-articlecomment{
-  margin-top:20px;
+  margin-top:30px;
 }
 .profile-moviecomment{
-  margin-top:20px;
+  margin-top:30px;
 }
 .profile-movielist{
-  margin-top:20px;
+  margin-top:30px;
 }
 
 </style>
