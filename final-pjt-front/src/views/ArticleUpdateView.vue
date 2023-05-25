@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>게시글 수정</h1>
+
+    {{title }}
+
     <form @submit.prevent="updateArticle">
       <label for="title">제목 : </label>
       <input type="text" id="title" v-model.trim="title">
@@ -27,6 +30,7 @@ export default {
 
     }
   },
+
   methods: {
     updateArticle() {
       const title = this.title
