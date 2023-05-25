@@ -1,28 +1,29 @@
 <template>
   <div style="display: flex; justify-content: center;">
     <div class="articlelist-item-container">
-      <div>
+      <div style="width:60vh;">
         <p style="margin-top: 20px">Article #{{ articleDetail.id }}  {{ articleDetail.title }}</p>
         <hr>
 
-        <div>
+        <div style="margin-top:20px;">
           <h1>{{ articleDetail.title }}</h1>
         </div>
         <div>
           {{ articleDetail.content }}
         </div>
-        <div style="margin-top: 20px">
-          <p style="margin-left: 300px; font-size:smaller;">작성자 :  <router-link :to="{ name: 'profile/:username', params: { username: articleDetail.username } }">{{ articleDetail.username }}</router-link></p>
+        <div style="margin-top:20px; display:flex; justify-content: flex-end;">
+          <p style="font-size:smaller;">작성자 :  <router-link :to="{ name: 'profile/:username', params: { username: articleDetail.username } }">{{ articleDetail.username }}</router-link></p>
         </div>
-        <p>{{ articleDetail.like_users.length }}명이 좋아합니다.
-        <button @click="likeArticle(articleDetail.id)" class="article-like-btn">
-          {{ checkLikeArticle(articleDetail) ? '❤️' : '🤍' }}
-        </button></p>
-        <div style="display: flex; justify-content: flex-end;">
+        <div style="display: flex; justify-content: flex-end; margin-top:20px">
+          <p style="margin-right: auto;">{{ articleDetail.like_users.length }}명이 좋아합니다.
+            <button @click="likeArticle(articleDetail.id)" class="article-like-btn">
+              {{ checkLikeArticle(articleDetail) ? '❤️' : '🤍' }}
+            </button>
+          </p>
           <form @submit.prevent="deleteArticle">
-            <input type="submit" value="DELETE">
+            <input type="submit" value="DELETE" class="articlelist-delete-btn">
           </form>
-          <router-link :to="{name : 'article/:id/update', params: {id: articleDetail.id}}">[UPDATE]</router-link>
+          <router-link :to="{name : 'article/:id/update', params: {id: articleDetail.id}}" class="articlelist-update-btn">UPDATE</router-link>
         </div>
       </div>
     </div>
@@ -45,9 +46,9 @@
         <p>댓글 수정 시간 : {{ comment.updated_at }}</p> -->
         <div style="display: flex; justify-content: flex-end;">
           <form @submit.prevent="deleteComment(comment.id)">
-            <input type="submit" value="DELETE">
+            <input type="submit" value="DELETE" class="articlelist-delete-btn">
           </form>
-          <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}">[UPDATE]</router-link>
+          <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}" class="articlelist-update-btn">UPDATE</router-link>
         </div>
       </div>
     </div>  
@@ -168,12 +169,36 @@ export default {
   color:black;
   display:flex;
   margin: 20px;
+  width: 40%;
 }
 .article-comment-container{
   color:black;
   display: flex;
   flex-direction: column;
   margin: 20px;
+}
+.articlelist-update-btn{
+  color:black;
+  font-size: 13px;
+  padding:3px;
+  width: 80px;
+  height: 20px;
+  background: white;
+  text-align: center;
+  border: 1px solid black;
+  justify-self: center;
 
 }
+.articlelist-delete-btn{
+  color:black;
+  font-size: 13px;
+  padding:3px;
+  width: 80px;
+  height: 20px;
+  background: white;
+  text-align: center;
+  text-decoration: underline;
+  border: 1px solid black;
+  cursor: pointer;
+  }
 </style>
