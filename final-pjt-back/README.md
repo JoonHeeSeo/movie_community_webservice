@@ -8,6 +8,9 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 
+<!-- movies/get/movies를 실행하면서 runserver -->
+python manage.py start_server
+
 
 ### 시행착오와 생각
 1. movies > models.py > Movie
