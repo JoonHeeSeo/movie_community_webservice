@@ -2,10 +2,10 @@
   <div>
 
     <h3 style="color:#000000; margin-top:20px;">댓글 작성</h3>
-    <form @submit.prevent="createComment">
+    <form>
       <label for="comment"></label>
       <textarea id="comment" cols="30" rows="1" v-model="comment" placeholder="댓글을 입력하세요"></textarea>
-      <button @click="submit">제출</button>
+      <button @click.prevent="createComment">제출</button>
     </form>
 
   </div>

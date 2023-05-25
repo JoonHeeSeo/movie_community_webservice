@@ -14,11 +14,14 @@
         <div style="margin-top: 20px">
           <p style="margin-left: 300px; font-size:smaller;">작성자 :  <router-link :to="{ name: 'profile/:username', params: { username: articleDetail.username } }">{{ articleDetail.username }}</router-link></p>
         </div>
-        <p>{{ articleDetail.like_users.length }}명이 좋아합니다.</p>
+        <p>{{ articleDetail.like_users.length }}명이 좋아합니다.
+        <button @click="likeArticle(articleDetail.id)" class="article-like-btn">
+          {{ checkLikeArticle(articleDetail) ? '❤️' : '🤍' }}
+        </button></p>
         <div style="display: flex; justify-content: flex-end;">
           <form @submit.prevent="deleteArticle">
             <input type="submit" value="DELETE">
-          </form> 
+          </form>
           <router-link :to="{name : 'article/:id/update', params: {id: articleDetail.id}}">[UPDATE]</router-link>
         </div>
       </div>
@@ -47,7 +50,7 @@
           <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}">[UPDATE]</router-link>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
 </template>
 
@@ -110,6 +113,7 @@ export default {
       })
       .then(() => {
         this.$router.push({ name : 'community' })
+        location.reload()
       })
       .catch((err => {
         console.log(err)
@@ -132,7 +136,29 @@ export default {
         console.log(err)
       }))
     },
-    
+
+    likeArticle(articleId) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/articles/${articleId}/likes/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then(() => {
+        // 새로고침..
+        location.reload()
+      })
+      .catch((err => {
+        console.log(err)
+      }))
+    },
+
+    checkLikeArticle(article) {
+      const currentUserIdx = this.$store.state.useridx
+      return article.like_users.includes(currentUserIdx)
+    },
+
   }
 }
 </script>
