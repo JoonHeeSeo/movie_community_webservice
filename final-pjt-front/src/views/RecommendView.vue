@@ -76,29 +76,8 @@ export default {
     this.table = document.querySelector("#tblBingo")
     this.letter = document.querySelectorAll(".letters-bingo")
 
-    // this.arr = [
-    //   '해', '반', '지', '기', '생', '공', '포', '니',
-    //   '리', '지', '대', '봄', '가', '바', '모', '누',
-    //   '스', '법', '숲', '치', '이', '보', '놀', '나',
-    //   '릴', '포', '바', '리', '피', '의', '저', '도',
-    //   '러', '츠', '름', '고', '오', '너', '섬', '지',
-    //   '로', '삶', '여', '보', '문', '나', '건', '마',
-    //   '맨', '겨', '울', '바', '고', '어', '른', '그',
-    //   '스', '연', '애', '재', '강', '아', '일', '리',
-    // ]
-
-    // this.arr = [
-    //   '대', '왕', '지', '반', '해', '울', '가', '에',
-    //   '부', '주', '간', '자', '리', '겨', '을', '즈',
-    //   '탈', '공', '맨', '크', '제', '름', '봄', '트',
-    //   '출', '드', '용', '다', '성', '여', '그', '스',
-    //   '마', '필', '기', '름', '반', '씨', '린', '바',
-    //   '리', '주', '행', '이', '인', '날', '북', '마',
-    //   '오', '질', '방', '람', '양', '기', '자', '도',
-    //   '분', '노', '명', '사', '침', '탑', '전', '거',
-    // ]
-
-    this.arr = [
+    const arrs = [
+      [
       '사', '슴', '마', '리', '오', '문', '컴', '아',
       '브', '가', '디', '언', '즈', '단', '포', '기',
       '라', '오', '브', '슈', '퍼', '속', '넌', '공',
@@ -107,8 +86,30 @@ export default {
       '분', '노', '의', '질', '주', '라', '메', '리',
       '존', '인', '공', '렌', '필', '드', '간', '마',
       '윅', '어', '주', '이', '블', '즈', '짱', '구',
-    ]
-    
+      ],
+      [
+      '대', '인', '생', '파', '이', '트', '스', '시',
+      '부', '무', '비', '위', '반', '지', '타', '티',
+      '엔', '드', '에', '플', '맨', '어', '워', '소',
+      '가', '든', '블', '반', '래', '벤', '즈', '닉',
+      '이', '름', '루', '보', '쉬', '져', '분', '노',
+      '소', '묵', '시', '이', '해', '수', '죄', '인',
+      '녀', '기', '적', '탑', '리', '귀', '멸', '목',
+      '인', '셉', '션', '건', '올', '드', '라', '마',
+      ],
+      [
+      '코', '난', '라', '이', '온', '너', '의', '나',
+      '소', '기', '적', '지', '열', '쇠', '멋', '닥',
+      '년', '동', '경', '여', '인', '결', '진', '터',
+      '우', '정', '전', '자', '비', '혼', '영', '화',
+      '아', '이', '름', '사', '랑', '죄', '와', '벌',
+      '파', '날', '늑', '대', '인', '생', '죽', '음',
+      '트', '씨', '과', '소', '울', '암', '흑', '성',
+      '우', '산', '학', '조', '커', '신', '성', '물',
+      ],
+      ]
+
+    this.arr = arrs[Math.floor(Math.random() * arrs.length)]
 
     // this.shuffle(this.arr)
     this.initializeBingoTable()
@@ -233,32 +234,16 @@ export default {
       if (this.resultIdx < 4 &&  this.resultwordlist.length === 0) {
         // resultwordlist is empty
         alert('입력값이 없습니다.')
-      } else if (this.resultIdx === 1) {
-        this.result1 = this.resultwordlist.join('')
-        this.resultword = ''
-        this.resultwordlist = []
-        this.latestiPosition = 0
-        this.latestjPosition = 0
-        this.latestDirection = 0
-        this.resultIdx = 2
-      } else if (this.resultIdx === 2) {
-        this.result2 = this.resultwordlist.join('')
-        this.resultword = ''
-        this.resultwordlist = []
-        this.latestiPosition = 0
-        this.latestjPosition = 0
-        this.latestDirection = 0
-        this.resultIdx = 3
-      } else if (this.resultIdx === 3) {
-        this.result3 = this.resultwordlist.join('')
-        this.resultword = ''
-        this.resultwordlist = []
-        this.latestiPosition = 0
-        this.latestjPosition = 0
-        this.latestDirection = 0
-        this.resultIdx = 4
+      } else if (this.resultIdx === 1 || this.resultIdx === 2 || this.resultIdx === 3) {
+        this['result' + this.resultIdx] = this.resultwordlist.join('');
+        this.resultword = '';
+        this.resultwordlist = [];
+        this.latestiPosition = 0;
+        this.latestjPosition = 0;
+        this.latestDirection = 0;
+        this.resultIdx++;
       } else if (this.resultIdx === 4) {
-        this.sendWord()
+        this.sendWord();
       }
     },
 
