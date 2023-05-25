@@ -7,45 +7,54 @@
         <span v-if="movie.original_title">({{ movie.original_title }})</span>
         <b v-if="movie.vote_average" style="float:right;">평점: ⭐{{ movie.vote_average }}</b>
         <br>
-        <span v-if="movie.runtime" class="detail-movie-time">상영시간: {{ movie.runtime }}분</span>
-        <span v-if="movie.genres && movie.genres.length > 0" class="detail-movie-time">장르: 
-          <span v-for="(genre, idx) in movie.genres" :key="{idx}">
-          {{ genre.name }}
+        <div>
+          <span v-if="movie.runtime" class="detail-movie-time">상영시간: {{ movie.runtime }}분</span>
+          <span v-if="movie.genres && movie.genres.length > 0" class="detail-movie-time">
+            장르: 
+            <span v-for="(genre, idx) in movie.genres" :key="{idx}" style="margin-left:7px;">
+              {{ genre.name }}
+            </span>
           </span>
-        </span>
-
-        <button class="movie-like-btn" @click.prevent="likeMovie(movie.id)">
-          <span v-if="likeMoviesId.includes(movie.id)">❤️</span>
-          <span v-else>🤍</span>
-        </button>
+        </div>
         
-        <h2 style="margin:15px 0">요약</h2>
+        <h2 style="margin:15px 0">요약
+          <button class="movie-like-btn" @click.prevent="likeMovie(movie.id)">
+            <span v-if="likeMoviesId.includes(movie.id)">❤️</span>
+            <span v-else>🤍</span>
+          </button>
+        </h2>
         <hr style="border: solid black 1px">
         <p v-if="movie.overview" class="detail-overview">{{ movie.overview }}</p>
       </div>
     </div>
 
     <div class="detail-comment-container">
-      <h1 style="margin-right: 10px;">Comments</h1>
-      <ul>
-        <li v-for="comment in movieComments" :key="comment.id" style="display:flex; justify-content: space-between; border:solid 1px #fff; margin:10px; padding: 10px">
-          <p>{{ comment.content }}</p>
-          <p style="font-size:5px; margin-left: 10px">작성자 : 
-            <router-link :to="{ name: 'profile/:username', params: { username: comment.user } }">{{ comment.user }}</router-link>
-            <!-- 작성 시간 : {{ comment.created_at }} -->
-          </p>
-          <!-- <p>댓글 수정 시간 : {{ comment.updated_at }}</p> -->
-          <form @submit.prevent="deleteMovieComment(comment.id)">
-          <input type="submit" value="DELETE" style="align-self: end;"></form>
-          <!-- <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}">[UPDATE]</router-link> -->
-        </li>
-      </ul>
-      <form @submit.prevent="createMovieComment" style="display=flex; justify-content:space-between;">
-        <textarea id="comment" cols="80" rows="auto" v-model="movieComment" placeholder="댓글을 입력하세요."></textarea>
-        <input type="submit" id="submit" style="margin-right: auto;" value="작성">
-        
-        <br>
-      </form>
+      <div>
+        <h1>Comment</h1>
+        <hr>
+      </div>
+      <div>
+        <form @submit.prevent="createMovieComment" style="display=flex; justify-content:space-between;">
+          <textarea id="comment" cols="80" rows="auto" v-model="movieComment" placeholder="댓글을 입력하세요."></textarea>
+          <input type="submit" id="submit" style="margin-right: auto;" value="작성">
+          <br>
+        </form>
+      </div>
+      <div>
+        <ul>
+          <li v-for="comment in movieComments" :key="comment.id" style="display:flex; justify-content:end; border:solid 1px #fff; margin:10px; padding:10px; width: 600px;">
+            <p style="margin-right: auto; marigin-left:5px;">{{ comment.content }}</p>
+            <p style="font-size:5px; margin-right:10px; color:#fff;">작성자 : 
+              <router-link :to="{ name: 'profile/:username', params: { username: comment.user } }">{{ comment.user }}</router-link>
+              <!-- 작성 시간 : {{ comment.created_at }} -->
+            </p>
+            <!-- <p>댓글 수정 시간 : {{ comment.updated_at }}</p> -->
+            <form @submit.prevent="deleteMovieComment(comment.id)">
+            <input type="submit" value="DELETE" style="align-self: end;"></form>
+            <!-- <router-link :to="{name : 'article/:id/comment/:commentid/update', params: {id: articleDetail.id, commentid: comment.id}}">[UPDATE]</router-link> -->
+          </li>
+        </ul>
+      </div>
     </div>
     <div style="display:flex; justify-content:center; align-items: center; margin-top: 20px; ">
     </div>
@@ -246,8 +255,10 @@ export default {
 }
 .detail-movie-time{
   font-size: 15px;
+  display: flex;
   color: #4d454b;
-  margin-right: 10px;
+  justify-content: left;
+
 }
 .detail-overview{
   margin-top: 20px;
@@ -255,13 +266,12 @@ export default {
 }
 /* 좋아요 버튼 */
 .movie-like-btn{
-  position: absolute;
-  font-size: 20px;
+  font-size: 30px;
   border: none;
   background: none;
-  right: 15px;
-  bottom: 65px;
   cursor: pointer;
+  float:right;
+  margin-right:auto;
 }
 .movive-like-btn:hover {
   color:#fff
@@ -273,10 +283,10 @@ export default {
 /* comment */
 .detail-comment-container{
   display:flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  width:1000px;
+  align-items: center;
+  width:auto;
+  padding:20px;
   height:auto;
   color:black;
 }
