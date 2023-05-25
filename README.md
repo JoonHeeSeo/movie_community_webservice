@@ -1,34 +1,39 @@
-# final-pjt
-Final-pjt first semester in SSAFY
-<br>
-
-### i. 팀원 정보 및 업무 분담 내역
-최현우 서준희
-<br>
-230517 스켈레톤 코드 제작 및 api 연결
-네비게이터: 서준희 드라이버: 최현우
-업무 내용: 지시와 이행 
-<br>
-
-### ii. 목표 서비스 구현 및 실제 구현 정도
-로그인이 최소화된 영화추천 서비스 
-(로그인 사용자는 커뮤니티 서비스 및 평점 기능 이용 가능)
-
-### iii. 데이터베이스모델링 
-
-ERD 추후 추가 예정 
-
-### iv. 영화 추천 알고리즘에 대한 기술적 설명
-
-### v. 서비스 대표 기능에 대한 설명
-
-### vi. 배포 서버 URL (배포했을 경우)
-
-### vii. 기타 느낀 점 후기 등
+# Final Project
+Final-PJT of 1st semester in SSAFY
 
 
-## Records
+## 1. 팀원 정보 및 업무 분담 내역
+- (팀장) 최현우 : 주로 front server
+- (팀원) 서준희 : 주로 back-api
 
+## 2. 목표 서비스 구현 및 실제 구현 정도
+- 목표 : 로그인이 최소화된 영화추천 서비스, 로그인 사용자는 커뮤니티 서비스 및 평점 기능 이용 가능
+- 구현 : 영화 커뮤니티 서비스
+
+## 3. 데이터베이스 모델링 
+<img src="./erd_total.PNG" alt="erd_total" width="60%" height="60%">
+<img src="./erd_simple.PNG" alt="erd_simple" width="60%" height="60%">
+
+## 4. 영화 추천 알고리즘에 대한 기술적 설명
+ 1. 적절한 낱말판을 배치한다.
+ 2. 관련 단어를 최대 3개 입력 받는다.
+ 3. 단어에 대한 결과를 TMDB API에 요청하여 결과를 돌려준다.
+
+## 5. 서비스 대표 기능에 대한 설명
+- 커뮤니티 기능 (글, 댓글, 좋아요)
+- 회원 기능 (가입, 로그인, 프로필)
+- 영화 조회 (상영작, 검색, 추천)
+
+## 6. 배포 서버 URL (배포 했을 경우)
+- 아직
+
+## 7. 기타 느낀점 후기 등
+- [개발 과정 README](./final-pjt-back/README.md)
+
+
+
+
+### Records
 23.05.17.
 - Django Startproject, startapp,
 - Vue add Vuex, Router
@@ -54,8 +59,5 @@ Community
 (유사 단어를 처리 못하는 문제 발생)
 - NAV bar, signin, signup style 구성
 (view내의 모든 파일에 적용되는 문제 발생)
-
-
-23.05.
 
 

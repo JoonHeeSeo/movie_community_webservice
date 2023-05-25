@@ -1,28 +1,15 @@
 ### migration 지우기
-
 find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 rm db.sqlite3
 
 
-
-### loaddate 쓰기 
-
+### migration 하고 실행까지
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 
 
-
-### TMDB Image API 링크
-f'https://image.tmdb.org/t/p/original/{backdrop_path}'
-f'https://image.tmdb.org/t/p/original/{poster_path}'
-
-https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg
-
-
-
 ### 시행착오와 생각
-
 1. movies > models.py > Movie
 - Q. 받아오는 Movie의 ID를 Primary key로 지정해주는 것이 좋을까?
   - ID를 Primary key로 저장하면 DB 내에서 자동적으로 기본키를 기준으로 정렬한다. 그런데 데이터는 평점 순으로 정렬된 상태이므로, 추후에 다시 정렬을 해줘야하는 안타까운 상황이 발생하므로, movie_ID를 기본키로 설정하지 않는다. 근데 물리적인 차이가 있는 것인지는 모르겠다.
