@@ -20,6 +20,7 @@
     <form>
       <div style="display: flex; justify-content: center;">
         <input type="submit" value="NEXT" @click.prevent="makeWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
+        <input type="submit" value="제출" @click.prevent="sendWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
         <input type="submit" value="초기화" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer;">
       </div>
     </form>
@@ -122,23 +123,30 @@ export default {
     //   '스', '연', '애', '재', '강', '아', '일', '리',
     // ];
 
+    // this.arr = [
+    //   '대', '왕', '지', '반', '해', '울', '가', '에',
+    //   '부', '주', '간', '자', '리', '겨', '을', '즈',
+    //   '탈', '공', '맨', '크', '제', '름', '봄', '트',
+    //   '출', '드', '용', '다', '성', '여', '그', '스',
+    //   '마', '필', '기', '름', '반', '씨', '린', '바',
+    //   '리', '주', '행', '이', '인', '날', '북', '마',
+    //   '오', '질', '방', '람', '양', '기', '자', '도',
+    //   '분', '노', '명', '사', '침', '탑', '전', '거',
+    // ];
 
     this.arr = [
-      '대', '왕', '지', '반', '해', '울', '가', '에',
-      '부', '주', '간', '자', '리', '겨', '을', '즈',
-      '탈', '공', '맨', '크', '제', '름', '봄', '트',
-      '출', '드', '용', '다', '성', '여', '그', '스',
-      '마', '필', '기', '름', '반', '씨', '린', '바',
-      '리', '주', '행', '이', '인', '날', '북', '마',
-      '오', '질', '방', '람', '양', '기', '자', '도',
-      '분', '노', '명', '사', '침', '탑', '전', '거',
+      '사', '슴', '마', '리', '오', '문', '컴', '아',
+      '브', '가', '디', '언', '즈', '단', '포', '기',
+      '라', '오', '브', '슈', '퍼', '속', '넌', '공',
+      '더', '갤', '럭', '시', '수', '헌', '트', '룡',
+      '스', '필', '기', '름', '드', '래', '곤', '둘',
+      '분', '노', '의', '질', '주', '라', '메', '리',
+      '존', '인', '공', '렌', '필', '드', '간', '마',
+      '윅', '어', '주', '이', '블', '즈', '짱', '구',
     ];
-
-
-    console.log(this.arr)
     
 
-    this.shuffle(this.arr);
+    // this.shuffle(this.arr);
     this.initializeBingoTable();
   },
 
@@ -174,10 +182,9 @@ export default {
           
           // test part -start
 
-          console.log(e.id)
+          console.log(e)
           this.resultwordlist.push(e.id)
           this.resultword = this.resultwordlist.join("")
-          console.log(this.resultwordlist)
 
           // test part -end
 
@@ -212,12 +219,8 @@ export default {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
 
-        [arr[currentIndex], arr[randomIndex]] = [
-          arr[randomIndex],
-          arr[currentIndex]
-        ];
+        [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
       }
-
       return arr;
     },
 
@@ -245,26 +248,7 @@ export default {
       // This method should clear the marked cells and reinitialize the table
     },
 
-    makeWord() {
-      if (this.resultIdx < 4 &&  this.resultwordlist.length === 0) {
-        // resultwordlist is empty
-        alert('입력값이 없습니다.')
-      } else if (this.resultIdx === 1) {
-        this.result1 = this.resultwordlist.join('')
-        this.resultword = ''
-        this.resultwordlist = []
-        this.resultIdx = 2
-      } else if (this.resultIdx === 2) {
-        this.result2 = this.resultwordlist.join('')
-        this.resultword = ''
-        this.resultwordlist = []
-        this.resultIdx = 3
-      } else if (this.resultIdx === 3) {
-        this.result3 = this.resultwordlist.join('')
-        this.resultword = ''
-        this.resultwordlist = []
-        this.resultIdx = 4
-      } else if (this.resultIdx === 4) {
+    sendWord() {
         const resultInput = []
         resultInput.push(this.result1)
         resultInput.push(this.result2)
@@ -285,8 +269,32 @@ export default {
           .catch((err) => {
             console.log(err)
           })
+    },
+
+    makeWord() {
+      if (this.resultIdx < 4 &&  this.resultwordlist.length === 0) {
+        // resultwordlist is empty
+        alert('입력값이 없습니다.')
+      } else if (this.resultIdx === 1) {
+        this.result1 = this.resultwordlist.join('')
+        this.resultword = ''
+        this.resultwordlist = []
+        this.resultIdx = 2
+      } else if (this.resultIdx === 2) {
+        this.result2 = this.resultwordlist.join('')
+        this.resultword = ''
+        this.resultwordlist = []
+        this.resultIdx = 3
+      } else if (this.resultIdx === 3) {
+        this.result3 = this.resultwordlist.join('')
+        this.resultword = ''
+        this.resultwordlist = []
+        this.resultIdx = 4
+      } else if (this.resultIdx === 4) {
+        this.sendWord()
       }
     },
+
 
 
     getMoviePoster(poster_path) {
