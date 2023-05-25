@@ -1,40 +1,46 @@
 <template>
   <div>
-
-    <div class="bingo-container">
-        <table id="tblBingo"></table>
+    <!-- 등록되는 단어 확인 -->
+    <div style="display: flex; justify-content: center; align-items: center; height: 60px;">
+      <div class="word-show-container">{{ resultword }}</div>
     </div>
-    <br>
 
+    <!-- 등록된 단어 확인하기 -->
+    <div style="display: flex; justify-content: center; align-items: center; height: 60px; margin-top:10px;">
+      <span class="word-select-container">{{ result1 }}</span>
+      <span class="word-select-container">{{ result2 }}</span>
+      <span class="word-select-container">{{ result3 }}</span>
+    </div>
+    
+    <!-- 단어 선택 버튼  -->
     <form>
       <div style="display: flex; justify-content: center;">
-        <input type="submit" value="NEXT" @click.prevent="makeWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
-        <input type="submit" value="SUBMIT" @click.prevent="sendWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
-        <input type="submit" value="RESET" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer;">
+        <input type="submit" value="단어등록" @click.prevent="makeWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin:10px;">
+        <input type="submit" value="추천" @click.prevent="sendWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin:10px;">
+        <input type="submit" value="새로고침" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin:10px;">
       </div>
     </form>
+    
+    <hr style="border: solid #fff 1px;">
 
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
-      <div style="background: none; color: white; border: solid white 1px; padding: 10px; cursor: pointer; margin-bottom: 10px; font-size: 26px;">{{ resultword }}</div>
-      <div style="margin-bottom: 5px;"></div>
-    </div>
-
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
-      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">첫번째 단어 : {{ result1 }}</p>
-      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">두번째 단어 : {{ result2 }}</p>
-      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">세번째 단어 : {{ result3 }}</p>
-    </div>
-    <br><hr>
-
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
-      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;">추천 영화</p>
-    </div>
-
+    <!-- 추천영화 -->
+    <!-- <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
+      <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;"></p>
+    </div> -->
     <p style="display: flex; justify-content: center; align-items: center;">
       <router-link v-for="movie in movies" :key="movie.id" :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id } }">
         <img :src="getMoviePoster(movie.poster_path)" alt="movie_post" style="margin-right: 30px;">
       </router-link>
     </p>
+
+    <!-- 빙고 판 -->
+    <div class="bingo-container">
+      <table id="tblBingo"></table>
+    </div>
+    <br>
+
+    
+
 
   </div>
 </template>
@@ -118,7 +124,7 @@ export default {
 
         for (let j = 0; j < 8; j++) {
           let td = document.createElement("td")
-          td.textContent = this.arr[iterator].toString()
+          // td.textContent = this.arr[iterator].toString()
           // td.style.height = "20%"
           td.style.width = "50px"
           td.classList.add("main-table-cell")
@@ -126,6 +132,7 @@ export default {
           let div = document.createElement("div")
           div.classList.add("cell-format")
           div.id = this.arr[iterator]+ ',' + (i + 1) + ',' + (j + 1)
+          div.textContent = this.arr[iterator].toString()
           td.appendChild(div)
           tr.appendChild(td)
           iterator++
@@ -215,6 +222,7 @@ export default {
           .then((res) => {
             this.movies = res.data
             console.log(res)
+            alert("추천 영화가 생성되었습니다.")
           })
           .catch((err) => {
             console.log(err)
@@ -289,18 +297,19 @@ bingo-body:focus {
 
 #tblBingo {
     border-collapse: collapse;
-    width: 40%;
-    /* height: 40rem; */
-    /* width: 40rem; */
+    /* width: 60%; */
+    height: 40rem;
+    width: 40rem;
     text-align: center;
     font-size: 26pt;
     cursor: pointer;
+    margin-top:20px;
 }
 
 #tblBingo td {
-    padding: 0.5rem;
-    flex: 1;
-    /* width: 20%; */
+    padding: 5px;
+    /* flex: 1; */
+    width: 20%;
  }
 
  .cell-format {
@@ -338,6 +347,45 @@ bingo-body:focus {
 
 .show-bingo {
     display: inline;
+}
+
+
+.word-show-container{
+  background: none;
+  color:white;
+  border:solid white 1px;
+  font-size: 25px;
+  width:auto;
+  padding: 10px;
+}
+.word-select-container{
+  background: rgb(244, 232, 242);
+  border: solid black 1px;
+  color: black;
+  margin: 0px 10px 5px 10px;
+  font-size: 25px;
+  padding: 10px
+}
+/* .word-show-container:empty{
+  display:none;
+} */
+.word-show-container:empty::before{
+  content:'단어를 만들어 주세요';
+}
+.word-select-container:empty{
+  display:none;
+}
+
+/* 추천영화 */
+.recommend-movie-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 10vh;
+}
+.recommend-movie-container:empty{
+  height: 0;
 }
 
 </style>
