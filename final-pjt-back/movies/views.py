@@ -169,10 +169,9 @@ def movie_likes(request, movie_id):
         serializer = UserSerializer(user)
         return Response(serializer.data['like_movies'])
 
-
     elif request.method == 'POST':
         user = User.objects.get(username=request.user)
-
+        
         if movie_id in user.like_movies:
             user.like_movies.remove(movie_id)
         else:
@@ -194,7 +193,7 @@ def movie_recommend(request):
         API_URL = f'https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={SEARCH_INPUT}&language=ko-kr'
         searched_movies_API = requests.get(API_URL).json()
         
-        for idx in range(0, 6):
+        for idx in range(3):
             try:
                 recommend_movies.append(searched_movies_API['results'][idx])
             except:
