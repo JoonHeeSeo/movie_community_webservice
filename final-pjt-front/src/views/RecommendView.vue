@@ -5,23 +5,12 @@
         <table id="tblBingo"></table>
     </div>
     <br>
-    <!-- <div class="letter-div">
-        <table id="tblLetter">
-            <tr>
-                <td class="letters-bingo">A</td>
-                <td class="letters-bingo">I</td>
-                <td class="letters-bingo">N</td>
-                <td class="letters-bingo">G</td>
-                <td class="letters-bingo">O</td>
-            </tr>
-        </table>
-    </div> -->
 
     <form>
       <div style="display: flex; justify-content: center;">
         <input type="submit" value="NEXT" @click.prevent="makeWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
-        <input type="submit" value="제출" @click.prevent="sendWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
-        <input type="submit" value="초기화" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer;">
+        <input type="submit" value="SUBMIT" @click.prevent="sendWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin-right: 10px;">
+        <input type="submit" value="RESET" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer;">
       </div>
     </form>
 
@@ -46,30 +35,6 @@
         <img :src="getMoviePoster(movie.poster_path)" alt="movie_post" style="margin-right: 30px;">
       </router-link>
     </p>
-      
-    <!-- <p v-for="movie in movies" :key="movie.id">
-      <router-link :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id } }">
-      <img :src="getMoviePoster(movie.poster_path)" alt="movie_post">
-      </router-link>
-    </p> -->
-      <!-- {{ movie.title }} -->
-      <!-- <button class="ticket-detail-btn">자세히 보기</button> -->
-
-
-    <!-- movie_id = models.IntegerField()
-    original_title = models.TextField(null=True, blank=True)    
-    title = models.TextField(null=True, blank=True)
-    original_language = models.TextField(null=True, blank=True)
-    genre_ids = models.TextField(null=True, blank=True)
-    overview = models.TextField(null=True, blank=True)
-    release_date = models.TextField(null=True, blank=True)
-    popularity = models.IntegerField(null=True, blank=True)
-    vote_average = models.FloatField(null=True, blank=True)
-    vote_count = models.IntegerField(null=True, blank=True)
-    adult = models.TextField(null=True, blank=True)
-    video = models.TextField(null=True, blank=True)
-    poster_path = models.TextField(null=True, blank=True)
-    backdrop_path = models.TextField(null=True, blank=True) -->
 
   </div>
 </template>
@@ -83,18 +48,6 @@ export default {
     return {
       table: null,
       letter: null, 
-      // winningPositions: [
-      //   [0, 1, 2, 3, 4],
-      //   [5, 6, 7, 8, 9],
-      //   [10, 11, 12, 13, 14],
-      //   [15, 16, 17, 18, 19],
-      //   [20, 21, 22, 23, 24],
-      //   [0, 5, 10, 15, 20],
-      //   [1, 6, 11, 16, 21],
-      //   [2, 7, 12, 17, 22],
-      //   [3, 8, 13, 18, 23],
-      //   [4, 9, 14, 19, 24]
-      // ],
       arr: [],
 
       resultIdx: 1,
@@ -105,12 +58,17 @@ export default {
       resultwordlist: [],
       movies: [],
 
+      latestiPosition: 0,
+      latestjPosition: 0,
+      // 0은 초기값 1상 2하 3좌 4우
+      latestDirection: 0,
+
     };
   },
 
   mounted() {
-    this.table = document.querySelector("#tblBingo");
-    this.letter = document.querySelectorAll(".letters-bingo");
+    this.table = document.querySelector("#tblBingo")
+    this.letter = document.querySelectorAll(".letters-bingo")
 
     // this.arr = [
     //   '해', '반', '지', '기', '생', '공', '포', '니',
@@ -121,7 +79,7 @@ export default {
     //   '로', '삶', '여', '보', '문', '나', '건', '마',
     //   '맨', '겨', '울', '바', '고', '어', '른', '그',
     //   '스', '연', '애', '재', '강', '아', '일', '리',
-    // ];
+    // ]
 
     // this.arr = [
     //   '대', '왕', '지', '반', '해', '울', '가', '에',
@@ -132,7 +90,7 @@ export default {
     //   '리', '주', '행', '이', '인', '날', '북', '마',
     //   '오', '질', '방', '람', '양', '기', '자', '도',
     //   '분', '노', '명', '사', '침', '탑', '전', '거',
-    // ];
+    // ]
 
     this.arr = [
       '사', '슴', '마', '리', '오', '문', '컴', '아',
@@ -143,109 +101,101 @@ export default {
       '분', '노', '의', '질', '주', '라', '메', '리',
       '존', '인', '공', '렌', '필', '드', '간', '마',
       '윅', '어', '주', '이', '블', '즈', '짱', '구',
-    ];
+    ]
     
 
-    // this.shuffle(this.arr);
-    this.initializeBingoTable();
+    // this.shuffle(this.arr)
+    this.initializeBingoTable()
   },
 
   methods: {
     initializeBingoTable() {
-      let iterator = 0;
+      let iterator = 0
 
       for (let i = 0; i < 8; i++) {
-        let tr = document.createElement("tr");
-        this.table.appendChild(tr);
+        let tr = document.createElement("tr")
+        this.table.appendChild(tr)
 
         for (let j = 0; j < 8; j++) {
-          let td = document.createElement("td");
-          td.id = this.arr[iterator].toString();
-          td.style.height = "20%";
-          td.style.width = "20%";
-          td.classList.add("main-table-cell");
+          let td = document.createElement("td")
+          td.textContent = this.arr[iterator].toString()
+          // td.style.height = "20%"
+          td.style.width = "50px"
+          td.classList.add("main-table-cell")
 
-          let div = document.createElement("div");
-          div.classList.add("cell-format");
-          div.textContent = this.arr[iterator].toString();
-          td.appendChild(div);
-          tr.appendChild(td);
-          iterator++;
+          let div = document.createElement("div")
+          div.classList.add("cell-format")
+          div.id = this.arr[iterator]+ ',' + (i + 1) + ',' + (j + 1)
+          td.appendChild(div)
+          tr.appendChild(td)
+          iterator++
         }
       }
 
-      const cell = document.querySelectorAll(".main-table-cell");
-      // let winningIterator = 0;
+      const cell = document.querySelectorAll(".main-table-cell")
       cell.forEach((e) => {
         e.addEventListener("click", () => {
-          
-          
-          // test part -start
 
-          console.log(e)
-          this.resultwordlist.push(e.id)
-          this.resultword = this.resultwordlist.join("")
+          const divElement = e.querySelector('div')
+          const newChar = divElement.id[0]
+          const newiPosition = divElement.id[2]
+          const newjPosition = divElement.id[4]
 
-          // test part -end
+          // 첫번째 낱말 클릭
+          if (this.latestiPosition === 0 && this.latestjPosition === 0) {          
+            this.resultwordlist.push(newChar)
+            this.resultword = this.resultwordlist.join("")
+            e.classList.add("strickout")
+            this.latestiPosition = newiPosition
+            this.latestjPosition = newjPosition
+          }
 
+          else if ((Math.abs(this.latestiPosition - newiPosition) + Math.abs(this.latestjPosition - newjPosition)) === 1) {
+            if ((this.latestDirection === 0) ||
+                (this.latestiPosition - newiPosition === 1 && this.latestDirection === 2) ||
+                (this.latestiPosition - newiPosition === -1 && this.latestDirection === 1) ||
+                (this.latestjPosition - newjPosition === 1 && this.latestDirection === 4) ||
+                (this.latestjPosition - newjPosition === -1 && this.latestDirection === 3)) {
 
-
-          e.classList.add("strickout");
-          // e.classList.toggle("strickout");
-
-
-
-          // if (this.matchWin()) {
-          //   this.letter[winningIterator].classList.add("show-bingo");
-
-          //   winningIterator++;
-          //   if (winningIterator === 5) {
-          //     alert("B I N G O");
-          //     this.resetGame();
-          //   }
-          // }
-
-
-
-        });
-      });
+            this.resultwordlist.push(newChar)
+            this.resultword = this.resultwordlist.join("")
+            e.classList.add("strickout")
+            
+            // 마지막 방향 기록
+            if (this.latestiPosition - newiPosition === 1) {
+              this.latestDirection = 2
+            } else if (this.latestiPosition - newiPosition === -1) {
+              this.latestDirection = 1
+            } else if (this.latestjPosition - newjPosition === 1) {
+              this.latestDirection = 4
+            } else if (this.latestjPosition - newjPosition === -1) {
+              this.latestDirection = 3
+            }
+            
+            // 마지막 좌표 기록
+            this.latestiPosition = newiPosition
+            this.latestjPosition = newjPosition
+            }
+          }
+        })
+      })
     },
 
-    shuffle(arr) {
-      let currentIndex = arr.length,
-        randomIndex;
+    // shuffle(arr) {
+    //   let currentIndex = arr.length,
+    //     randomIndex
 
-      while (currentIndex != 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
-      }
-      return arr;
-    },
-
-    // matchWin() {
-    //   const cell = document.querySelectorAll(".main-table-cell");
-
-    //   return this.winningPositions.some((combination) => {
-    //     let ite = 0;
-    //     combination.forEach((index) => {
-    //       if (cell[index].classList.contains("strickout")) ite++;
-    //     });
-
-    //     if (ite === 5) {
-    //       let indexWin = this.winningPositions.indexOf(combination);
-    //       this.winningPositions.splice(indexWin, 1);
-    //     }
-
-    //     return combination.every((index) => {
-    //       return cell[index].classList.contains("strickout");
-    //     });
-    //   });
+    //   while (currentIndex != 0) {
+    //     randomIndex = Math.floor(Math.random() * currentIndex)
+    //     currentIndex--
+    //     [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]]
+    //   }
+    //   return arr
     // },
 
     resetGame() {
-      // This method should clear the marked cells and reinitialize the table
+      this.latestiPoistion = 0
+      this.latestjPosition = 0
     },
 
     sendWord() {
@@ -279,22 +229,30 @@ export default {
         this.result1 = this.resultwordlist.join('')
         this.resultword = ''
         this.resultwordlist = []
+        this.latestiPosition = 0
+        this.latestjPosition = 0
+        this.latestDirection = 0
         this.resultIdx = 2
       } else if (this.resultIdx === 2) {
         this.result2 = this.resultwordlist.join('')
         this.resultword = ''
         this.resultwordlist = []
+        this.latestiPosition = 0
+        this.latestjPosition = 0
+        this.latestDirection = 0
         this.resultIdx = 3
       } else if (this.resultIdx === 3) {
         this.result3 = this.resultwordlist.join('')
         this.resultword = ''
         this.resultwordlist = []
+        this.latestiPosition = 0
+        this.latestjPosition = 0
+        this.latestDirection = 0
         this.resultIdx = 4
       } else if (this.resultIdx === 4) {
         this.sendWord()
       }
     },
-
 
 
     getMoviePoster(poster_path) {
@@ -306,18 +264,6 @@ export default {
     },
     
   },
-  
-
-
-
-
-  // computed: {
-  //   // Define a computed property to access and display the 'arr' array
-  //   displayedArr() {
-  //     return this.arr.join(", ");
-  //   }
-  // }
-
 
 }
 </script>
