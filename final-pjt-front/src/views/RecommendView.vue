@@ -17,7 +17,7 @@
       <div style="display: flex; justify-content: center;">
         <input type="submit" value="단어등록" @click.prevent="makeWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin:10px;">
         <input type="submit" value="추천" @click.prevent="sendWord()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin:10px;">
-        <input type="submit" value="새로고침" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin:10px;">
+        <input type="submit" value="초기화" @click="resetGame()" style="background: none; color:white; border:solid white 1px; padding:10px; cursor:pointer; margin:10px;">
       </div>
     </form>
     
@@ -27,11 +27,16 @@
     <!-- <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 10vh;">
       <p style="background: none; color: white; margin-bottom: 5px; font-size: 26px;"></p>
     </div> -->
-    <p style="display: flex; justify-content: center; align-items: center;">
+    <!-- <p style="display: flex; justify-content: center; align-items: center;"> -->
+    <p class="recommend-movie-container">
       <router-link v-for="movie in movies" :key="movie.id" :to="{ name: 'moviedetail/:movie_id', params: { movie_id: movie.id } }">
-        <img :src="getMoviePoster(movie.poster_path)" alt="movie_post" style="margin-right: 30px;">
+        <div style="margin:10px; text-align: center;">
+          <img :src="getMoviePoster(movie.poster_path)" alt="movie_post">
+          <h3 style="color:black; text-decoration: none;">{{ movie.title }}</h3>
+        </div>
       </router-link>
     </p>
+    
 
     <!-- 빙고 판 -->
     <div class="bingo-container">
@@ -366,11 +371,13 @@ bingo-body:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 10vh;
+  margin-top:20px;
 }
 .recommend-movie-container:empty{
   height: 0;
+  margin-top: 0;
 }
-
+.recommend-movie-container.my-link {
+  text-decoration: none;
+}
 </style>

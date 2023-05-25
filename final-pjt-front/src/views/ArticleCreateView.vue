@@ -1,14 +1,14 @@
 <template>
   <div style="position: relative; margin-left:40%">
-    <div class="article-create-container">
-      <h3 style="margin:0px 0px 20px 20px;">게시글 작성</h3>
-      <form @submit.prevent="createArticle">
-        <label for="title" style="margin-left:20px; font-weight:bold;">제목: </label>
+    <div>
+      <h3 style="margin:80px 0px 20px 20px; color:black;">게시글 작성</h3>
+      <form @submit.prevent="createArticle" class="article-create-container">
+        <label for="title" style="font-weight:bold; margin-bottom: 10px;">제목</label>
         <input type="text" id="title" v-model.trim="title">
         <br><br>
-        <label for="content" style="margin-left: 20px; font-weight:bold;">내용: </label>
+        <label for="content" style="font-weight:bold; margin-bottom: 10px;">내용</label>
         <textarea id="content" cols="30" rows="10" v-model="content"></textarea>
-        <input type="submit" id="submit" class="article-submit-btn">
+        <input style="margin-left:auto; margin-top:20px;" type="submit" id="submit" class="article-submit-btn">
       </form>
     </div>
   </div>
@@ -61,12 +61,13 @@ export default {
   height:300px;
   justify-content: center;
   margin-top:20px;
+  padding:20px;
 }
 .article-submit-btn{
   border: 1px solid #fff;
   background: none;
   cursor: pointer;
-  margin-left: 25%;
+  /* margin-left: 25%; */
   height: 30px;
   width: 50px;
 }

@@ -2,11 +2,13 @@
   <div>
 
     <h3 style="color:#000000; margin-top:20px;">댓글 작성</h3>
-    <form>
-      <label for="comment"></label>
-      <textarea id="comment" cols="30" rows="1" v-model="comment" placeholder="댓글을 입력하세요"></textarea>
-      <button @click.prevent="createComment">제출</button>
-    </form>
+    <div>
+      <form style="display:flex;">
+        <label for="comment"></label>
+        <textarea id="comment" cols="30" rows="1" v-model="comment" placeholder="댓글을 입력하세요"></textarea>
+        <button @click.prevent="createComment" class="comment-create-btn">작성</button>
+      </form>
+    </div>
 
   </div>
 </template>
@@ -49,5 +51,16 @@ export default {
 </script>
 
 <style>
+.comment-create-btn{
+  color:black;
+  font-size: 13px;
+  width: 50px;
+  height: 20px;
+  background: white;
+  text-align: center;
+  border: 1px solid black;
+  cursor: pointer;
+  margin-left:auto;
+  }
 
 </style>

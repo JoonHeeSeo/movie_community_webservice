@@ -3,7 +3,7 @@
 
     <h1 style="margin:80px 0px 0px 30px; color:black; position:relative">{{ username }}님의 프로필</h1>
 
-    <div v-if="currentusername">
+    <div v-if="currentusername === username">
       <button @click="logOut" style="background: none; color:white; justify-self: end; border:solid white 1px; padding:10px; cursor:pointer; margin-left: 350px;">SIGN OUT</button>
     </div>
 
