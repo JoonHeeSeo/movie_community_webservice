@@ -38,7 +38,7 @@ def get_movies_API(request):
         Movie.objects.all().delete()
 
         # PAGE_RANGE로 데이터를 가져올 TMDB 페이지를 설정 (최소 1, 최대 500)
-        PAGE_RANGE = 30
+        PAGE_RANGE = 10
         for API_PAGE in range(1, PAGE_RANGE + 1):
 
             API_URL = f'https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=ko-kr&page={API_PAGE}'
