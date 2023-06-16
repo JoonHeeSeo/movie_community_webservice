@@ -6,7 +6,7 @@ import requests
 
 # get_movies_API view를 실행
 def execute_view():
-    response = requests.get('http://localhost:8000/movies/get/movies/')
+    response = requests.get('http://127.0.0.1:8000/movies/get/movies/')
     print(response.text)
 
 class Command(BaseCommand):
@@ -16,7 +16,7 @@ class Command(BaseCommand):
         # Create a scheduler instance
         scheduler = BackgroundScheduler()
 
-        # Add a job to execute the view at an interval
+        # 60분마다 Top Rated View를 실행
         trigger = IntervalTrigger(minutes=60)
         scheduler.add_job(execute_view, trigger)
 

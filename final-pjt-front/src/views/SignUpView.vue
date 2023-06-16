@@ -7,10 +7,10 @@
         <input type="text" id="userid" v-model="userid">
         <br>
         <label for="password1">비밀번호 : </label>
-        <input type="text" id="password1" v-model="password1">
+        <input type="password" id="password1" v-model="password1">
         <br>
         <label for="password2">비밀번호 확인 : </label>
-        <input type="text" id="password2" v-model="password2">
+        <input type="password" id="password2" v-model="password2">
         <br>
         <input class="login-button" type="submit" value="가입">
       </div>

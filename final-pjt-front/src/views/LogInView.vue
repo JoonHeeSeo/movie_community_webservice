@@ -4,7 +4,7 @@
     <form @submit.prevent = "logIn" class="login-container">
       <input type="text" id="userid" v-model="userid" placeholder="아이디를 입력하세요" style="margin-bottom: 10px;">
       <br>
-      <input type="text" id="password" v-model="password" placeholder="비밀번호를 입력하세요">
+      <input type="password" id="password" v-model="password" placeholder="비밀번호를 입력하세요">
       <br>
       <input class="login-button" type="submit" value="로그인">
     </form>
@@ -31,7 +31,7 @@ export default {
 
       this.$store.dispatch('logIn', payload)
     }
-  }
+  },
 }
 </script>
 
