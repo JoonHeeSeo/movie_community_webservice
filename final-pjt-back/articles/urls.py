@@ -11,5 +11,4 @@ urlpatterns = [
     path('<int:article_pk>/comments/', views.comment_create),
 
     path('profile/<str:username>/', views.profile_get),
-
 ]

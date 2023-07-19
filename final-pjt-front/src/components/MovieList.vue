@@ -110,7 +110,4 @@ export default {
 .upcoming-list:hover {
   transform: translateX(-10000%)
 }
-
-
-
 </style>

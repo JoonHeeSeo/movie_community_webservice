@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Movie, Comment
 from accounts.models import User
 
+
 class MovieSerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -15,7 +15,6 @@
         <router-link to="/signup" class="router-btn">Sign Up</router-link>
       </div>
 
-
       <div class="searchbox">
         <label for="searchinput"></label>
         <input type="text" v-on:keyup.enter="search()" id="searchInput" v-model="searchInput" style="border-radius:4px">

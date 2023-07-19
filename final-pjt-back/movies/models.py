@@ -31,7 +31,6 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comment_user')
 
 
-
     # TMDB DATA 필드 순서
     # adult = models.TextField(null=True, blank=True)
     # backdrop_path = models.TextField(null=True, blank=True)

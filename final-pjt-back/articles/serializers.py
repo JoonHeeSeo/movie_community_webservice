@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Article, Comment
 
+
 class ArticleListSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
 

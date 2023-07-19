@@ -62,5 +62,4 @@ export default {
   cursor: pointer;
   margin-left:auto;
   }
-
 </style>

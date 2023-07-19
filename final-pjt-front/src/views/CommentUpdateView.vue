@@ -8,7 +8,6 @@
       <input type="submit" id="submit">
     </form>
   </div>
-
 </template>
 
 <script>

@@ -31,7 +31,6 @@ rm db.sqlite3
 
 
 
-
 ### 시행착오와 생각 메모
 1. movies > models.py > Movie
 - Q. 받아오는 Movie의 ID를 Primary key로 지정해주는 것이 좋을까?

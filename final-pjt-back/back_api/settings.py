@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'accounts',
     'movies',
     
-
     'rest_framework',
 
     # CORS Policy
@@ -46,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
 
-    # registration - 이게 뭔지는 모르겠음.
+    # Registration
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -55,8 +54,6 @@ INSTALLED_APPS = [
 
     # apscheduler
     'django_apscheduler',
-
-
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -94,6 +91,7 @@ REST_FRAMEWORK = {
 #     'VERSION': '1.0.0',
 #     'SERVE_INCLUDE_SCHEMA': False,
 #     # OTHER SETTINGS
+#   }
 }
 
 MIDDLEWARE = [
@@ -109,9 +107,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 # 모두 허용
 # CORS_ALLOWED_ALL_ORIGINS = True
-
 CORS_ALLOWED_ORIGINS =[
     'http://localhost:8080',
 ]

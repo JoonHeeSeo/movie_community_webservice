@@ -60,7 +60,6 @@
     </div>
 
 
-
       <!-- <p>{{ movie }}</p> -->
       <!-- <p v-if="movie.adult">{{ movie.adult }}</p>
       <p v-if="movie.backdrop_path">{{ movie.backdrop_path }}</p>
@@ -89,7 +88,6 @@
       <p v-if="movie.video">{{ movie.video }}</p>
       <p v-if="movie.vote_average">{{ movie.vote_average }}</p>
       <p v-if="movie.vote_count">{{ movie.vote_count }}</p> -->
-
 
 
   </div>

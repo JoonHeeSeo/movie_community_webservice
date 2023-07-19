@@ -69,8 +69,6 @@
 
 
 
-
-
     <!-- <h1>{{ username }}님의 Profile</h1>
     <hr>
 
@@ -123,6 +121,7 @@
 
       </div>
     </div> -->
+
 
   </div>
 </template>

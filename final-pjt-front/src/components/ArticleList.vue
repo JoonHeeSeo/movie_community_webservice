@@ -97,5 +97,4 @@ export default {
   margin-top:20px;
   justify-content: right;
 }
-
 </style>

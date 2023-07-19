@@ -58,5 +58,4 @@ input[id="password2"] {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 </style>

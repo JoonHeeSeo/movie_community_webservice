@@ -13,7 +13,6 @@ import ArticleUpdateView from '../views/ArticleUpdateView'
 import CommentUpdateView from '../views/CommentUpdateView'
 import ProfileView from '../views/ProfileView'
 
-
 Vue.use(VueRouter)
 
 const routes = [
