@@ -8,7 +8,7 @@
 ## 주요 기능
 - 사용자 등록 및 로그인 기능: 사용자는 회원 가입을 통해 계정을 생성하고, 로그인하여 서비스를 이용할 수 있습니다.
 - 영화 추천 기능: 간단한 낱말 퍼즐 게임을 통해 영화 추천 알고리즘을 적용하여 개인에게 맞는 영화를 추천합니다.  
- <img src="./images/movie_recommend_puzzle.PNG" alt="puzzle" width="40%" height="40%">&nbsp;<img src="./images/movie_recommend_puzzle2.PNG" alt="puzzle2" width="40%" height="40%">
+ <img src="./images/movie_recommend_puzzle.png" alt="puzzle" width="40%" height="40%">&nbsp;<img src="./images/movie_recommend_puzzle2.png" alt="puzzle2" width="40%" height="40%">
 
 - 커뮤니티 기능: 사용자들은 영화에 대한 의견과 리뷰를 작성하며, 다른 사용자와의 소통과 토론을 할 수 있는 커뮤니티 기능을 제공합니다.
 
